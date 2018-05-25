@@ -5,10 +5,13 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebSettings;
 
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.application.MidasMobile9Application;
@@ -18,6 +21,7 @@ import com.test.midasmobile9.fragment.ProfileFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     @BindView(R.id.floatingActionButton)
     FloatingActionButton floatingActionButton;
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,16 @@ public class MainActivity extends AppCompatActivity {
 
         // BottomNavigationView 세팅
         setBottomNavigationView();
+        // SwipeRefreshLayout 세팅
+        setSwipeRefreshLayout();
+
+        /**
+         * SwipeRefresh 종료하려면
+         * SwipeRefresh가 돌아가는 상태에서
+         * swipeRefreshLayout.setRefreshing(false); 호출
+         *
+         * ex) AsyncTask의 onPostExcute()에서 데이터 리프레쉬 후 호출
+         * */
     }
 
     @Override
@@ -45,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
 
         MidasMobile9Application.clearCookie();
         MidasMobile9Application.clearUser();
+    }
+
+    @OnClick(R.id.floatingActionButton)
+    public void onClickFloatingActionButton(View view) {
+
     }
 
     public void setBottomNavigationView() {
@@ -95,5 +116,28 @@ public class MainActivity extends AppCompatActivity {
         };
 
         bottomNavigationView.setOnNavigationItemSelectedListener(OnNavigationItemSelectedListener);
+    }
+
+    public void setSwipeRefreshLayout() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                if ( fragment instanceof HomeFragment ) {
+                    Log.e("@@@", "홈");
+                } else if ( fragment instanceof ContentFragment ) {
+                    Log.e("@@@", "콘텐츠");
+                } else if ( fragment instanceof ProfileFragment ) {
+                    Log.e("@@@", "프로필");
+                }
+            }
+        });
+
+        swipeRefreshLayout.setColorSchemeResources(
+                android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light
+        );
     }
 }
