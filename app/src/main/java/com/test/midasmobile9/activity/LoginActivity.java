@@ -64,13 +64,14 @@ public class LoginActivity extends AppCompatActivity {
     @OnClick({R.id.buttonLogin})
     public void onClickLoginButtonLogin(View view){
         String strEmail = editTextEmail.getText().toString().trim();
-        String strPassword = Encryption.getMD5(editTextPassword.getText().toString().trim());
+        String strPassword = editTextPassword.getText().toString().trim();
         if(!emailCheck(strEmail))
             return;
         if(!passwordCheck(strPassword))
             return;
 
         // 로그인 어싱크 태스크
+        strPassword = Encryption.getMD5(strPassword);
         new UserLoginTask().execute(strEmail, strPassword);
     }
     /**
@@ -87,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
     private boolean emailCheck(String email){
         if(email.length()==0){
             //이메일 길이가 0일 경우
-            Toast.makeText(mContext, getString(R.string.email_length_zero), Toast.LENGTH_SHORT).show();
+            Snackbar.make(linearLayoutLoginActivity, getString(R.string.email_length_zero), Snackbar.LENGTH_SHORT).show();
             editTextEmail.requestFocus();
             return false;
         }
@@ -96,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
         Matcher matcher = Pattern.compile(emailRegExp).matcher(email);
         if(!matcher.matches()){
             //이메일 형식이 아닐 경우
-            Toast.makeText(mContext, getString(R.string.email_combination), Toast.LENGTH_SHORT).show();
+            Snackbar.make(linearLayoutLoginActivity, getString(R.string.email_combination), Snackbar.LENGTH_SHORT).show();
             editTextEmail.requestFocus();
             return false;
         }
@@ -109,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
     private boolean passwordCheck(String password){
         if(password.length()==0){
             //비밀번호 길이가 0일 경우
-            Toast.makeText(mContext, getString(R.string.password_length_zero), Toast.LENGTH_SHORT).show();
+            Snackbar.make(linearLayoutLoginActivity, getString(R.string.password_length_zero), Snackbar.LENGTH_SHORT).show();
             editTextPassword.requestFocus();
             return false;
         }

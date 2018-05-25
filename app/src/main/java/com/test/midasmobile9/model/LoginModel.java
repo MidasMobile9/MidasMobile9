@@ -44,8 +44,6 @@ public class LoginModel {
 
                 return null;
             } else {
-
-
                 JSONObject jsonFromServer = new JSONObject(response.body().string());
 
                 // 통신결과 체크
