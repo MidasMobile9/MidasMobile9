@@ -1,0 +1,42 @@
+
+    /******/
+
+    //https://github.com/safetysystemtechnology/android-shake-detector
+    //MIT 라이센스
+
+    private ShakeDetector shakeDetector;
+    //멤버 변수로 디텍터를 넣어둠
+
+    private void setShakeDetector() {
+
+        ShakeOptions options = new ShakeOptions()
+                .background(true)
+                .interval(1000)
+                .shakeCount(2)
+                .sensibility(2.0f);
+
+            //인터벌 : 간격
+            //센서빌리티 : 민감도
+            // 이런식으로 옵션을 생성
+
+        this.shakeDetector = new ShakeDetector(options).start(getContext(), new ShakeCallback() {
+            @Override
+            public void onShake() {
+                Log.d("event", "onShake");
+            }
+        });
+
+        //이렇게 디택터를 만들고 옵션을 인자로 넣어줌
+        //onShake()에 "쉐이킹을 감지하였을 때 할 행동"을 넣어주면 됨
+
+
+        //shakeDetector.stopShakeDetector(getContext());
+        //디텍팅을 멈춤
+
+        //shakeDetector.destroy(getContext());
+        //디텍팅을 디스트로이
+
+    }
+
+
+    /******/

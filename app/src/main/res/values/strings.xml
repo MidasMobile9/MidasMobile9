@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">Midas\nMobile9</string>
+
+    <!-- 특수문자 -->
+    <!-- 공백 : &#160; -->
+    <!-- & : &amp; -->
+    <!-- < : &lt; -->
+    <!-- > : &gt; -->
+    <!-- ' : &apos; -->
+    <!-- " : &quot; -->
+
+    <!-- string -->
+    <string name="app_title">앱 타이틀!</string>
+    <string name="login">로그인</string>
+    <string name="join">회원 가입</string>
+    <string name="password_info">( 영문,숫자,특수문자 조합으로 9~12자리 입력 )</string>
+    <string name="do_join">가입하기</string>
+    <string name="save_profile_info">프로필 저장</string>
+    <string name="default_nickname">닉네임</string>
+    <string name="default_email">이메일</string>
+    <string name="activity_profile_manager">프로필 관리</string>
+    <string name="complete">완료</string>
+    <string name="password_current">&#160;현재 비밀번호</string>
+    <string name="password_new">&#160;새 비밀번호</string>
+    <string name="password_new_confirm">&#160;새 비밀번호 확인</string>
+
+    <!-- hint string -->
+    <string name="edittext_hint_email">&#160;이메일</string>
+    <string name="edittext_hint_password">&#160;비밀번호</string>
+    <string name="edittext_hint_password_confirm">&#160;비밀번호 확인</string>
+    <string name="edittext_hint_nickname">&#160;닉네임</string>
+
+    <string name="permission_snackbar_text">권한 거절</string>
+    <string name="permission_snackbar_text_rational">권한 거절2</string>
+
+    <string name="profile_delete_alert_dialog">회원 탈퇴를 진행하시려면 비밀번호를 한번 더 입력해 주세요.</string>
+
+    <string name="email_length_zero">이메일을 입력해 주세요.</string>
+    <string name="email_combination">이메일 형식을 확인해 주세요.</string>
+
+    <string name="password_length_zero">비밀번호를 입력해 주세요.</string>
+    <string name="password_combination">비밀번호는 영문,숫자,특수문자 조합으로 9~12자리이어야 합니다.</string>
+    <string name="password_repeat">비밀번호는 같은 문자를 4번 연속 사용할 수 없습니다.</string>
+    <string name="password_contain_id">비밀번호는 이메일을 포함 할 수 없습니다.</string>
+    <string name="password_blank">비밀번호는 공백을 포함할 수 없습니다.</string>
+    <string name="password_not_matched">비밀번호를 다시 확인해 주세요.</string>
+    <string name="new_password_not_matched">새 비밀번호가 서로 일치하지 않습니다. 확인해주세요.</string>
+
+    <string name="nickname_length_zero">닉네임을 입력해 주세요.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
