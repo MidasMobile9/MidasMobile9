@@ -3,8 +3,11 @@ package com.test.midasmobile9.activity;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +17,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.util.Encryption;
@@ -23,7 +25,6 @@ import com.test.midasmobile9.util.Permission;
 import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -88,6 +89,7 @@ public class JoinActivity extends AppCompatActivity {
         mPermission = new Permission(this, permissions);
         mPermission.setSnackbar(linearLayoutJoinActivity,getString(R.string.permission_snackbar_text),getString(R.string.permission_snackbar_text_rational));
     }
+
 
     /**
      * 가입하기-프로필저장 버튼 클릭 이벤트
@@ -198,13 +200,32 @@ public class JoinActivity extends AppCompatActivity {
      * */
     @OnClick({R.id.frameLayoutProfileImage})
     public void onClickJoinCircleImageViewProfileImage(View view){
-        if(!mPermission.checkPermissions()){
-            Toast.makeText(mContext, getString(R.string.permission_snackbar_text), Toast.LENGTH_SHORT).show();
-            return;
+        mPermission.checkPermissions();
+    }
+    /**
+     * 퍼미션 요청 결과
+     * */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 200: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    Intent intent = new Intent(Intent.ACTION_PICK);
+                    intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
+                    startActivityForResult(intent, PICK_FROM_ALBUM);
+                } else {
+                    mPermission.showNoPermissionSnackbarAndFinish();
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
         }
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
-        startActivityForResult(intent, PICK_FROM_ALBUM);
     }
 
     /**

@@ -44,12 +44,13 @@ public class LoginModel {
 
                 return null;
             } else {
-                map = new HashMap<String, Object>();
+
 
                 JSONObject jsonFromServer = new JSONObject(response.body().string());
 
                 // 통신결과 체크
                 if ( jsonFromServer.has("result") ) {
+                    map = new HashMap<String, Object>();
                     map.put("result", jsonFromServer.getBoolean("result"));
                 }
 

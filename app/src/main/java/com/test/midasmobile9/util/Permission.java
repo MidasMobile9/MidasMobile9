@@ -2,7 +2,10 @@ package com.test.midasmobile9.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -94,7 +97,7 @@ public class Permission {
         }
     }
 
-    private void showNoPermissionSnackbarAndFinish() {
+    public void showNoPermissionSnackbarAndFinish() {
         if (!mIsSetSnackbar) return;
         boolean isNotRational = true;
 
@@ -146,13 +149,26 @@ public class Permission {
         mIsSetSnackbar = true;
         permissionSnackbar = Snackbar.make(v, text1, Snackbar.LENGTH_LONG);
         // CLICK을 누르면 권한을 요구하는 대화상자가 다시 뜸
-        permissionSnackbar.setAction("확인", new View.OnClickListener() {
+        permissionSnackbar.setAction("설정", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkPermissions();
             }
         });
         permissionSnackbarRational = Snackbar.make(v, text2, Snackbar.LENGTH_LONG);
+        permissionSnackbarRational.setAction("설정", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent();
+                i.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                i.addCategory(Intent.CATEGORY_DEFAULT);
+                i.setData(Uri.parse("package:" + mActivity.getPackageName()));
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                mActivity.startActivity(i);
+            }
+        });
     }
     public void resetSnackbar() {
         mIsSetSnackbar = false;

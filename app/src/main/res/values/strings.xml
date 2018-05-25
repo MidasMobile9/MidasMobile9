@@ -30,8 +30,8 @@
     <string name="edittext_hint_password_confirm">&#160;비밀번호 확인</string>
     <string name="edittext_hint_nickname">&#160;닉네임</string>
 
-    <string name="permission_snackbar_text">권한 거절</string>
-    <string name="permission_snackbar_text_rational">권한 거절2</string>
+    <string name="permission_snackbar_text">설정 버튼을 눌러 권한을 승인해 주세요.</string>
+    <string name="permission_snackbar_text_rational">설정 버튼을 눌러 권한을 승인해 주세요.</string>
 
     <string name="profile_delete_alert_dialog">회원 탈퇴를 진행하시려면 비밀번호를 한번 더 입력해 주세요.</string>
 
