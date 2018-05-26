@@ -38,7 +38,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="카페 메뉴 편집"
+                    android:text="카페 메뉴 추가"
                     android:textColor="@color/colorBlack"
                     android:textSize="20dp" />
 
@@ -210,7 +210,7 @@
             android:background="@drawable/selector_edit_complete"
             android:clickable="true"
             android:gravity="center"
-            android:text="메뉴 편집 완료"
+            android:text="메뉴 추가 완료"
             android:textColor="@color/colorWhite"
             android:textStyle="bold"
             android:visibility="visible" />

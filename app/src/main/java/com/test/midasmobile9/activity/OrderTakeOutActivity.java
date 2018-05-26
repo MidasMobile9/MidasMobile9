@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.adapter.OrderRecyclerAdapter;
@@ -11,9 +13,12 @@ import com.test.midasmobile9.data.AdminCoffeeOrderItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class OrderTakeOutActivity extends AppCompatActivity {
 
+    @BindView(R.id.imageViewTakeOutBack)
+    ImageView imageViewTakeOutBack;
     @BindView(R.id.recyclerOrderTakeOut)
     RecyclerView recyclerOrderTakeOut;
 
@@ -25,6 +30,11 @@ public class OrderTakeOutActivity extends AppCompatActivity {
         ButterKnife.bind(OrderTakeOutActivity.this);
 
         init();
+    }
+
+    @OnClick(R.id.imageViewTakeOutBack)
+    public void onClickTakeOutBack(View view) {
+        finish();
     }
 
     private void init() {

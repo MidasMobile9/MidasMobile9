@@ -11,10 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.activity.AdminActivity;
+import com.test.midasmobile9.activity.OrderTakeOutActivity;
 import com.test.midasmobile9.data.AdminCoffeeOrderItem;
 import com.test.midasmobile9.network.NetworkDefineConstant;
 import com.test.midasmobile9.util.ParseHotCold;
@@ -129,6 +131,15 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
 
         @OnClick(R.id.imageViewOrderPopMenu)
         public void onClickOrderPopMenu(View view) {
+            int selectedIndex = getAdapterPosition();
+            AdminCoffeeOrderItem selectedItem = items.get(selectedIndex);
+
+
+            if ( selectedItem.getState() == 4 ) {
+                Toast.makeText(context, "테이크아웃 완료된 주문입니다.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             // 팝업메뉴 생성(두번째 인자 : 팝업메뉴가 보여질 앵커)
             PopupMenu popupMenu = new PopupMenu(context, imageViewOrderPopMenu);
             // 팝업메뉴 인플레이션

@@ -72,10 +72,17 @@ public class AdminActivity extends AppCompatActivity {
             Intent intent = new Intent(AdminActivity.this, OrderTakeOutActivity.class);
             startActivity(intent);
         } else if ( fragment instanceof MenuManagerFragment ) {
+            /****************************************************************************************************************************************************/
+            // 프래그먼트에서 액티비티 띄우고 목록 갱신 해야함.
+            /****************************************************************************************************************************************************/
             Intent intent = new Intent(AdminActivity.this, MenuAddActivity.class);
             startActivityForResult(intent, REQUEST_CODE_ADD_NEW_MENU);
         } else if ( fragment instanceof CustomerFragment ) {
-
+            /****************************************************************************************************************************************************/
+            // 프래그먼트에서 액티비티 띄우고 목록 갱신 해야함.
+            /****************************************************************************************************************************************************/
+            Intent intent = new Intent(AdminActivity.this, CustomerAddActivity.class);
+            startActivityForResult(intent, REQUEST_CODE_ADD_NEW_MENU);
         }
     }
 

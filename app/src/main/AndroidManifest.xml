@@ -38,9 +38,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.MainActivity"
-            android:screenOrientation="portrait" >
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.ProfileManagerActivity"
             android:screenOrientation="portrait" />
@@ -57,7 +55,8 @@
         <activity android:name=".activity.MenuAddActivity" />
         <activity android:name=".activity.MenuEditActivity" />
         <activity android:name=".activity.CustomerProfileManagerActivity" />
-        <activity android:name=".activity.OrderTakeOutActivity"></activity>
+        <activity android:name=".activity.OrderTakeOutActivity" />
+        <activity android:name=".activity.CustomerAddActivity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbarNewProject"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorWhite">
+
+            <!-- 앱 로고, 앱 타이틀 들어가는 레이아웃 -->
+            <LinearLayout
+                android:id="@+id/linearLayoutToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageViewCustomerProfileManagerBack"
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:paddingBottom="13dp"
+                    android:paddingRight="13dp"
+                    android:paddingTop="13dp"
+                    android:src="@drawable/ic_back_48dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="고객 프로필 추가"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/textViewCustomerProfileAddComplete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/selector_complete"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="@string/complete"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/contentsLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profile"
+                android:textColor="@color/colorBlack"
+                android:textSize="15dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:background="@color/colorBlack" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circleImageViewCustomerProfileImage"
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                android:layout_gravity="center"
+                android:padding="4dp"
+                android:src="@drawable/ic_profile_black_48dp"
+                app:civ_border_color="@color/colorLightGray"
+                app:civ_border_width="2dp" />
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/changeProfileImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:src="@android:drawable/ic_menu_camera"
+                app:civ_border_color="@color/colorWhite"
+                app:civ_border_width="2dp"
+                app:civ_circle_background_color="@color/colorGray" />
+
+        </FrameLayout>
+
+        <EditText
+            android:id="@+id/editTextCustomerNickname"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rectangle_dark"
+            android:hint=" 닉네임"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/editTextCustomerPart"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rectangle_dark"
+            android:hint=" 부서"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/editTextCustomerPhone"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rectangle_dark"
+            android:hint=" 010-0000-0000"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/editTextCustomerEmail"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rectangle_dark"
+            android:hint=" aaa@aaa.com"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="10dp"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/editTextCustomerPassword"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rectangle_dark"
+            android:paddingLeft="10dp"
+            android:text="midasit12!"
+            android:textSize="18dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="※ 초기 비밀번호는 midasit12! 입니다."
+            android:textColor="@color/colorRed"/>
+
+        <TextView
+            android:id="@+id/textViewProfilePrivateInfoPolicy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/selector_blue_button"
+            android:clickable="true"
+            android:padding="4dp"
+            android:text="개인정보처리방침"
+            android:textColor="@color/colorWhite" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>
