@@ -35,7 +35,7 @@
                     android:layout_gravity="center"
                     android:layout_marginRight="4dp"
                     android:paddingLeft="-5dp"
-                    android:src="@drawable/logo_android_black_72dp" />
+                    android:src="@drawable/logo_android_72dp" />
 
                 <TextView
                     android:id="@+id/textViewAppTitle"
