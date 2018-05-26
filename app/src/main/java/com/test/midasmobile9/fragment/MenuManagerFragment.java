@@ -96,7 +96,7 @@ public class MenuManagerFragment extends Fragment {
         recyclerViewMenuManager.setLayoutManager(layoutManager);
 
         // 3. Adapter 설정
-        recyclerViewMenuManager.setAdapter(adapter);
+        //recyclerViewMenuManager.setAdapter(adapter);
 
     }
 }

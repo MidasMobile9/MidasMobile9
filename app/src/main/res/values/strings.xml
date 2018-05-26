@@ -9,6 +9,18 @@
     <!-- ' : &apos; -->
     <!-- " : &quot; -->
 
+    <!-- spinner array -->
+
+    <string-array name="order_option_size">
+        <item>S</item>
+        <item>M</item>
+        <item>L</item>
+    </string-array>
+
+    <string-array name="order_option_temper">
+        <item>HOT</item>
+        <item>COLD</item>
+    </string-array>
     <!-- string -->
     <string name="app_title">마시다스</string>
     <string name="login">로그인</string>
