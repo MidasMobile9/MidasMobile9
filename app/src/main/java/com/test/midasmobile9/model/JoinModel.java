@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.test.midasmobile9.network.NetworkDefineConstant;
+import com.test.midasmobile9.network.NetworkDefineConstant_PIJ;
 import com.test.midasmobile9.network.OkHttpAPICall;
 import com.test.midasmobile9.network.OkHttpInitSingletonManager;
 
@@ -38,9 +39,12 @@ public class JoinModel {
      * @param password
      * @param nickname
      * @param file
+     * @param intRoot
+     * @param strPhone
+     * @param strPart
      * @return 가입하는 결과
      */
-    public static Map<String, Object> getJoinResult(String email, String password, String nickname, File file) {
+    public static Map<String, Object> getJoinResult(String email, String password, String nickname, File file, int intRoot, String strPhone, String strPart) {
         String TAG = "JoinModel";
         String functionName = "getJoinResult()";
         OkHttpClient client = OkHttpInitSingletonManager.getOkHttpClient();
@@ -58,12 +62,18 @@ public class JoinModel {
                     .addFormDataPart("password", password)
                     .addFormDataPart("nickname", nickname)
                     .addFormDataPart("file", file.getName(),RequestBody.create(pngType, file))
+                    .addFormDataPart("root", String.valueOf(intRoot))
+                    .addFormDataPart("phone", strPhone)
+                    .addFormDataPart("part", strPart)
                     .build();
         }else{
             requestBody = new FormBody.Builder()
                     .add("email", email)
                     .add("password", password)
                     .add("nickname", nickname)
+                    .add("root", String.valueOf(intRoot))
+                    .add("phone", strPhone)
+                    .add("part", strPart)
                     .build();
         }
 
@@ -148,7 +158,52 @@ public class JoinModel {
         }
         return map;
     }
+    /**
+     * 관리자 코드 체크하는 백그라운드 메소드
+     * @return 관리자코드체크 결과
+     * @param strRootCode 체크할 관리자코드
+     */
+    public static Map<String, Object> getRootCodeCheckResult(String strRootCode) {
+        String TAG = "JoinModel";
+        String functionName = "getRootCodeCheckResult()";
+        OkHttpClient client = OkHttpInitSingletonManager.getOkHttpClient();
+        Response response = null;
+        String message = null;
+        boolean result = false;
+        Map<String, Object> map = null;
+        try {
+            response = OkHttpAPICall.GET(client, NetworkDefineConstant_PIJ.checkRootCode+strRootCode);
 
+            if ( response == null ) {
+                Log.e(TAG, "Response of "+functionName+" is null.");
+                return map;
+            } else {
+                JSONObject jsonFromServer = new JSONObject(response.body().string());
+
+                // 통신결과 체크
+                if ( jsonFromServer.has("result") ) {
+                    map = new HashMap<String, Object>();
+                    map.put("result", jsonFromServer.getBoolean("result"));
+                }
+
+                // 결과 메시지
+                if ( jsonFromServer.has("message") ) {
+                    map.put("message", jsonFromServer.getString("message"));
+                }
+            }
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if ( response != null ) {
+                response.close();
+            }
+        }
+        return map;
+    }
 
     /**
      * 닉네임 체크하는 백그라운드 메소드

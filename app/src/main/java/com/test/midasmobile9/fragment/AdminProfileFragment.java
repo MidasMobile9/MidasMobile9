@@ -23,12 +23,17 @@ import com.test.midasmobile9.activity.MainActivity;
 import com.test.midasmobile9.activity.ProfileManagerActivity;
 import com.test.midasmobile9.application.MidasMobile9Application;
 import com.test.midasmobile9.model.ProfileModel;
+import com.test.midasmobile9.util.SharePreferencesUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.test.midasmobile9.util.SharePreferencesUtil.KEY_EMAIL;
+import static com.test.midasmobile9.util.SharePreferencesUtil.KEY_PASSWORD;
+import static com.test.midasmobile9.util.SharePreferencesUtil.KEY_ROOT;
 
 public class AdminProfileFragment extends Fragment {
     public static final int REQUEST_CODE_ADMIN_PROFILE_FRAGMENT = 110;
@@ -179,7 +184,9 @@ public class AdminProfileFragment extends Fragment {
                 // 로그아웃 성공
                 MidasMobile9Application.clearCookie();
                 MidasMobile9Application.clearUser();
-
+                SharePreferencesUtil.removePreferences(mContext,KEY_EMAIL);
+                SharePreferencesUtil.removePreferences(mContext,KEY_PASSWORD);
+                SharePreferencesUtil.removePreferences(mContext,KEY_ROOT);
                 Intent intent = new Intent(mContext, LoginActivity.class);
                 startActivity(intent);
                 mActivity.finish();
