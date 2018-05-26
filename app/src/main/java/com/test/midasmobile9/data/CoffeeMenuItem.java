@@ -5,19 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-public class MenuItem implements Parcelable {
-
-    public static final Creator<MenuItem> CREATOR = new Creator<MenuItem>() {
-        @Override
-        public MenuItem createFromParcel(Parcel in) {
-            return new MenuItem(in);
-        }
-
-        @Override
-        public MenuItem[] newArray(int size) {
-            return new MenuItem[size];
-        }
-    };
+public class CoffeeMenuItem implements Parcelable{
 
     @SerializedName("no")
     private int no;
@@ -34,18 +22,7 @@ public class MenuItem implements Parcelable {
     @SerializedName("enable")
     private String enable;
 
-    public MenuItem(int no, String name, String info, String price, String img, String hotcold, String enable) {
-        this.no = no;
-        this.name = name;
-        this.info = info;
-        this.price = price;
-        this.img = img;
-        this.hotcold = hotcold;
-        this.enable = enable;
-    }
-
-
-    protected MenuItem(Parcel in) {
+    protected CoffeeMenuItem(Parcel in) {
         no = in.readInt();
         name = in.readString();
         info = in.readString();
@@ -54,6 +31,18 @@ public class MenuItem implements Parcelable {
         hotcold = in.readString();
         enable = in.readString();
     }
+
+    public static final Creator<CoffeeMenuItem> CREATOR = new Creator<CoffeeMenuItem>() {
+        @Override
+        public CoffeeMenuItem createFromParcel(Parcel in) {
+            return new CoffeeMenuItem(in);
+        }
+
+        @Override
+        public CoffeeMenuItem[] newArray(int size) {
+            return new CoffeeMenuItem[size];
+        }
+    };
 
     @Override
     public int describeContents() {

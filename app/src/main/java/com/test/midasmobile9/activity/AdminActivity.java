@@ -14,12 +14,9 @@ import android.view.View;
 
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.application.MidasMobile9Application;
-import com.test.midasmobile9.fragment.ContentFragment;
 import com.test.midasmobile9.fragment.CustomerFragment;
-import com.test.midasmobile9.fragment.HomeFragment;
 import com.test.midasmobile9.fragment.MenuManagerFragment;
 import com.test.midasmobile9.fragment.MenuOrderFragment;
-import com.test.midasmobile9.fragment.ProfileFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

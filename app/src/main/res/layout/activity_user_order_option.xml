@@ -177,7 +177,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="사이즈"
+                android:text="Size"
                 android:textSize="24sp" />
 
             <Spinner
@@ -201,7 +201,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="HOT/COLD"
+                android:text="Hot/Cold"
                 android:textSize="24sp" />
 
             <Spinner
