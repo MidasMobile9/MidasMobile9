@@ -3,7 +3,6 @@ package com.test.midasmobile9.activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -25,13 +24,14 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
     public static final int MENU_ORDER_OPTION_REQUEST_CODE = 301;
+    public static final String FRAGMENT_USER_ORDER_TAG = "FRAGMENT_USER_ORDER_TAG";
+    public static final String FRAGMENT_USER_LOOKUP_TAG = "FRAGMENT_USER_LOOKUP_TAG";
+    public static final String FRAGMENT_USER_PROFILE_TAG = "FRAGMENT_USER_PROFILE_TAG";
 
     Fragment fragment = null;
 
     @BindView(R.id.bottomNavigationView)
     BottomNavigationView bottomNavigationView;
-    @BindView(R.id.floatingActionButton)
-    FloatingActionButton floatingActionButton;
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
 
@@ -56,6 +56,14 @@ public class MainActivity extends AppCompatActivity {
          * */
     }
 
+    public void endRefreshOrderMenu() {
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    public void endRefreshLookup(){
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
     @Override
     public void finish() {
         super.finish();
@@ -64,10 +72,6 @@ public class MainActivity extends AppCompatActivity {
         MidasMobile9Application.clearUser();
     }
 
-    @OnClick(R.id.floatingActionButton)
-    public void onClickFloatingActionButton(View view) {
-
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -75,13 +79,14 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode){
             case MENU_ORDER_OPTION_REQUEST_CODE:
                 if(resultCode == RESULT_OK){
-                    showMenuLookupFragment();
+                    orderSuccess();
                 } else if (resultCode == RESULT_CANCELED){
-                    showMenuOrderFragment();
+                    orderCancle();
                 }
                 break;
         }
     }
+
 
     public void setBottomNavigationView() {
         // 프래그먼트 매니저
@@ -94,9 +99,10 @@ public class MainActivity extends AppCompatActivity {
         final UserProfileFragment userProfileFragment = UserProfileFragment.newInstance("Profile", "MainActivity");
 
         // 첫 시작 프래그먼트로 홈 프래그먼트 지정
-        fragmentManager.beginTransaction().replace(R.id.frameLayoutFragmentContainer, userOrderFragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.frameLayoutFragmentContainer, userOrderFragment, FRAGMENT_USER_ORDER_TAG).commit();
         // 프래그먼트 초기화
         fragment = userOrderFragment;
+        final String[] tag = {""};
 
         BottomNavigationView.OnNavigationItemSelectedListener OnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -104,27 +110,21 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.bottomMenuOrder:
                         fragment = userOrderFragment;
+                        tag[0] = FRAGMENT_USER_ORDER_TAG;
                         break;
                     case R.id.bottomMenuLookup:
                         fragment = userLookupFragment;
+                        tag[0] = FRAGMENT_USER_LOOKUP_TAG;
                         break;
                     case R.id.bottomMenuProfile:
                         fragment = userProfileFragment;
+                        tag[0] = FRAGMENT_USER_PROFILE_TAG;
                         break;
-                }
-
-                // 이런식으로 프래그먼트에 따라 Floating Action 버튼 기능 설정
-                if ( fragment instanceof UserOrderFragment) {
-                    floatingActionButton.setVisibility(View.VISIBLE);
-                } else if ( fragment instanceof UserLookupFragment) {
-                    floatingActionButton.setVisibility(View.VISIBLE);
-                } else if ( fragment instanceof UserProfileFragment) {
-                    floatingActionButton.setVisibility(View.GONE);
                 }
 
                 fragmentManager.beginTransaction()
                         .setCustomAnimations(R.anim.fragment_fade_in, R.anim.fragment_fade_out)
-                        .replace(R.id.frameLayoutFragmentContainer, fragment)
+                        .replace(R.id.frameLayoutFragmentContainer, fragment, tag[0])
                         .commit();
                 return true;
             }
@@ -137,11 +137,12 @@ public class MainActivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
                 if ( fragment instanceof UserOrderFragment) {
-                    Log.e("@@@", "홈");
+                    Log.e("@@@", "주문");
+                    ((UserOrderFragment) fragment).startRefreshOrderMenu();
                 } else if ( fragment instanceof UserLookupFragment) {
-                    Log.e("@@@", "콘텐츠");
+                    Log.e("@@@", "조회");
+                    ((UserLookupFragment) fragment).startRefreshLookup();
                 } else if ( fragment instanceof UserProfileFragment) {
                     Log.e("@@@", "프로필");
                 }
@@ -157,8 +158,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private void orderSuccess() {
+        showMenuLookupFragment();
+        ((UserLookupFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_USER_LOOKUP_TAG)).startRefreshLookup();
+    }
+
     private void showMenuLookupFragment() {
         bottomNavigationView.setSelectedItemId(R.id.bottomMenuLookup);
+    }
+
+    private void orderCancle(){
+        showMenuOrderFragment();
     }
 
     private void showMenuOrderFragment() {

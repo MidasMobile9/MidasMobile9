@@ -71,17 +71,6 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <!-- Floating Action 버튼-->
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginRight="15dp"
-        android:clickable="true"
-        android:src="@drawable/ic_add_24dp"
-        app:fabSize="mini"
-        app:layout_anchor="@+id/bottomNavigationView"
-        app:layout_anchorGravity="end" />
 
     <!-- Bottom Navigation 뷰 -->
 

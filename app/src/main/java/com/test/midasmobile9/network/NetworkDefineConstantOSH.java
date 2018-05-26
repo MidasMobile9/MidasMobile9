@@ -7,8 +7,10 @@ public class NetworkDefineConstantOSH {
     //요청 URL path
     // ex) public static String SERVER_URL_NAME;
     public static String SERVER_URL_MENU;
+    public static String SERVER_URL_ORDER;
 
     static {
         SERVER_URL_MENU = HOST_URL + "/menu/";
+        SERVER_URL_ORDER = HOST_URL + "/order/";
     }
 }
