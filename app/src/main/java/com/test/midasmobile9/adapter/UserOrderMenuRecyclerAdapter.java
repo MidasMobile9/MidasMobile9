@@ -75,7 +75,7 @@ public class UserOrderMenuRecyclerAdapter extends RecyclerView.Adapter<UserOrder
         holder.userMenuOrderCardTitleTextView.setText(userOrderMenuItemList.get(position).getName());
         holder.userMenuOrderCardPriceTextView.setText(String.format("%s 원", userOrderMenuItemList.get(position).getPrice()));
         Glide.with(activity)
-                .load(NetworkDefineConstantOSH.SERVER_URL_MENU + userOrderMenuItemList.get(position).getImg()) // 이미지 URL 주소
+                .load(NetworkDefineConstantOSH.SERVER_URL_GET_MENU_IMG + userOrderMenuItemList.get(position).getImg()) // 이미지 URL 주소
                 .into(holder.userMenuOrderCardImageView);
         //Glide.with(activity)
         //        .load(R.drawable.ic_coffee_24dp)

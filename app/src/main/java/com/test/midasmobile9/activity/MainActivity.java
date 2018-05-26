@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void orderSuccess() {
         showMenuLookupFragment();
-        ((UserLookupFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_USER_LOOKUP_TAG)).startRefreshLookup();
+        //((UserLookupFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_USER_LOOKUP_TAG)).startRefreshLookup();
     }
 
     private void showMenuLookupFragment() {

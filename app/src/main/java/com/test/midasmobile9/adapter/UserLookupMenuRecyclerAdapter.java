@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.data.CoffeeOrderItem;
+import com.test.midasmobile9.network.NetworkDefineConstantOSH;
 import com.test.midasmobile9.util.ParseServerState;
 
 import java.util.ArrayList;
@@ -51,12 +52,12 @@ public class UserLookupMenuRecyclerAdapter extends RecyclerView.Adapter<UserLook
     public void onBindViewHolder(@NonNull UserLookupMenuRecyclerAdapter.ViewHolder holder, int position) {
         holder.userMenuLookupCardTitleTextView.setText(userLookupOrderItemList.get(position).getName());
         holder.userMenuLookupCardStateTextView.setText(ParseServerState.getState(userLookupOrderItemList.get(position).getState()));
-        //Glide.with(activity)
-        //        .load(URL_IMAGE + userLookupOrderItemList.get(position).getImg()) // 이미지 URL 주소
-        //        .into(userMenuOrderCardImageView);
         Glide.with(activity)
-                .load(R.drawable.ic_coffee_24dp)
+                .load(NetworkDefineConstantOSH.SERVER_URL_GET_MENU_IMG + userLookupOrderItemList.get(position).getImg()) // 이미지 URL 주소
                 .into(holder.userMenuLookupCardImageView);
+        //Glide.with(activity)
+         //       .load(R.drawable.ic_coffee_24dp)
+        //        .into(holder.userMenuLookupCardImageView);
     }
 
     @Override

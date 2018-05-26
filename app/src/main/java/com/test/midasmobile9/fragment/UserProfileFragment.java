@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.test.midasmobile9.activity.MainActivity;
 import com.test.midasmobile9.activity.ProfileManagerActivity;
 import com.test.midasmobile9.application.MidasMobile9Application;
 import com.test.midasmobile9.model.ProfileModel;
+import com.test.midasmobile9.network.NetworkDefineConstantOSH;
 import com.test.midasmobile9.util.SharePreferencesUtil;
 
 import butterknife.BindView;
@@ -41,8 +43,6 @@ public class UserProfileFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    private final String PROFILE_URL_HEADER = "http://35.187.156.145:3000/profileimg/";
 
     private String mParam1;
     private String mParam2;
@@ -106,16 +106,20 @@ public class UserProfileFragment extends Fragment {
         // 유저 프로필 사진 세팅
         if ( MidasMobile9Application.user.getProfileimg() != null ) {
             Glide.with(UserProfileFragment.this)
-                    .load(PROFILE_URL_HEADER + MidasMobile9Application.user.getProfileimg())
+                    .load(NetworkDefineConstantOSH.SERVER_URL_GET_PROFILE_IMG + MidasMobile9Application.user.getProfileimg())
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
                     .into(circleImageViewProfileFragmentProfileImage);
+            Log.d("TEMP_TAG", "??");
 
         } else {
             Glide.with(UserProfileFragment.this)
                     .load(R.drawable.ic_profile_black_48dp)
                     .into(circleImageViewProfileFragmentProfileImage);
+            Log.d("TEMP_TAG", "!!");
         }
+
+        Log.d("TEMP_TAG", "AND");
         // 유저 닉네임 세팅
         textViewProfileFragmentProfileNickname.setText(MidasMobile9Application.user.getNickname());
         // 유저 이메일 세팅

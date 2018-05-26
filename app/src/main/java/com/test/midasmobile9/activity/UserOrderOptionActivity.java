@@ -1,10 +1,8 @@
 package com.test.midasmobile9.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
+import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,12 +16,18 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.test.midasmobile9.R;
+import com.test.midasmobile9.application.MidasMobile9Application;
 import com.test.midasmobile9.data.CoffeeMenuItem;
+import com.test.midasmobile9.data.CoffeeOrderItem;
+import com.test.midasmobile9.model.MainModel;
+import com.test.midasmobile9.model.UserOrderOptionModel;
 import com.test.midasmobile9.network.NetworkDefineConstantOSH;
 import com.test.midasmobile9.util.ParseHotCold;
 import com.test.midasmobile9.util.ParseSize;
 
+import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,12 +67,16 @@ public class UserOrderOptionActivity extends AppCompatActivity {
     @BindView(R.id.userOrderOptionQuantityTextView)
     TextView userOrderOptionQuantityTextView;
 
+    @BindView(R.id.userOrderOptionTotalPriceTextView)
+    TextView userOrderOptionTotalPriceTextView;
+
 
     long mBackPressedTime;
 
     int coffeeItemQuantity;
     int coffeeItemSize;
     int coffeeItemTemper;
+    int coffeeItemTotalPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +129,7 @@ public class UserOrderOptionActivity extends AppCompatActivity {
             coffeeItemQuantity++;
             userOrderOptionQuantityTextView.setText(coffeeItemQuantity + "");
         }
+        changeTotalPrice();
     }
 
     @OnClick(R.id.userOrderOptionQuantityReduceImageView)
@@ -129,6 +138,27 @@ public class UserOrderOptionActivity extends AppCompatActivity {
             coffeeItemQuantity--;
             userOrderOptionQuantityTextView.setText(coffeeItemQuantity + "");
         }
+        changeTotalPrice();
+    }
+
+    private void changeTotalPrice(){
+        int sumSizePrice = 0;
+        //size가 0이면 스몰 -> 가격추가 없고
+        //size가 1이면 미디엄 -> 가격추가 잔당 500원
+        //size가 2이면 라지 -> 가격추가 잔당 1000원
+        switch (coffeeItemSize){
+            case 0:
+                sumSizePrice = 0;
+                break;
+            case 1:
+                sumSizePrice = 500;
+                break;
+            case 2:
+                sumSizePrice = 1000;
+                break;
+        }
+        coffeeItemTotalPrice = (coffeeMenuItem.getPrice() + sumSizePrice) * coffeeItemQuantity;
+        userOrderOptionTotalPriceTextView.setText(coffeeItemTotalPrice + "");
     }
 
     private void setInitData(){
@@ -139,7 +169,7 @@ public class UserOrderOptionActivity extends AppCompatActivity {
 
     private void setCoffeeMenuItemToView() {
         Glide.with(this)
-                .load(NetworkDefineConstantOSH.SERVER_URL_MENU + coffeeMenuItem.getImg()) // 이미지 URL 주소
+                .load(NetworkDefineConstantOSH.SERVER_URL_GET_MENU_IMG + coffeeMenuItem.getImg()) // 이미지 URL 주소
                 .into(userOrderOptionImageView);
         //Glide.with(this)
         //        .load(R.drawable.ic_coffee_24dp)
@@ -158,6 +188,7 @@ public class UserOrderOptionActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 coffeeItemSize = ParseSize.getSizeInt(getResources().getStringArray(R.array.order_option_size)[position]);
+                changeTotalPrice();
             }
 
             @Override
@@ -188,17 +219,75 @@ public class UserOrderOptionActivity extends AppCompatActivity {
 
 
     private void menuOrder() {
-        /**
-         * 서버로 주문을 전송
-         */
-        Toast.makeText(this,
-                "커피이름 : " + coffeeMenuItem.getName() + ", 갯수 : " + coffeeItemQuantity + ", 사이즈 : " + coffeeItemSize + ", 온도 : " + coffeeItemTemper,
-                Toast.LENGTH_LONG)
-                .show();
+//        Toast.makeText(this,
+//                "커피이름 : " + coffeeMenuItem.getName() + ", 갯수 : " + coffeeItemQuantity + ", 사이즈 : " + coffeeItemSize + ", 온도 : " + coffeeItemTemper,
+//                Toast.LENGTH_LONG)
+//                .show();
+
+        new PostMenuOrder().execute();
 
         Intent finishIntent = new Intent(this, MainActivity.class);
         finishIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         setResult(RESULT_OK);
         finish();
     }
+
+
+    // AsyncTask ====================================================================================
+    public class PostMenuOrder extends AsyncTask<String, Void, Map<String, Object>> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Map<String, Object> doInBackground(String... params) {
+
+            Map<String, Object> map = UserOrderOptionModel.postOrderMenu(
+                    MidasMobile9Application.user.getNo(),
+                    coffeeMenuItem.getNo(),
+                    coffeeItemSize,
+                    coffeeItemTemper,
+                    coffeeItemQuantity,
+                    coffeeItemTotalPrice
+                    );
+
+            return map;
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, Object> map) {
+            super.onPostExecute(map);
+
+            if (map == null) {
+                // 통신실패
+                String message = "인터넷 연결이 원활하지 않습니다. 잠시후 다시 시도해주세요.";
+                Snackbar.make(userOrderOptionMainLayout, message, Snackbar.LENGTH_SHORT).show();
+            } else {
+                // 통신성공
+                boolean result = false;
+                String message = null;
+
+                if (map.containsKey("result")) {
+                    result = (boolean) map.get("result");
+                }
+
+                if (!result) {
+                    if (map.containsKey("message")) {
+                        message = (String) map.get("message");
+                    } else {
+                        message = "통신 실패";
+                    }
+                } else {
+                    if (map.containsKey("message")) {
+                        message = (String) map.get("message");
+                    } else {
+                        message = "...";
+                    }
+                }
+                Snackbar.make(userOrderOptionMainLayout, message, Snackbar.LENGTH_SHORT).show();
+            }
+        }
+    }
+    // ==============================================================================================
 }

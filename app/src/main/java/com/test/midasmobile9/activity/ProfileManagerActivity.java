@@ -25,6 +25,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.application.MidasMobile9Application;
 import com.test.midasmobile9.model.ProfileManagerModel;
+import com.test.midasmobile9.network.NetworkDefineConstantOSH;
 import com.test.midasmobile9.util.Encryption;
 import com.test.midasmobile9.util.ImageUtil;
 import com.test.midasmobile9.util.PasswordUtil;
@@ -38,7 +39,6 @@ import butterknife.OnClick;
 
 public class ProfileManagerActivity extends AppCompatActivity {
     public static final int REQUEST_TAKE_PROFILE_FROM_ALBUM = 302;
-    public static final String PROFILE_URL_HEADER = "http://35.187.156.145:3000/profileimg/";
 
     private final String PRIVACY_POLICY_INFO = "https://blog.naver.com/tyrano_1/221283509070";
 
@@ -97,7 +97,7 @@ public class ProfileManagerActivity extends AppCompatActivity {
         editTextProfileManagerNickname.setText(MidasMobile9Application.user.getNickname());
 
         Glide.with(getApplicationContext()) // Activity 또는 Fragment의 context
-                .load(PROFILE_URL_HEADER + MidasMobile9Application.user.getProfileimg()) // drawable에 저장된 이미지
+                .load(NetworkDefineConstantOSH.SERVER_URL_GET_PROFILE_IMG + MidasMobile9Application.user.getProfileimg()) // drawable에 저장된 이미지
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .into(circleImageViewProfileManagerProfileImage); // 이미지를 보여줄 view

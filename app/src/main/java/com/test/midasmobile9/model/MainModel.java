@@ -2,9 +2,10 @@ package com.test.midasmobile9.model;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.test.midasmobile9.data.CoffeeMenuItem;
 import com.test.midasmobile9.data.CoffeeOrderItem;
-import com.test.midasmobile9.network.NetworkDefineConstant;
+import com.test.midasmobile9.network.NetworkDefineConstantOSH;
 import com.test.midasmobile9.network.OkHttpAPICall;
 import com.test.midasmobile9.network.OkHttpInitSingletonManager;
 
@@ -17,9 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class MainModel {
@@ -29,6 +28,7 @@ public class MainModel {
 
     public static Map<String, Object> getAllMenu() {
         OkHttpClient client = OkHttpInitSingletonManager.getOkHttpClient();
+        Gson gson = new Gson();
         Response response = null;
 
         boolean isSuccess = false;
@@ -38,7 +38,7 @@ public class MainModel {
         Map<String, Object> resultMap = new HashMap<>();
 
         try {
-            response = OkHttpAPICall.GET(client, NetworkDefineConstant.SERVER_URL_UPDATE);
+            response = OkHttpAPICall.GET(client, NetworkDefineConstantOSH.SERVER_URL_GET_MENU);
 
             if (response == null) {
                 Log.e(TAG, "Response of updateUserInfo() is null.");
@@ -60,9 +60,11 @@ public class MainModel {
                 if (isSuccess) {
                     JSONArray jsonArray = jsonFromServer.getJSONArray("data");
                     for (int i = 0; i < jsonArray.length(); i++) {
-                        coffeeMenuItems.add((CoffeeMenuItem) jsonArray.get(i));
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        CoffeeMenuItem eachCoffeeMenuItem = gson.fromJson(jsonObject.toString(), CoffeeMenuItem.class);
+                        coffeeMenuItems.add(eachCoffeeMenuItem);
                     }
-                    resultMap.put("data", jsonArray);
+                    resultMap.put("data", coffeeMenuItems);
                 }
             }
         } catch (UnknownHostException e) {
@@ -82,8 +84,8 @@ public class MainModel {
 
     public static Map<String, Object> getUserOrderLookup(){
         OkHttpClient client = OkHttpInitSingletonManager.getOkHttpClient();
+        Gson gson = new Gson();
         Response response = null;
-
 
         boolean isSuccess = false;
         String message = null;
@@ -92,7 +94,7 @@ public class MainModel {
         Map<String, Object> resultMap = new HashMap<>();
 
         try {
-            response = OkHttpAPICall.GET(client, NetworkDefineConstant.SERVER_URL_UPDATE);
+            response = OkHttpAPICall.GET(client, NetworkDefineConstantOSH.SERVER_URL_GET_ORDER);
 
             if (response == null) {
                 Log.e(TAG, "Response of updateUserInfo() is null.");
@@ -114,9 +116,11 @@ public class MainModel {
                 if (isSuccess) {
                     JSONArray jsonArray = jsonFromServer.getJSONArray("data");
                     for (int i = 0; i < jsonArray.length(); i++) {
-                        coffeeOrderItems.add((CoffeeOrderItem) jsonArray.get(i));
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        CoffeeOrderItem eachCoffeeOrderItem = gson.fromJson(jsonObject.toString(), CoffeeOrderItem.class);
+                        coffeeOrderItems.add(eachCoffeeOrderItem);
                     }
-                    resultMap.put("data", jsonArray);
+                    resultMap.put("data", coffeeOrderItems);
                 }
             }
         } catch (UnknownHostException e) {

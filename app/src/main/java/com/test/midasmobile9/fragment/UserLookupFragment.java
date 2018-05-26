@@ -104,6 +104,8 @@ public class UserLookupFragment extends Fragment {
         this.mContext = null;
         // mActivity 해제
         this.mActivity = null;
+
+        coffeeOrderItems.clear();
     }
 
     private void setRecyclerView() {
@@ -136,7 +138,7 @@ public class UserLookupFragment extends Fragment {
         @Override
         protected Map<String, Object> doInBackground(String... params) {
 
-            Map<String, Object> map = MainModel.getAllMenu();
+            Map<String, Object> map = MainModel.getUserOrderLookup();
 
             return map;
         }
@@ -164,6 +166,7 @@ public class UserLookupFragment extends Fragment {
                         message = (String) map.get("message");
                     } else {
                         message = "통신 실패";
+                        Snackbar.make(userMenuLookupMainLayout, message, Snackbar.LENGTH_SHORT).show();
                     }
                 } else {
                     if (map.containsKey("message")) {
@@ -173,17 +176,15 @@ public class UserLookupFragment extends Fragment {
                     }
                     if (map.containsKey("data")) {
                         getCoffeeOrderItems = (ArrayList<CoffeeOrderItem>) map.get("data");
-                        for (CoffeeOrderItem coffeeOrderItem : getCoffeeOrderItems) {
-                            coffeeOrderItems.add(coffeeOrderItem);
+                        for (CoffeeOrderItem eachCoffeeOrderItem : getCoffeeOrderItems) {
+                            coffeeOrderItems.add(eachCoffeeOrderItem);
                         }
                     }
                 }
-                Snackbar.make(userMenuLookupMainLayout, message, Snackbar.LENGTH_SHORT).show();
             }
             mActivity.endRefreshLookup();
             userLookupMenuRecyclerAdapter.notifyDataSetChanged();
         }
     }
     // ==============================================================================================
-
 }

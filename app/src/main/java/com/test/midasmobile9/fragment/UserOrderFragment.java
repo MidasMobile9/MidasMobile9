@@ -19,6 +19,8 @@ import com.test.midasmobile9.adapter.UserOrderMenuRecyclerAdapter;
 import com.test.midasmobile9.data.CoffeeMenuItem;
 import com.test.midasmobile9.model.MainModel;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -104,6 +106,8 @@ public class UserOrderFragment extends Fragment {
         this.mContext = null;
         // mActivity 해제
         this.mActivity = null;
+
+        coffeeMenuItems.clear();
     }
 
     private void setRecyclerView() {
@@ -172,6 +176,7 @@ public class UserOrderFragment extends Fragment {
                         message = (String) map.get("message");
                     } else {
                         message = "통신 실패";
+                        Snackbar.make(userMenuOrderMainLayout, message, Snackbar.LENGTH_SHORT).show();
                     }
                 } else {
                     if (map.containsKey("message")) {
@@ -186,7 +191,6 @@ public class UserOrderFragment extends Fragment {
                         }
                     }
                 }
-                Snackbar.make(userMenuOrderMainLayout, message, Snackbar.LENGTH_SHORT).show();
             }
             mActivity.endRefreshOrderMenu();
             userOrderMenuRecyclerAdapter.notifyDataSetChanged();
