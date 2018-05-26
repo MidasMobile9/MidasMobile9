@@ -4,6 +4,8 @@ package com.test.midasmobile9.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import com.test.midasmobile9.R;
 import com.test.midasmobile9.activity.AdminActivity;
 import com.test.midasmobile9.activity.MainActivity;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -26,6 +29,9 @@ public class CustomerFragment extends Fragment {
     private AdminActivity mActivity = null;
 
     Unbinder unbinder = null;
+
+    @BindView(R.id.recyclerViewCustomer)
+    RecyclerView recyclerViewCustomer;
 
     public CustomerFragment() {
         // Required empty public constructor
@@ -62,6 +68,8 @@ public class CustomerFragment extends Fragment {
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_customer, container, false);
         // 버터나이프
         unbinder = ButterKnife.bind(this, rootView);
+        // 초기화
+        init();
 
         return rootView;
     }
@@ -76,5 +84,18 @@ public class CustomerFragment extends Fragment {
         this.mContext = null;
         // mActivity 해제
         this.mActivity = null;
+    }
+
+    private void init() {
+        // 1. RecyclerView 크기 고정
+        recyclerViewCustomer.setHasFixedSize(true);
+
+        // 2. LayoutManager 설정
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity.getApplicationContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerViewCustomer.setLayoutManager(layoutManager);
+
+        // 3. Adapter 설정
+
     }
 }
