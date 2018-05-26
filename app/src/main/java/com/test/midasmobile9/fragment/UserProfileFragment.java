@@ -54,6 +54,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static com.test.midasmobile9.util.SharePreferencesUtil.KEY_EMAIL;
 import static com.test.midasmobile9.util.SharePreferencesUtil.KEY_PASSWORD;
 import static com.test.midasmobile9.util.SharePreferencesUtil.KEY_ROOT;
+import static com.test.midasmobile9.util.SharePreferencesUtil.KEY_TOKEN;
 
 public class UserProfileFragment extends Fragment {
     public static final int REQUEST_CODE_PROFILE_MANAGER_ACTIVITY = 302;
@@ -327,6 +328,7 @@ public class UserProfileFragment extends Fragment {
                 SharePreferencesUtil.removePreferences(mContext, KEY_EMAIL);
                 SharePreferencesUtil.removePreferences(mContext, KEY_PASSWORD);
                 SharePreferencesUtil.removePreferences(mContext, KEY_ROOT);
+                SharePreferencesUtil.removePreferences(mContext,KEY_TOKEN);
                 Intent intent = new Intent(mContext, LoginActivity.class);
                 startActivity(intent);
                 mActivity.finish();

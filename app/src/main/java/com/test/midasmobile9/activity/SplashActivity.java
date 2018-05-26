@@ -76,6 +76,7 @@ public class SplashActivity extends AppCompatActivity {
                 SharePreferencesUtil.removePreferences(mContext,KEY_EMAIL);
                 SharePreferencesUtil.removePreferences(mContext,KEY_PASSWORD);
                 SharePreferencesUtil.removePreferences(mContext,KEY_ROOT);
+                SharePreferencesUtil.removePreferences(mContext,KEY_TOKEN);
                 Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(intent);
             } else {
@@ -120,6 +121,7 @@ public class SplashActivity extends AppCompatActivity {
                     SharePreferencesUtil.removePreferences(mContext,KEY_EMAIL);
                     SharePreferencesUtil.removePreferences(mContext,KEY_PASSWORD);
                     SharePreferencesUtil.removePreferences(mContext,KEY_ROOT);
+                    SharePreferencesUtil.removePreferences(mContext,KEY_TOKEN);
                     Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }
