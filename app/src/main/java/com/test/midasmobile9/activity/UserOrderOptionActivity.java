@@ -25,6 +25,11 @@ import butterknife.OnClick;
 
 public class UserOrderOptionActivity extends AppCompatActivity {
     public static final String COFFEE_MENU_ITEM_EXTRA_NAME = "COFFEE_ITEM";
+    private static final String[] orderOptionSizeStrArray = {
+            "Small",
+            "Medium",
+            "Large"
+    };
 
     CoffeeMenuItem coffeeMenuItem;
 
@@ -104,7 +109,7 @@ public class UserOrderOptionActivity extends AppCompatActivity {
 
     @OnClick(R.id.userOrderOptionQuantityIncreaseImageView)
     public void onUserOrderOptionQuantityIncreaseImageViewClick(){
-
+        
     }
 
     private void setInitData(){
