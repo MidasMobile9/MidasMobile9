@@ -1,5 +1,6 @@
 package com.test.midasmobile9.activity;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -23,6 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
+    public static final int MENU_ORDER_OPTION_REQUEST_CODE = 301;
 
     Fragment fragment = null;
 
@@ -67,15 +69,29 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case MENU_ORDER_OPTION_REQUEST_CODE:
+                if(resultCode == RESULT_OK){
+                    showMenuLookupFragment();
+                } else if (resultCode == RESULT_CANCELED){
+                    showMenuOrderFragment();
+                }
+                break;
+        }
+    }
+
     public void setBottomNavigationView() {
         // 프래그먼트 매니저
         final FragmentManager fragmentManager = getSupportFragmentManager();
         // 홈 프래그먼트
         final UserOrderFragment userOrderFragment = UserOrderFragment.newInstance("Home", "MainActivity");
         // 콘텐츠 프래그먼트
-        final UserLookupFragment contentFragment = UserLookupFragment.newInstance("Content", "MainActivity");
+        final UserLookupFragment userLookupFragment = UserLookupFragment.newInstance("Content", "MainActivity");
         // 프로필 프래그먼트
-        final UserProfileFragment profileFragment = UserProfileFragment.newInstance("Profile", "MainActivity");
+        final UserProfileFragment userProfileFragment = UserProfileFragment.newInstance("Profile", "MainActivity");
 
         // 첫 시작 프래그먼트로 홈 프래그먼트 지정
         fragmentManager.beginTransaction().replace(R.id.frameLayoutFragmentContainer, userOrderFragment).commit();
@@ -86,14 +102,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.bottom_Home:
+                    case R.id.bottomMenuOrder:
                         fragment = userOrderFragment;
                         break;
-                    case R.id.bottom_Steady:
-                        fragment = contentFragment;
+                    case R.id.bottomMenuLookup:
+                        fragment = userLookupFragment;
                         break;
-                    case R.id.bottom_Pofile:
-                        fragment = profileFragment;
+                    case R.id.bottomMenuProfile:
+                        fragment = userProfileFragment;
                         break;
                 }
 
@@ -139,4 +155,14 @@ public class MainActivity extends AppCompatActivity {
                 android.R.color.holo_red_light
         );
     }
+
+
+    private void showMenuLookupFragment() {
+        bottomNavigationView.setSelectedItemId(R.id.bottomMenuLookup);
+    }
+
+    private void showMenuOrderFragment() {
+        bottomNavigationView.setSelectedItemId(R.id.bottomMenuOrder);
+    }
+
 }

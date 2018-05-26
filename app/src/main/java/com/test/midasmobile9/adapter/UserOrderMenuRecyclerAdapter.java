@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.test.midasmobile9.R;
+import com.test.midasmobile9.activity.MainActivity;
 import com.test.midasmobile9.activity.UserOrderOptionActivity;
 import com.test.midasmobile9.data.CoffeeMenuItem;
 
@@ -49,7 +50,7 @@ public class UserOrderMenuRecyclerAdapter extends RecyclerView.Adapter<UserOrder
                     Intent coffeeIntent = new Intent(activity, UserOrderOptionActivity.class);
                     coffeeIntent.putExtra(UserOrderOptionActivity.COFFEE_MENU_ITEM_EXTRA_NAME, userOrderMenuItemList.get(getAdapterPosition()));
                     coffeeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    activity.startActivity(coffeeIntent);
+                    activity.startActivityForResult(coffeeIntent, MainActivity.MENU_ORDER_OPTION_REQUEST_CODE);
                 }
             });
         }
