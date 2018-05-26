@@ -21,8 +21,7 @@
         <activity
             android:name=".activity.SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme">
-        </activity>
+            android:theme="@style/SplashTheme"></activity>
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait" />
@@ -45,10 +44,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MenuAddActivity" >
-
-        </activity>
-        <activity android:name=".activity.MenuEditActivity"></activity>
+        <activity android:name=".activity.MenuAddActivity"></activity>
+        <activity android:name=".activity.MenuEditActivity" />
+        <activity android:name=".activity.CustomerProfileManagerActivity"></activity>
     </application>
 
 </manifest>
