@@ -185,7 +185,24 @@ public class UserOrderOptionActivity extends AppCompatActivity {
     private void setOrderOptionInit() {
         userOrderOptionQuantityTextView.setText(coffeeItemQuantity + "");
 
+        int menuHotCold = coffeeMenuItem.getHotcold();
+
+        String[] hotcoldItems = {};
+
+        switch (menuHotCold){
+            case 0: //hot
+                hotcoldItems = new String[]{"HOT"};
+                break;
+            case 1: // cold
+                hotcoldItems = new String[]{"COLD"};
+                break;
+            case 2: // hot and cold
+                hotcoldItems = new String[]{"HOT", "COLD"};
+                break;
+        }
+
         ArrayAdapter sizeAdapter = ArrayAdapter.createFromResource(this, R.array.order_option_size, R.layout.spinner_item_simple_layout);
+        //ArrayAdapter<String> sizeAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item_simple_layout, hotcoldItems);
         userOrderOptionSizeSpinner.setAdapter(sizeAdapter);
         userOrderOptionSizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -199,7 +216,8 @@ public class UserOrderOptionActivity extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter temperAdapter = ArrayAdapter.createFromResource(this, R.array.order_option_temper, R.layout.spinner_item_simple_layout);
+        //ArrayAdapter temperAdapter = ArrayAdapter.createFromResource(this, R.array.order_option_temper, R.layout.spinner_item_simple_layout);
+        ArrayAdapter<String> temperAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item_simple_layout, hotcoldItems);
         userOrderOptionTemperSpinner.setAdapter(temperAdapter);
         userOrderOptionTemperSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -222,11 +240,6 @@ public class UserOrderOptionActivity extends AppCompatActivity {
 
 
     private void menuOrder() {
-//        Toast.makeText(this,
-//                "커피이름 : " + coffeeMenuItem.getName() + ", 갯수 : " + coffeeItemQuantity + ", 사이즈 : " + coffeeItemSize + ", 온도 : " + coffeeItemTemper,
-//                Toast.LENGTH_LONG)
-//                .show();
-
         new PostMenuOrder().execute();
 
         Intent finishIntent = new Intent(this, MainActivity.class);
