@@ -9,6 +9,7 @@ public class NetworkDefineConstant {
     public static String join;
     public static String checkNickname;
     public static String checkEmail;
+    public static String addtoken;
     public static String SERVER_URL_LOGIN_USER;
     public static String SERVER_URL_UPDATE;
     public static String SERVER_URL_DELETE;
@@ -18,6 +19,7 @@ public class NetworkDefineConstant {
         join = HOST_URL + "/join";
         checkNickname = HOST_URL + "/check/nickname/";
         checkEmail = HOST_URL + "/check/email/";
+        addtoken = HOST_URL + "/addtoken";
         SERVER_URL_LOGIN_USER = HOST_URL + "/login";
         SERVER_URL_UPDATE = HOST_URL + "/update/user";
         SERVER_URL_DELETE = HOST_URL + "/delete/user";

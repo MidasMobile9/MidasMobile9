@@ -93,4 +93,51 @@ public class LoginModel {
 
         return map;
     }
+    public static Map<String, Object> addTokenResult(String token) {
+        OkHttpClient client = OkHttpInitSingletonManager.getOkHttpClient();
+        Response response = null;
+        Gson gson = new Gson();
+
+        Map<String, Object> map = null;
+
+        RequestBody requestBody = new FormBody.Builder()
+                .add("token", token)
+                .build();
+
+        try {
+            response = OkHttpAPICall.POST(client, NetworkDefineConstant.addtoken, requestBody);
+
+            if ( response == null ) {
+                Log.e(TAG, "Response of loginUser() is null.");
+
+                return null;
+            } else {
+                JSONObject jsonFromServer = new JSONObject(response.body().string());
+
+                // 통신결과 체크
+                if ( jsonFromServer.has("result") ) {
+                    map = new HashMap<String, Object>();
+                    map.put("result", jsonFromServer.getBoolean("result"));
+                }
+
+                // 결과 메시지
+                if ( jsonFromServer.has("message") ) {
+                    map.put("message", jsonFromServer.getString("message"));
+                }
+
+            }
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if ( response != null ) {
+                response.close();
+            }
+        }
+
+        return map;
+    }
 }

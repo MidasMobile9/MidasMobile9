@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "380317292229",
+    "firebase_url": "https://midasmobile9.firebaseio.com",
+    "project_id": "midasmobile9",
+    "storage_bucket": "midasmobile9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:380317292229:android:1e7805d01f344089",
+        "android_client_info": {
+          "package_name": "com.test.midasmobile9"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "380317292229-0mo4gaq77a9amgnaol7ppeugsfohct4j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.test.midasmobile9",
+            "certificate_hash": "34cc34a85b537a633ad2ee753c168bd9e54d63f9"
+          }
+        },
+        {
+          "client_id": "380317292229-25mdr5casm1im084i6b3ac718u8m85kb.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "380317292229-25mdr5casm1im084i6b3ac718u8m85kb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0nYW7z406Sr348_MWZHILb7PWTgMJFqg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "380317292229-25mdr5casm1im084i6b3ac718u8m85kb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
