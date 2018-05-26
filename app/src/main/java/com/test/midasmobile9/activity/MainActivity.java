@@ -64,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
         swipeRefreshLayout.setRefreshing(false);
     }
 
+    public void endRefreshHistory() {
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
     @Override
     public void finish() {
         super.finish();
@@ -145,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
                     ((UserLookupFragment) fragment).startRefreshLookup();
                 } else if ( fragment instanceof UserProfileFragment) {
                     Log.e("@@@", "프로필");
+                    ((UserProfileFragment) fragment).startRefreshHistory();
                 }
             }
         });

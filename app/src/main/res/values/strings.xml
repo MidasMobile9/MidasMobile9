@@ -21,6 +21,9 @@
         <item>HOT</item>
         <item>COLD</item>
     </string-array>
+]
+
+
     <!-- string -->
     <string name="app_title">마시다스</string>
     <string name="login">로그인</string>

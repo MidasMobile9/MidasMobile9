@@ -8,6 +8,7 @@ public class NetworkDefineConstantOSH {
     // ex) public static String SERVER_URL_NAME;
     public static String SERVER_URL_GET_MENU;
     public static String SERVER_URL_GET_ORDER;
+    public static String SERVER_URL_GET_HISTORY;
     public static String SERVER_URL_GET_MENU_IMG;
     public static String SERVER_URL_GET_PROFILE_IMG;
 
@@ -16,5 +17,6 @@ public class NetworkDefineConstantOSH {
         SERVER_URL_GET_ORDER = HOST_URL + "/order";
         SERVER_URL_GET_MENU_IMG = HOST_URL + "/menuimg/";
         SERVER_URL_GET_PROFILE_IMG = HOST_URL + "/profileimg/";
+        SERVER_URL_GET_HISTORY = HOST_URL + "/order/";
     }
 }
