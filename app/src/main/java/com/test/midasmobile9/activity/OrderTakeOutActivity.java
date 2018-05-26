@@ -1,5 +1,7 @@
 package com.test.midasmobile9.activity;
 
+import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +12,10 @@ import android.widget.ImageView;
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.adapter.OrderRecyclerAdapter;
 import com.test.midasmobile9.data.AdminCoffeeOrderItem;
+import com.test.midasmobile9.model.OrderModel;
+
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +28,8 @@ public class OrderTakeOutActivity extends AppCompatActivity {
     @BindView(R.id.recyclerOrderTakeOut)
     RecyclerView recyclerOrderTakeOut;
 
+    OrderRecyclerAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +38,13 @@ public class OrderTakeOutActivity extends AppCompatActivity {
         ButterKnife.bind(OrderTakeOutActivity.this);
 
         init();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        new OrderDoneGetTask().execute();
     }
 
     @OnClick(R.id.imageViewTakeOutBack)
@@ -47,20 +62,62 @@ public class OrderTakeOutActivity extends AppCompatActivity {
         recyclerOrderTakeOut.setLayoutManager(layoutManager);
 
         // 3. Adapter 설정
-        OrderRecyclerAdapter adapter = new OrderRecyclerAdapter(OrderTakeOutActivity.this, layoutManager);
-        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 4, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "가나다라마바사아자카", "겁나 맛있는 커피","basemenu.png", 1));
-        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 4, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "가나다라마바사아자카", "겁나 맛있는 커피","basemenu.png", 1));
-        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 4, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "가나다라마바사아자카", "겁나 맛있는 커피","basemenu.png", 1));
-        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 4, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "가나다라마바사아자카", "겁나 맛있는 커피","basemenu.png", 1));
-        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 4, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "가나다라마바사아자카", "겁나 맛있는 커피","basemenu.png", 1));
-        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 4, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "가나다라마바사아자카", "겁나 맛있는 커피","basemenu.png", 1));
-        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 4, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "가나다라마바사아자카", "겁나 맛있는 커피","basemenu.png", 1));
-        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 4, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "가나다라마바사아자카", "겁나 맛있는 커피","basemenu.png", 1));
-        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 4, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "가나다라마바사아자카", "겁나 맛있는 커피","basemenu.png", 1));
-        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 4, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "가나다라마바사아자카", "겁나 맛있는 커피","basemenu.png", 1));
-        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 4, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "가나다라마바사아자카", "겁나 맛있는 커피","basemenu.png", 1));
-        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 4, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "가나다라마바사아자카", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter = new OrderRecyclerAdapter(OrderTakeOutActivity.this, layoutManager);
 
         recyclerOrderTakeOut.setAdapter(adapter);
+    }
+
+    public class OrderDoneGetTask extends AsyncTask<Void, Void, Map<String, Object>> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Map<String, Object> doInBackground(Void... voids) {
+            Map<String, Object> map = OrderModel.getOrderDone();
+
+            return map;
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, Object> map) {
+            super.onPostExecute(map);
+
+            if ( map == null ) {
+                // 통신실패
+                String message = "인터넷 연결이 원활하지 않습니다. 잠시후 다시 시도해주세요.";
+                Snackbar.make(recyclerOrderTakeOut, message, Snackbar.LENGTH_SHORT).show();
+            } else {
+                // 통신성공
+                boolean result = false;
+                String message = null;
+                List<AdminCoffeeOrderItem> orderDoneList = null;
+
+                if ( map.containsKey("result") ) {
+                    result = (boolean)map.get("result");
+                }
+
+                if ( map.containsKey("message") ) {
+                    message = (String)map.get("message");
+                }
+
+                if ( map.containsKey("orderDoneList") ) {
+                    orderDoneList = (List<AdminCoffeeOrderItem>)map.get("orderDoneList");
+                }
+
+                if ( result ) {
+                    // 주문 목록 가져오기 성공
+                    for ( int i = 0; i < orderDoneList.size(); i++ ) {
+                        adapter.addItem(orderDoneList.get(i));
+                    }
+
+                    adapter.notifyDataSetChanged();
+                } else {
+                    // 주문 목록 가져오기 실패
+                    Snackbar.make(recyclerOrderTakeOut, message, Snackbar.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 }

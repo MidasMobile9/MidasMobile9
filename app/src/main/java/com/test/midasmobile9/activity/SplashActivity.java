@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.application.MidasMobile9Application;
@@ -103,6 +104,7 @@ public class SplashActivity extends AppCompatActivity {
                     // 로그인 성공
                     MidasMobile9Application.setCookie(cookie);
                     MidasMobile9Application.setUser(user.getNo(), user.getEmail(), user.getNickname(), user.getProfileimg());
+
                     Intent intent;
                     if(root.equals("1")){
                         intent = new Intent(mContext,AdminActivity.class);

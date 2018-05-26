@@ -1,10 +1,10 @@
 package com.test.midasmobile9.adapter;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,8 +16,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.activity.AdminActivity;
-import com.test.midasmobile9.activity.OrderTakeOutActivity;
 import com.test.midasmobile9.data.AdminCoffeeOrderItem;
+import com.test.midasmobile9.model.OrderModel;
 import com.test.midasmobile9.network.NetworkDefineConstant;
 import com.test.midasmobile9.util.ParseHotCold;
 import com.test.midasmobile9.util.ParseServerState;
@@ -25,6 +25,7 @@ import com.test.midasmobile9.util.ParseSize;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,6 +74,9 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
         holder.textViewOrderHotCold.setText(ParseHotCold.getHotCold(item.getHotcold()));
         // 주문 상태
         holder.textViewOrderStatus.setText(ParseServerState.getState(item.getState()));
+        // 총 금액
+        String totalPrice = (item.getPrice() * item.getCount())+ " 원";
+        holder.textViewTotalPrice.setText(totalPrice);
     }
 
     @Override
@@ -91,6 +95,10 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
         notifyItemInserted(0);
 
         layoutManager.scrollToPosition(0);
+    }
+
+    public void clearItems() {
+        items.clear();
     }
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
@@ -113,6 +121,8 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
         TextView textViewOrderStatus;
         @BindView(R.id.imageViewOrderPopMenu)
         ImageView imageViewOrderPopMenu;
+        @BindView(R.id.textViewTotalPrice)
+        TextView textViewTotalPrice;
 
         public OrderViewHolder(Context context, View itemView) {
             super(itemView);
@@ -149,25 +159,34 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     AdminCoffeeOrderItem selectedItem = items.get(getAdapterPosition());
+                    int orderNo = selectedItem.getNo();
+                    int position = getAdapterPosition();
 
                     switch ( item.getItemId() ) {
                         case R.id.popup_order_confirm_before:
                             textViewOrderStatus.setText("주문 확인 전");
+
+                            new OrderStateUpdateTask().execute(orderNo, 0, position);
                             break;
                         case R.id.popup_order_confirm_ok:
                             textViewOrderStatus.setText("주문 확인");
+
+                            new OrderStateUpdateTask().execute(orderNo, 1, position);
                             break;
                         case R.id.popup_order_creating:
                             textViewOrderStatus.setText("음료 준비 중");
+
+                            new OrderStateUpdateTask().execute(orderNo, 2, position);
                             break;
                         case R.id.popup_order_creation_complete:
                             textViewOrderStatus.setText("음료 준비 완료");
+
+                            new OrderStateUpdateTask().execute(orderNo, 3, position);
                             break;
                         case R.id.popup_order_take_out_complete:
-                            int removeIndex = getAdapterPosition();
 
-                            notifyItemRemoved(removeIndex);
-                            items.remove(removeIndex);
+
+                            new OrderStateUpdateTask().execute(orderNo, 4, position);
                             break;
                         default:
                             break;
@@ -177,6 +196,69 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
             });
             // 팝업메뉴 보이기
             popupMenu.show();
+        }
+    }
+
+    public class OrderStateUpdateTask extends AsyncTask<Integer, Void, Map<String, Object>> {
+        int orderNo = -1;
+        int state = -1;
+        int position = -1;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Map<String, Object> doInBackground(Integer... params) {
+            orderNo = params[0];
+            state = params[1];
+            position = params[2];
+
+            Map<String, Object> map = OrderModel.updateOrderState(orderNo, state);
+
+            return map;
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, Object> map) {
+            super.onPostExecute(map);
+
+            if ( map == null ) {
+                // 통신실패
+                String message = "인터넷 연결이 원활하지 않습니다. 잠시후 다시 시도해주세요.";
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+            } else {
+                // 통신성공
+                boolean result = false;
+                String message = null;
+
+                if ( map.containsKey("result") ) {
+                    result = (boolean)map.get("result");
+                }
+
+                if ( map.containsKey("message") ) {
+                    message = (String)map.get("message");
+                }
+
+                if ( result ) {
+
+                    if ( state == 4 ) {
+                        Toast.makeText(context, "테이크아웃 완료되었습니다.", Toast.LENGTH_SHORT).show();
+
+                        notifyItemRemoved(position);
+                        items.remove(position);
+                    } else {
+                        String updateStr = ParseServerState.getState(state);
+                        Toast.makeText(context, updateStr, Toast.LENGTH_SHORT).show();
+
+                        items.get(position).setState(state);
+                    }
+                } else {
+                    // 주문 목록 가져오기 실패
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                }
+            }
         }
     }
 }
