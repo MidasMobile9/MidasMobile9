@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/bottom_order"
+        app:showAsAction="always"
+        android:enabled="true"
+        android:icon="@drawable/ic_coffee_24dp"
+        android:title="Order" />
+    <item
+        android:id="@+id/bottom_manage"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_menu_manage_24dp"
+        android:title="Manage" />
+    <item
+        android:id="@+id/bottom_customer"
+        app:showAsAction="always"
+        android:enabled="true"
+        android:icon="@drawable/ic_person_24dp"
+        android:title="Customer" />
+</menu>

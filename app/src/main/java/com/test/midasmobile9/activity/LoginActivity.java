@@ -41,8 +41,6 @@ public class LoginActivity extends AppCompatActivity {
     EditText editTextEmail;
     @BindView(R.id.editTextPassword)
     EditText editTextPassword;
-    @BindView(R.id.checkBoxAutoLogin)
-    CheckBox checkBoxAutoLogin;
     @BindView(R.id.buttonLogin)
     Button buttonLogin;
     @BindView(R.id.textViewJoin)

@@ -57,8 +57,6 @@ public class JoinActivity extends AppCompatActivity {
     LinearLayout linearLayoutEmailPassword;
     @BindView(R.id.editTextInputEmail)
     EditText editTextInputEmail;
-    @BindView(R.id.textViewCheckEmailDuplication)
-    TextView textViewCheckEmailDuplication;
     @BindView(R.id.editTextInputPasswordFirst)
     EditText editTextInputPasswordFirst;
     @BindView(R.id.editTextInputPasswordSecond)
