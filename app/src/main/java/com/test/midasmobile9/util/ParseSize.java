@@ -16,4 +16,16 @@ public class ParseSize {
 
         return null;
     }
+
+    public static int getSizeInt(String size){
+        switch (size){
+            case SMALL:
+                return 0;
+            case Medium:
+                return 1;
+            case Large:
+                return 2;
+        }
+        return 0;
+    }
 }
