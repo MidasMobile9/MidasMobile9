@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.activity.AdminActivity;
+import com.test.midasmobile9.adapter.MenuInfoRecyclerAdapter;
+import com.test.midasmobile9.data.AdminMenuItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -96,6 +98,47 @@ public class MenuManagerFragment extends Fragment {
         recyclerViewMenuManager.setLayoutManager(layoutManager);
 
         // 3. Adapter 설정
+        MenuInfoRecyclerAdapter adapter = new MenuInfoRecyclerAdapter(mActivity, layoutManager);
+
+        /****************************************************************************************************/
+        adapter.addItem(new AdminMenuItem(1, "아메리카노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "카페모카", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
+        /****************************************************************************************************/
+
         recyclerViewMenuManager.setAdapter(adapter);
 
     }

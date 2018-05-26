@@ -128,10 +128,8 @@ public class MenuOrderFragment extends Fragment {
         adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
         adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
         adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "qqq@qqq.com","티라노", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
         adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
-        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
-
-
         /********************************************************************************************/
 
         recyclerViewOrderList.setAdapter(adapter);

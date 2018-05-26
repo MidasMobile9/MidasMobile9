@@ -6,5 +6,5 @@
 
     <!-- 클릭하지 않은 경우 -->
     <item android:state_pressed="false"
-        android:drawable="@color/colorWhite"/>
+        android:drawable="@color/colorLightBlue"/>
 </selector>

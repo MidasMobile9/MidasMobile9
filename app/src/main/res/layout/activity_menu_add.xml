@@ -38,7 +38,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="새로운 메뉴 추가"
+                    android:text="카페 메뉴 편집"
                     android:textColor="@color/colorBlack"
                     android:textSize="20dp" />
 
@@ -46,19 +46,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/textViewProfileManagerComplete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:background="@drawable/selector_complete"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:padding="8dp"
-                    android:text="@string/complete"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="18dp" />
 
             </LinearLayout>
 
@@ -106,7 +93,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/circleImageViewMenuImage"
+                android:id="@+id/imageViewMenuImage"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
@@ -154,15 +141,15 @@
         </LinearLayout>
 
         <EditText
-            android:id="@+id/textViewMenuInfo"
+            android:id="@+id/editTextMenuInfo"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/rectangle_dark"
-            android:padding="10dp"
             android:hint="  상품 정보를 입력해주세요."
+            android:padding="10dp"
             android:textSize="14dp" />
 
         <LinearLayout
@@ -210,6 +197,23 @@
             android:textSize="16dp"
             android:textStyle="bold"
             android:textColor="@color/colorMiddleRed"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/textViewEditComplete"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/selector_edit_complete"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="메뉴 편집 완료"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:visibility="visible" />
 
     </LinearLayout>
 

@@ -1,6 +1,7 @@
 package com.test.midasmobile9.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -11,20 +12,23 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.activity.AdminActivity;
+import com.test.midasmobile9.activity.MenuEditActivity;
 import com.test.midasmobile9.data.AdminCoffeeOrderItem;
 import com.test.midasmobile9.data.AdminMenuItem;
+import com.test.midasmobile9.network.NetworkDefineConstant;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MenuInfoRecyclerAdapter extends RecyclerView.Adapter<MenuInfoRecyclerAdapter.MenuViewHolder> {
+    public static final String PROFILE_URL_HEADER = NetworkDefineConstant.HOST_URL + "/profileimg/";
 
     Context context = null;
     RecyclerView.LayoutManager layoutManager = null;
@@ -48,12 +52,24 @@ public class MenuInfoRecyclerAdapter extends RecyclerView.Adapter<MenuInfoRecycl
     public void onBindViewHolder(@NonNull MenuInfoRecyclerAdapter.MenuViewHolder holder, int position) {
         AdminMenuItem item = items.get(position);
 
-        //
+        // 커피 이미지
+        Glide.with(context)
+                .load(PROFILE_URL_HEADER + item.getImg())
+                .into(holder.imageViewCoffeeImage);
+        // 커피 이름
+        holder.textViewCoffeeMenuName.setText(item.getName());
+        // 커피 가격
+        String price = item.getPrice() + " 원";
+        holder.textViewCoffeeMenuPrice.setText(price);
     }
 
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    public void addItem(AdminMenuItem item) {
+        items.add(item);
     }
 
     public void addNewItem(AdminMenuItem item) {
@@ -107,11 +123,15 @@ public class MenuInfoRecyclerAdapter extends RecyclerView.Adapter<MenuInfoRecycl
 
                     switch ( item.getItemId() ) {
                         case R.id.popup_menu_modify:
-                            // 메뉴 수정
+                            // 메뉴 수정 액티비티 띄우기
+                            Intent intent = new Intent((context), MenuEditActivity.class);
+                            intent.putExtra("editMenuItem", selectedItem);
+                            context.startActivity(intent);
 
                             break;
                         case R.id.popup_menu_delete:
                             int removeIndex = getAdapterPosition();
+
                             notifyItemRemoved(removeIndex);
                             items.remove(removeIndex);
                             break;

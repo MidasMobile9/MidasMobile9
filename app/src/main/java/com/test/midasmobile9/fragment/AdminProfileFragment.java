@@ -23,6 +23,7 @@ import com.test.midasmobile9.activity.MainActivity;
 import com.test.midasmobile9.activity.ProfileManagerActivity;
 import com.test.midasmobile9.application.MidasMobile9Application;
 import com.test.midasmobile9.model.ProfileModel;
+import com.test.midasmobile9.network.NetworkDefineConstant;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +39,7 @@ public class AdminProfileFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private final String PROFILE_URL_HEADER = "http://35.187.156.145:3000/profileimg/";
+    private static final String PROFILE_URL_HEADER = NetworkDefineConstant.HOST_URL + "/profileimg/";
 
     private String mParam1;
     private String mParam2;

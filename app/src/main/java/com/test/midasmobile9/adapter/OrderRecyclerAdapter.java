@@ -78,6 +78,10 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
         return items.size();
     }
 
+    public void addItem(AdminCoffeeOrderItem item) {
+        items.add(item);
+    }
+
     public void addNewItem(AdminCoffeeOrderItem item) {
         items.add(0, item);
 
@@ -149,10 +153,8 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
                             textViewOrderStatus.setText("음료 준비 완료");
                             break;
                         case R.id.popup_order_take_out_complete:
-                            AdminCoffeeOrderItem test = items.get(getAdapterPosition());
-                            //Log.e("@@@", test.get)
-
                             int removeIndex = getAdapterPosition();
+
                             notifyItemRemoved(removeIndex);
                             items.remove(removeIndex);
                             break;
