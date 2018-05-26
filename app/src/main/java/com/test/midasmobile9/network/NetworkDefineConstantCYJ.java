@@ -2,7 +2,7 @@ package com.test.midasmobile9.network;
 
 public class NetworkDefineConstantCYJ {
     // Host 주소
-    public static final String HOST_URL = "http://192.168.0.21:52273";
+    public static final String HOST_URL = "http://192.168.43.239:52273";
 
     public static String SERVER_URL_GET_ORDERS;
     public static String SERVER_URL_GET_ORDER_DONE;
