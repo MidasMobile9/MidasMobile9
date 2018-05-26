@@ -15,9 +15,11 @@ import android.view.View;
 
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.application.MidasMobile9Application;
+import com.test.midasmobile9.fragment.AdminProfileFragment;
 import com.test.midasmobile9.fragment.CustomerFragment;
 import com.test.midasmobile9.fragment.MenuManagerFragment;
 import com.test.midasmobile9.fragment.MenuOrderFragment;
+import com.test.midasmobile9.fragment.UserProfileFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -79,12 +81,14 @@ public class AdminActivity extends AppCompatActivity {
     public void setBottomNavigationView() {
         // 프래그먼트 매니저
         final FragmentManager fragmentManager = getSupportFragmentManager();
-        // 홈 프래그먼트
+        // 주문내역 프래그먼트
         final MenuOrderFragment menuOrderFragment = MenuOrderFragment.newInstance("Order", "MenuOrderFragment");
-        // 콘텐츠 프래그먼트
+        // 메뉴관리 프래그먼트
         final MenuManagerFragment menuManagerFragment = MenuManagerFragment.newInstance("Manager", "MenuManagerFragment");
-        // 프로필 프래그먼트
-        final CustomerFragment customerFragment = CustomerFragment.newInstance("Customer", "MainActivity");
+        // 고객정보 프래그먼트
+        final CustomerFragment customerFragment = CustomerFragment.newInstance("Customer", "CustomerFragment");
+        // 프로필 프로그먼트
+        final AdminProfileFragment adminProfileFragment = AdminProfileFragment.newInstance("AdminProfile", "AdminProfileFragment");
 
         // 첫 시작 프래그먼트로 홈 프래그먼트 지정
         fragmentManager.beginTransaction().replace(R.id.frameLayoutFragmentContainer, menuOrderFragment).commit();
@@ -104,6 +108,8 @@ public class AdminActivity extends AppCompatActivity {
                     case R.id.bottom_customer:
                         fragment = customerFragment;
                         break;
+                    case R.id.bottom_profile:
+                        fragment = adminProfileFragment;
                 }
 
                 // 이런식으로 프래그먼트에 따라 Floating Action 버튼 기능 설정
@@ -113,12 +119,15 @@ public class AdminActivity extends AppCompatActivity {
                     floatingActionButton.setVisibility(View.VISIBLE);
                 } else if ( fragment instanceof CustomerFragment ) {
                     floatingActionButton.setVisibility(View.VISIBLE);
+                } else if ( fragment instanceof AdminProfileFragment ) {
+                    floatingActionButton.setVisibility(View.VISIBLE);
                 }
 
                 fragmentManager.beginTransaction()
                         .setCustomAnimations(R.anim.fragment_fade_in, R.anim.fragment_fade_out)
                         .replace(R.id.frameLayoutFragmentContainer, fragment)
                         .commit();
+
                 return true;
             }
         };
@@ -132,10 +141,12 @@ public class AdminActivity extends AppCompatActivity {
             public void onRefresh() {
 
                 if ( fragment instanceof MenuOrderFragment ) {
-                    Log.e("@@@", "홈");
+                    Log.e("@@@", "주문내역");
                 } else if ( fragment instanceof MenuManagerFragment ) {
-                    Log.e("@@@", "콘텐츠");
+                    Log.e("@@@", "메뉴관리");
                 } else if ( fragment instanceof CustomerFragment ) {
+                    Log.e("@@@", "고객정보");
+                } else if ( fragment instanceof AdminProfileFragment ) {
                     Log.e("@@@", "프로필");
                 }
             }
