@@ -25,6 +25,10 @@ public class CoffeeOrderItem implements Parcelable{
     private int state;
     @SerializedName("date")
     private String date;
+    @SerializedName("name")
+    private String name;
+    @SerializedName("img")
+    private String img;
 
     protected CoffeeOrderItem(Parcel in) {
         no = in.readInt();
@@ -36,6 +40,8 @@ public class CoffeeOrderItem implements Parcelable{
         price = in.readInt();
         state = in.readInt();
         date = in.readString();
+        name = in.readString();
+        img = in.readString();
     }
 
     public static final Creator<CoffeeOrderItem> CREATOR = new Creator<CoffeeOrderItem>() {
@@ -49,18 +55,6 @@ public class CoffeeOrderItem implements Parcelable{
             return new CoffeeOrderItem[size];
         }
     };
-
-    public CoffeeOrderItem(int no, int user_no, int menu_no, int size, int hotcold, int count, int price, int state, String date) {
-        this.no = no;
-        this.user_no = user_no;
-        this.menu_no = menu_no;
-        this.size = size;
-        this.hotcold = hotcold;
-        this.count = count;
-        this.price = price;
-        this.state = state;
-        this.date = date;
-    }
 
     @Override
     public int describeContents() {
@@ -78,6 +72,22 @@ public class CoffeeOrderItem implements Parcelable{
         dest.writeInt(price);
         dest.writeInt(state);
         dest.writeString(date);
+        dest.writeString(name);
+        dest.writeString(img);
+    }
+
+    public CoffeeOrderItem(int no, int user_no, int menu_no, int size, int hotcold, int count, int price, int state, String date, String name, String img) {
+        this.no = no;
+        this.user_no = user_no;
+        this.menu_no = menu_no;
+        this.size = size;
+        this.hotcold = hotcold;
+        this.count = count;
+        this.price = price;
+        this.state = state;
+        this.date = date;
+        this.name = name;
+        this.img = img;
     }
 
     public int getNo() {
@@ -150,5 +160,21 @@ public class CoffeeOrderItem implements Parcelable{
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

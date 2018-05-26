@@ -255,19 +255,21 @@
             android:id="@+id/userOrderOptionTotalPriceTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:gravity="center"
             android:hint="Price"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/userOrderOptionTotalOrderTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/colorAccent"
             android:gravity="center"
             android:text="주문"
-            android:textColor="@color/colorAccent"
+            android:textColor="@android:color/white"
             android:textSize="24sp" />
     </LinearLayout>
 
