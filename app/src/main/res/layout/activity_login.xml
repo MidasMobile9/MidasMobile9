@@ -5,7 +5,7 @@
     android:id="@+id/linearLayoutLoginActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorLightBlue"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <View
@@ -39,8 +39,8 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/edittext_rectangle"
         android:hint="@string/edittext_hint_email"
-        android:maxLength="@integer/email_max_length"
         android:inputType="textEmailAddress"
+        android:maxLength="@integer/email_max_length"
         android:paddingLeft="10dp" />
 
     <EditText
@@ -51,10 +51,10 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginTop="10dp"
-        android:maxLength="@integer/password_max_length"
         android:background="@drawable/edittext_rectangle"
         android:hint="@string/edittext_hint_password"
         android:inputType="textPassword"
+        android:maxLength="@integer/password_max_length"
         android:paddingLeft="10dp" />
 
     <LinearLayout
@@ -64,19 +64,21 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         android:orientation="vertical">
+
         <CheckBox
-            android:checked="true"
             android:id="@+id/checkBoxAutoLogin"
-            android:buttonTint="@android:color/black"
-            android:text="@string/login_auto"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:buttonTint="@android:color/black"
+            android:checked="true"
+            android:text="@string/login_auto" />
+
         <CheckBox
             android:id="@+id/checkBoxAdmin"
-            android:buttonTint="@android:color/black"
-            android:text="@string/admin_login_checkbox"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:buttonTint="@android:color/black"
+            android:text="@string/admin_login_checkbox" />
 
     </LinearLayout>
 

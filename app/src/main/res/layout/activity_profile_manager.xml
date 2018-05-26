@@ -149,7 +149,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:background="@drawable/selector_blue_button"
+            android:background="@color/colorPrimary"
             android:clickable="true"
             android:padding="4dp"
             android:text="개인정보처리방침"
@@ -206,7 +206,7 @@
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="@string/default_email"
-                android:textColor="@color/colorLightBlue"
+                android:textColor="@color/colorAccent"
                 android:textSize="14dp" />
 
             <TextView

@@ -5,7 +5,7 @@
     android:id="@+id/linearLayoutJoinActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorLightBlue"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <View
@@ -70,25 +70,25 @@
 
                 <CheckBox
                     android:id="@+id/checkBoxAdmin"
-                    android:buttonTint="@android:color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:checked="true"
-                    android:text="@string/admin_join_checkbox" />
+                    android:buttonTint="@android:color/black"
+                    android:text="@string/admin_join_checkbox"
+                    tools:checked="true" />
 
                 <EditText
                     android:id="@+id/editTextInputAdminCode"
-                    android:hint="@string/admin_join_code_hint"
-                    tools:visibility="visible"
-                    android:visibility="gone"
-                    android:paddingLeft="10dp"
-                    android:background="@drawable/edittext_rectangle"
                     android:layout_width="match_parent"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:maxLength="@integer/admin_join_code_hint_length"
+                    android:layout_height="40dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_height="40dp" />
+                    android:background="@drawable/edittext_rectangle"
+                    android:hint="@string/admin_join_code_hint"
+                    android:inputType="text"
+                    android:maxLength="@integer/admin_join_code_hint_length"
+                    android:maxLines="1"
+                    android:paddingLeft="10dp"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
             </LinearLayout>
 
 
@@ -178,6 +178,7 @@
                 android:maxLines="1"
                 android:paddingLeft="10dp"
                 android:textSize="18dp" />
+
             <EditText
                 android:id="@+id/editTextPhone"
                 android:layout_width="200dp"
@@ -187,21 +188,22 @@
                 android:background="@drawable/edittext_rectangle"
                 android:hint="핸드폰번호"
                 android:inputType="phone"
-                android:maxLines="1"
                 android:maxLength="@integer/phone_max_length"
+                android:maxLines="1"
                 android:paddingLeft="10dp"
                 android:textSize="18dp" />
+
             <EditText
                 android:id="@+id/editTextPart"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:maxLines="1"
                 android:background="@drawable/edittext_rectangle"
                 android:hint="부서"
                 android:inputType="textPersonName"
                 android:maxLength="@integer/nickname_max_length"
+                android:maxLines="1"
                 android:paddingLeft="10dp"
                 android:textSize="18dp" />
 
