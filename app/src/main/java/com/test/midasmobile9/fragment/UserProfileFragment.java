@@ -23,6 +23,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.signature.MediaStoreSignature;
+import com.bumptech.glide.signature.StringSignature;
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.activity.LoginActivity;
 import com.test.midasmobile9.activity.MainActivity;
@@ -35,9 +37,11 @@ import com.test.midasmobile9.model.ProfileModel;
 import com.test.midasmobile9.network.NetworkDefineConstantOSH;
 import com.test.midasmobile9.util.SharePreferencesUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -52,7 +56,7 @@ import static com.test.midasmobile9.util.SharePreferencesUtil.KEY_PASSWORD;
 import static com.test.midasmobile9.util.SharePreferencesUtil.KEY_ROOT;
 
 public class UserProfileFragment extends Fragment {
-    public static final int REQUEST_CODE_PROFILE_MANAGER_ACTIVITY = 301;
+    public static final int REQUEST_CODE_PROFILE_MANAGER_ACTIVITY = 302;
 
     public static String USER_NAME;
 
@@ -144,10 +148,10 @@ public class UserProfileFragment extends Fragment {
         return rootView;
     }
 
-    public void setYearMonth(){
+    public void setYearMonth() {
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-        selectedYear =  calendar.get(Calendar.YEAR);
-        selectedMonth =  calendar.get(Calendar.MONTH) + 1;
+        selectedYear = calendar.get(Calendar.YEAR);
+        selectedMonth = calendar.get(Calendar.MONTH) + 1;
         userHistoryYearTextView.setText(selectedYear + "");
         userHistoryMonthTextView.setText(selectedMonth + "");
 
@@ -159,23 +163,10 @@ public class UserProfileFragment extends Fragment {
         super.onResume();
 
         // 유저 프로필 사진 세팅
-        if ( MidasMobile9Application.user.getProfileimg() != null ) {
-            Glide.with(UserProfileFragment.this)
-                    .load(NetworkDefineConstantOSH.SERVER_URL_GET_PROFILE_IMG + MidasMobile9Application.user.getProfileimg())
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)
-                    .into(circleImageViewProfileFragmentProfileImage);
+        updateProfileImage();
 
-        } else {
-            Glide.with(UserProfileFragment.this)
-                    .load(R.drawable.ic_profile_black_48dp)
-                    .into(circleImageViewProfileFragmentProfileImage);
-        }
-
-        // 유저 닉네임 세팅
-        textViewProfileFragmentProfileNickname.setText(MidasMobile9Application.user.getNickname());
-        // 유저 이메일 세팅
-        textViewProfileFragmentProfileEmail.setText(MidasMobile9Application.user.getEmail());
+        // 유저 닉네임, 이메일 세팅
+        updateProfileNicknameAndEmail();
     }
 
     @Override
@@ -198,6 +189,8 @@ public class UserProfileFragment extends Fragment {
                     // 프래그먼트 새로고침
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     ft.detach(UserProfileFragment.this).attach(UserProfileFragment.this).commit();
+                    updateProfileImage();
+                    updateProfileNicknameAndEmail();
                 } else if (resultCode == Activity.RESULT_CANCELED) {
                     /**
                      * 프로필을 변경 하지 않았음
@@ -207,6 +200,24 @@ public class UserProfileFragment extends Fragment {
         }
     }
 
+    private void updateProfileNicknameAndEmail(){
+        textViewProfileFragmentProfileNickname.setText(MidasMobile9Application.user.getNickname());
+        textViewProfileFragmentProfileEmail.setText(MidasMobile9Application.user.getEmail());
+    }
+
+    public void updateProfileImage() {
+        if (MidasMobile9Application.user.getProfileimg() != null) {
+            circleImageViewProfileFragmentProfileImage.setImageDrawable(null);
+            Glide.with(UserProfileFragment.this)
+                    .load(NetworkDefineConstantOSH.SERVER_URL_GET_PROFILE_IMG + MidasMobile9Application.user.getProfileimg())
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .into(circleImageViewProfileFragmentProfileImage);
+
+        }
+
+    }
+
     @OnClick(R.id.textViewProfileFragmentModifyProfile)
     public void onModifyProfileCllick() {
         Intent intent = new Intent(mContext, ProfileManagerActivity.class);
@@ -214,7 +225,7 @@ public class UserProfileFragment extends Fragment {
     }
 
     @OnClick(R.id.textViewProfileFragmentLogout)
-    public void onProfileLogoutClick(){
+    public void onProfileLogoutClick() {
         // 로그아웃
         new UserLogoutTask().execute();
     }
@@ -234,15 +245,15 @@ public class UserProfileFragment extends Fragment {
     }
 
 
-    public void startRefreshHistory(){
+    public void startRefreshHistory() {
         coffeeHistoryOrderItems.clear();
         userHistoryRecyclerAdapter.notifyDataSetChanged();
         new GetHistoryAsyncTask().execute();
     }
 
-    public void changeTotalPrice(){
+    public void changeTotalPrice() {
         totalPrice = 0;
-        for(CoffeeOrderItem coffeeOrderItem : coffeeHistoryOrderItems){
+        for (CoffeeOrderItem coffeeOrderItem : coffeeHistoryOrderItems) {
             totalPrice += coffeeOrderItem.getPrice();
         }
         userHistoryTotalPriceTextView.setText(totalPrice + " 원");
@@ -252,25 +263,25 @@ public class UserProfileFragment extends Fragment {
             R.id.userHistoryYearReduceImageView,
             R.id.userHistoryMonthIncreaseImageView,
             R.id.userHistoryMonthReduceImageView})
-    public void onUserHistorySearchOptionClick(View v){
-        switch (v.getId()){
+    public void onUserHistorySearchOptionClick(View v) {
+        switch (v.getId()) {
             case R.id.userHistoryYearIncreaseImageView:
-                if(selectedYear < 2199 && selectedYear > 1970 ){
+                if (selectedYear < 2199) {
                     selectedYear++;
                 }
                 break;
             case R.id.userHistoryYearReduceImageView:
-                if(selectedYear < 2199 && selectedYear > 1970 ){
+                if (selectedYear > 1970) {
                     selectedYear--;
                 }
                 break;
             case R.id.userHistoryMonthIncreaseImageView:
-                if(selectedMonth < 12 && selectedMonth > 1){
+                if (selectedMonth < 12) {
                     selectedMonth++;
                 }
                 break;
             case R.id.userHistoryMonthReduceImageView:
-                if(selectedMonth < 12 && selectedMonth > 1){
+                if (selectedMonth > 1) {
                     selectedMonth--;
                 }
                 break;
@@ -284,12 +295,11 @@ public class UserProfileFragment extends Fragment {
     }
 
     @OnClick(R.id.userHistorySearchTextView)
-    public void onUserHistorySearchTextViewClick(){
+    public void onUserHistorySearchTextViewClick() {
         coffeeHistoryOrderItems.clear();
         userHistoryRecyclerAdapter.notifyDataSetChanged();
         new GetHistoryAsyncTask().execute();
     }
-
     // AsyncTask ====================================================================================
 
 
@@ -310,13 +320,13 @@ public class UserProfileFragment extends Fragment {
         protected void onPostExecute(Boolean isLogouted) {
             super.onPostExecute(isLogouted);
 
-            if ( isLogouted ) {
+            if (isLogouted) {
                 // 로그아웃 성공
                 MidasMobile9Application.clearCookie();
                 MidasMobile9Application.clearUser();
-                SharePreferencesUtil.removePreferences(mContext,KEY_EMAIL);
-                SharePreferencesUtil.removePreferences(mContext,KEY_PASSWORD);
-                SharePreferencesUtil.removePreferences(mContext,KEY_ROOT);
+                SharePreferencesUtil.removePreferences(mContext, KEY_EMAIL);
+                SharePreferencesUtil.removePreferences(mContext, KEY_PASSWORD);
+                SharePreferencesUtil.removePreferences(mContext, KEY_ROOT);
                 Intent intent = new Intent(mContext, LoginActivity.class);
                 startActivity(intent);
                 mActivity.finish();

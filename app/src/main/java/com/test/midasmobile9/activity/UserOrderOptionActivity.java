@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.application.MidasMobile9Application;
 import com.test.midasmobile9.data.CoffeeMenuItem;
@@ -170,6 +171,8 @@ public class UserOrderOptionActivity extends AppCompatActivity {
     private void setCoffeeMenuItemToView() {
         Glide.with(this)
                 .load(NetworkDefineConstantOSH.SERVER_URL_GET_MENU_IMG + coffeeMenuItem.getImg()) // 이미지 URL 주소
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
                 .into(userOrderOptionImageView);
         //Glide.with(this)
         //        .load(R.drawable.ic_coffee_24dp)

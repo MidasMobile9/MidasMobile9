@@ -3,6 +3,7 @@ package com.test.midasmobile9.activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.application.MidasMobile9Application;
@@ -35,6 +37,11 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
 
+    @BindView(R.id.mainActivityMainLayout)
+    LinearLayout mainActivityMainLayout;
+
+    long mBackPressedTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +61,27 @@ public class MainActivity extends AppCompatActivity {
          *
          * ex) AsyncTask의 onPostExcute()에서 데이터 리프레쉬 후 호출
          * */
+    }
+
+
+
+    @Override
+    public void onBackPressed() {
+        // 드로어가 닫혀있으면 앱 종료
+        if (System.currentTimeMillis() - mBackPressedTime > 2000) {
+            Snackbar.make(mainActivityMainLayout, "뒤로 버튼을 한번 더 눌리시면 주문을 취소합니다", Snackbar.LENGTH_LONG)
+                    .setAction("EXIT", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            finish();
+                        }
+                    })
+                    .show();
+            mBackPressedTime = System.currentTimeMillis();
+        } else {
+            finish();
+        }
+
     }
 
     public void endRefreshOrderMenu() {
@@ -86,6 +114,10 @@ public class MainActivity extends AppCompatActivity {
                     orderSuccess();
                 } else if (resultCode == RESULT_CANCELED){
                     orderCancle();
+                }
+                break;
+            case UserProfileFragment.REQUEST_CODE_PROFILE_MANAGER_ACTIVITY:
+                if(resultCode == RESULT_OK){
                 }
                 break;
         }
@@ -162,10 +194,8 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-
     private void orderSuccess() {
         showMenuLookupFragment();
-        //((UserLookupFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_USER_LOOKUP_TAG)).startRefreshLookup();
     }
 
     private void showMenuLookupFragment() {

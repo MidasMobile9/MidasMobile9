@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,6 +33,8 @@ import com.test.midasmobile9.util.PasswordUtil;
 import com.test.midasmobile9.util.ProgressBarShow;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -112,22 +115,22 @@ public class ProfileManagerActivity extends AppCompatActivity {
         String newPasswordFirst = editTextProfileManagerNewPasswordFirst.getText().toString().trim();
         String newPasswordSecond = editTextProfileManagerNewPasswordSecond.getText().toString().trim();
 
-        if ( newPasswordFirst.length() < 1 ) {
+        if (newPasswordFirst.length() < 1) {
             newPasswordFirst = null;
         }
 
         // 오리지날 비밀번호 형식 체크
-        if ( !PasswordUtil.checkPassword(getApplicationContext(), originalPassword, MidasMobile9Application.user.getEmail()) ) {
+        if (!PasswordUtil.checkPassword(getApplicationContext(), originalPassword, MidasMobile9Application.user.getEmail())) {
             return;
         }
 
         // 새 비밀번호 형식 체크
-        if ( newPasswordFirst != null && !PasswordUtil.checkPassword(getApplicationContext(), newPasswordFirst, MidasMobile9Application.user.getEmail()) ) {
+        if (newPasswordFirst != null && !PasswordUtil.checkPassword(getApplicationContext(), newPasswordFirst, MidasMobile9Application.user.getEmail())) {
             return;
         }
 
         // 새 비밀번호, 새 비밀번호 확인 일치 체크
-        if ( newPasswordFirst != null && !newPasswordFirst.equals(newPasswordSecond) ) {
+        if (newPasswordFirst != null && !newPasswordFirst.equals(newPasswordSecond)) {
             Snackbar.make(contentsLinearLayout, R.string.new_password_not_matched, Snackbar.LENGTH_LONG).show();
             return;
         }
@@ -201,21 +204,24 @@ public class ProfileManagerActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Object... params) {
-            String email = (String)params[0];
-            String password = (String)params[1];
-            String nickname = (String)params[2];
-            String newpassword = (String)params[3];
-            boolean isChangeProfileImage = (boolean)params[4];
-            File imageFile = (File)params[5];
+            String email = (String) params[0];
+            String password = (String) params[1];
+            String nickname = (String) params[2];
+            String newpassword = (String) params[3];
+            boolean isChangeProfileImage = (boolean) params[4];
+            File imageFile = (File) params[5];
 
-            boolean isUpdated = ProfileManagerModel.updateUserInfo(email, password, nickname, newpassword, isChangeProfileImage, imageFile);
+            Map<String, Object> resultMap = ProfileManagerModel.updateUserInfo(email, password, nickname, newpassword, isChangeProfileImage, imageFile);
 
             // 유저 정보 업데이트
-            if ( isUpdated ) {
+            boolean isUpdated = (boolean) resultMap.get("result");
+            if (isUpdated) {
                 MidasMobile9Application.user.setNickname(nickname);
 
-                if ( isChangeProfileImage ) {
-                    MidasMobile9Application.user.setProfileimg(email + ".png");
+                if (isChangeProfileImage) {
+                    String profileimg = (String) resultMap.get("profileimg");
+                    MidasMobile9Application.user.setProfileimg(profileimg);
+                    Log.d("TEMPTAST", "isChangeProfile and profileimg : " + profileimg);
                 }
             }
 
@@ -227,7 +233,7 @@ public class ProfileManagerActivity extends AppCompatActivity {
             super.onPostExecute(isUpdated);
             ProgressBarShow.getProgressBarShowSingleton(ProfileManagerActivity.this).remove(coordinatorLayout);
 
-            if ( isUpdated ) {
+            if (isUpdated) {
                 Intent intent = getIntent();
                 setResult(RESULT_OK, intent);
 

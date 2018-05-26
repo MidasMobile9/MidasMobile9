@@ -13,6 +13,8 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.UnknownHostException;
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.FormBody;
 import okhttp3.MediaType;
@@ -25,12 +27,15 @@ public class ProfileManagerModel {
     // ProfileManagerActivity의 Model static 함수 정의
     private static final String TAG = "ProfileManagerModel";
 
-    public static boolean updateUserInfo(String email, String password, String nickname, String newpassword, boolean isChangeProfileImage, File imageFile) {
+    public static Map<String, Object> updateUserInfo(String email, String password, String nickname, String newpassword, boolean isChangeProfileImage, File imageFile) {
         OkHttpClient client = OkHttpInitSingletonManager.getOkHttpClient();
         Response response = null;
 
         boolean isUpdated = false;
         String message = null;
+        String profileimg;
+
+        Map<String, Object> resultMap = new HashMap<String, Object>();
 
         // 수정할 데이터의 정보를 담은 RequestBody 생성
         RequestBody requestBody = null;
@@ -60,16 +65,27 @@ public class ProfileManagerModel {
             if (response == null) {
                 Log.e(TAG, "Response of updateUserInfo() is null.");
 
-                return false;
+                return null;
             } else {
                 JSONObject jsonFromServer = new JSONObject(response.body().string());
 
+
                 if (jsonFromServer.has("result")) {
                     isUpdated = jsonFromServer.getBoolean("result");
+                    Log.d("TEMPTAST", jsonFromServer + "");
+                    resultMap.put("result", isUpdated);
                 }
 
                 if (jsonFromServer.has("message")) {
                     message = jsonFromServer.getString("message");
+                    resultMap.put("message", message);
+                }
+
+                if(isUpdated){
+                    if(jsonFromServer.has("data")) {
+                        profileimg = jsonFromServer.getJSONObject("data").getString("profileimg");
+                        resultMap.put("profileimg", profileimg);
+                    }
                 }
             }
         } catch (UnknownHostException e) {
@@ -84,7 +100,7 @@ public class ProfileManagerModel {
             }
         }
 
-        return isUpdated;
+        return resultMap;
     }
 
     public static boolean deleteUser(String email, String password){
