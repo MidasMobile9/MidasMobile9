@@ -9,8 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.data.CoffeeOrderItem;
+import com.test.midasmobile9.util.ParseServerState;
 
 import java.util.ArrayList;
 
@@ -42,17 +44,23 @@ public class UserLookupMenuRecyclerAdapter extends RecyclerView.Adapter<UserLook
     public UserLookupMenuRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_lookup, parent, false);
         ViewHolder vh = new ViewHolder(v);
-        return null;
+        return vh;
     }
 
     @Override
     public void onBindViewHolder(@NonNull UserLookupMenuRecyclerAdapter.ViewHolder holder, int position) {
         holder.userMenuLookupCardTitleTextView.setText(userLookupOrderItemList.get(position).getName());
-        holder.userMenuLookupCardStateTextView.setText(userLookupOrderItemList.get(position).getState());
+        holder.userMenuLookupCardStateTextView.setText(ParseServerState.getState(userLookupOrderItemList.get(position).getState()));
+        //Glide.with(activity)
+        //        .load(URL_IMAGE + userLookupOrderItemList.get(position).getImg()) // 이미지 URL 주소
+        //        .into(userMenuOrderCardImageView);
+        Glide.with(activity)
+                .load(R.drawable.ic_profile_default_48dp)
+                .into(holder.userMenuLookupCardImageView);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return userLookupOrderItemList.size();
     }
 }
