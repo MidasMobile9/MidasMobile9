@@ -23,11 +23,8 @@ import com.test.midasmobile9.activity.MainActivity;
 import com.test.midasmobile9.activity.ProfileManagerActivity;
 import com.test.midasmobile9.application.MidasMobile9Application;
 import com.test.midasmobile9.model.ProfileModel;
-<<<<<<< HEAD
 import com.test.midasmobile9.network.NetworkDefineConstant;
-=======
 import com.test.midasmobile9.util.SharePreferencesUtil;
->>>>>>> PIJ/JoinLogin
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
