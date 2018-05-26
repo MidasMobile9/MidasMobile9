@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.network.NetworkDefineConstant;
 import com.test.midasmobile9.util.ImageUtil;
@@ -63,7 +64,10 @@ public class MenuAddActivity extends AppCompatActivity {
                     Bitmap resizeBitmap = ImageUtil.scaleImageDownToBitmap(this, profileImageUri);
                     resultImageFile = ImageUtil.scaleImageDownToFile(this, profileImageUri);
                     isChangeProfileImage = true;
-                    imageViewMenuImage.setImageBitmap(resizeBitmap);
+
+                    Glide.with(MenuAddActivity.this)
+                            .load(data.getData())
+                            .into(imageViewMenuImage);
                 }
                 break;
         }

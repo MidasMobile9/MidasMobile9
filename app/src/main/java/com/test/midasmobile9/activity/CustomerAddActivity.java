@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.network.NetworkDefineConstant;
 import com.test.midasmobile9.util.ImageUtil;
@@ -60,7 +61,10 @@ public class CustomerAddActivity extends AppCompatActivity {
                     Bitmap resizeBitmap = ImageUtil.scaleImageDownToBitmap(this, profileImageUri);
                     resultImageFile = ImageUtil.scaleImageDownToFile(this, profileImageUri);
                     isChangeProfileImage = true;
-                    circleImageViewCustomerProfileImage.setImageBitmap(resizeBitmap);
+
+                    Glide.with(CustomerAddActivity.this)
+                            .load(data.getData())
+                            .into(circleImageViewCustomerProfileImage);
                 }
                 break;
         }
