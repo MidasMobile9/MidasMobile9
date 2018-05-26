@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginLeft="4dp"
@@ -23,7 +23,7 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:orientation="vertical">
 
@@ -32,28 +32,28 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    tools:civ_border_color="#03A9F4"
-                    tools:civ_border_width="2dp"
-                    tools:civ_circle_background_color="@color/colorGray"
-                    android:src="@drawable/ic_profile_black_48dp" />
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    tools:src="@drawable/ic_profile_black_48dp" />
 
                 <TextView
                     android:id="@+id/textViewCustomerInfo"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
+                    android:gravity="center_horizontal"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
-                    android:text="닉네임 / 부서이름"
+                    tools:text="닉네임 / 부서이름"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:textColor="@color/colorBlack"
                     android:textSize="10dp" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:layout_marginRight="5dp"
@@ -63,20 +63,23 @@
 
                 <TextView
                     android:id="@+id/textViewCoffeeName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="아메리카노"
+                    android:paddingLeft="8dp"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    tools:text="아메리카노"
+                    android:ellipsize="marquee"
                     android:textColor="@color/colorBlack"
-                    android:textSize="14dp" />
+                    android:textSize="16dp"
+                    android:singleLine="true" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:paddingLeft="16dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -84,7 +87,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="4"
+                        tools:text="4"
                         android:textColor="@color/colorBlack"
                         android:textSize="10dp" />
 
@@ -103,7 +106,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="L"
+                        tools:text="L"
                         android:textColor="@color/colorBlack"
                         android:textSize="10dp" />
 
@@ -122,7 +125,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text=" HOT and COLD"
+                        tools:text=" HOT and COLD"
                         android:textColor="@color/colorBlack"
                         android:textSize="10dp" />
 
@@ -133,33 +136,16 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="[ "
-                    android:textColor="@color/colorBlack"
-                    android:textSize="12dp" />
-
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal">
                 <TextView
                     android:id="@+id/textViewOrderStatus"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="테이크아웃 완료"
+                    tools:text="테이크아웃 완료"
                     android:textColor="@color/colorBlack"
-                    android:textSize="12dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" ]"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="12dp"/>
+                    android:textSize="14dp" />
 
             </LinearLayout>
 
