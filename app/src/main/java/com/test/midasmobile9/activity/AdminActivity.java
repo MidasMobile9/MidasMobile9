@@ -1,5 +1,6 @@
 package com.test.midasmobile9.activity;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -14,18 +15,16 @@ import android.view.View;
 
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.application.MidasMobile9Application;
-import com.test.midasmobile9.fragment.ContentFragment;
 import com.test.midasmobile9.fragment.CustomerFragment;
-import com.test.midasmobile9.fragment.HomeFragment;
 import com.test.midasmobile9.fragment.MenuManagerFragment;
 import com.test.midasmobile9.fragment.MenuOrderFragment;
-import com.test.midasmobile9.fragment.ProfileFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class AdminActivity extends AppCompatActivity {
+    private static final int REQUEST_CODE_ADD_NEW_MENU = 100;
 
     Fragment fragment = null;
 
@@ -67,7 +66,14 @@ public class AdminActivity extends AppCompatActivity {
 
     @OnClick(R.id.floatingActionButton)
     public void onClickFloatingActionButton(View view) {
+        if ( fragment instanceof MenuOrderFragment ) {
 
+        } else if ( fragment instanceof MenuManagerFragment ) {
+            Intent intent = new Intent(AdminActivity.this, MenuAddActivity.class);
+            startActivityForResult(intent, REQUEST_CODE_ADD_NEW_MENU);
+        } else if ( fragment instanceof CustomerFragment ) {
+
+        }
     }
 
     public void setBottomNavigationView() {
