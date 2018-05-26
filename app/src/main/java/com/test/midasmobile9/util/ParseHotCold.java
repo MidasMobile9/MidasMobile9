@@ -16,4 +16,14 @@ public class ParseHotCold {
 
         return null;
     }
+
+    public static int getHotColdInt(String hotcold){
+        switch (hotcold){
+            case HOT:
+                return 0;
+            case COLD:
+                return 1;
+        }
+        return 0;
+    }
 }

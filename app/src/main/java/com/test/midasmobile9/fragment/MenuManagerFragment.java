@@ -138,7 +138,6 @@ public class MenuManagerFragment extends Fragment {
         adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
         adapter.addItem(new AdminMenuItem(1, "녹차 프라프치노", "겁나 맛있어요", 3000, "basemenu.png", 2));
         /****************************************************************************************************/
-
         //recyclerViewMenuManager.setAdapter(adapter);
 
     }
