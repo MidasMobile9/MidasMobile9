@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import static android.content.Context.MODE_PRIVATE;
 
 public class SharePreferencesUtil {
-
+    public static String KEY_TOKEN = "token";
     public static String KEY_EMAIL = "email";
     public static String KEY_PASSWORD = "password";
     public static String KEY_ROOT = "root";

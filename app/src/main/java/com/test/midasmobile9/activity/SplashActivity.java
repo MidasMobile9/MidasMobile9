@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.test.midasmobile9.MyFirebaseInstanceIDService;
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.application.MidasMobile9Application;
 import com.test.midasmobile9.data.User;
@@ -104,7 +105,8 @@ public class SplashActivity extends AppCompatActivity {
                     // 로그인 성공
                     MidasMobile9Application.setCookie(cookie);
                     MidasMobile9Application.setUser(user.getNo(), user.getEmail(), user.getNickname(), user.getProfileimg());
-
+                    MyFirebaseInstanceIDService myFirebaseInstanceIDService = new MyFirebaseInstanceIDService(mContext);
+                    myFirebaseInstanceIDService.onTokenRefresh();
                     Intent intent;
                     if(root.equals("1")){
                         intent = new Intent(mContext,AdminActivity.class);

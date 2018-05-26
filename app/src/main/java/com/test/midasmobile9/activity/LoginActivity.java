@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.test.midasmobile9.MyFirebaseInstanceIDService;
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.application.MidasMobile9Application;
 import com.test.midasmobile9.data.User;
@@ -200,6 +201,8 @@ public class LoginActivity extends AppCompatActivity {
                     // 로그인 성공
                     MidasMobile9Application.setCookie(cookie);
                     MidasMobile9Application.setUser(user.getNo(), user.getEmail(), user.getNickname(), user.getProfileimg());
+                    MyFirebaseInstanceIDService myFirebaseInstanceIDService = new MyFirebaseInstanceIDService(mContext);
+                    myFirebaseInstanceIDService.onTokenRefresh();
                     if(isAutoLogin){
                         SharePreferencesUtil.savePreferences(mContext,KEY_EMAIL,strEmail);
                         SharePreferencesUtil.savePreferences(mContext,KEY_PASSWORD,strPassword);
