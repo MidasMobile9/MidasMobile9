@@ -31,9 +31,9 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         SPLASH_ACTIVITY = SplashActivity.this;
-        String email = SharePreferencesUtil.getPreferences(mContext,KEY_EMAIL);
-        String password = SharePreferencesUtil.getPreferences(mContext,KEY_PASSWORD);
-        String root = SharePreferencesUtil.getPreferences(mContext,KEY_ROOT);
+        email = SharePreferencesUtil.getPreferences(mContext,KEY_EMAIL);
+        password = SharePreferencesUtil.getPreferences(mContext,KEY_PASSWORD);
+        root = SharePreferencesUtil.getPreferences(mContext,KEY_ROOT);
         if(email!=null&&password!=null&&root!=null){
             new UserLoginTask().execute(email,password,root);
         }else{
