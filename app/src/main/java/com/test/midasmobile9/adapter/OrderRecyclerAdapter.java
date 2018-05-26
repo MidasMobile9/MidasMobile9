@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -123,7 +124,7 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
         }
 
         @OnClick(R.id.imageViewOrderPopMenu)
-        public void onClickItemMenu(View view) {
+        public void onClickOrderPopMenu(View view) {
             // 팝업메뉴 생성(두번째 인자 : 팝업메뉴가 보여질 앵커)
             PopupMenu popupMenu = new PopupMenu(context, imageViewOrderPopMenu);
             // 팝업메뉴 인플레이션
@@ -148,6 +149,9 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
                             textViewOrderStatus.setText("음료 준비 완료");
                             break;
                         case R.id.popup_order_take_out_complete:
+                            AdminCoffeeOrderItem test = items.get(getAdapterPosition());
+                            //Log.e("@@@", test.get)
+
                             int removeIndex = getAdapterPosition();
                             notifyItemRemoved(removeIndex);
                             items.remove(removeIndex);
