@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +24,16 @@ import com.test.midasmobile9.activity.LoginActivity;
 import com.test.midasmobile9.activity.MainActivity;
 import com.test.midasmobile9.activity.ProfileManagerActivity;
 import com.test.midasmobile9.application.MidasMobile9Application;
+import com.test.midasmobile9.data.AdminCoffeeOrderItem;
+import com.test.midasmobile9.data.CustomerInfoItem;
+import com.test.midasmobile9.model.AdminProfileModel;
 import com.test.midasmobile9.model.ProfileModel;
 import com.test.midasmobile9.network.NetworkDefineConstant;
 import com.test.midasmobile9.util.SharePreferencesUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -121,6 +130,8 @@ public class AdminProfileFragment extends Fragment {
         textViewProfileFragmentProfileNickname.setText(MidasMobile9Application.user.getNickname());
         // 유저 이메일 세팅
         textViewProfileFragmentProfileEmail.setText(MidasMobile9Application.user.getEmail());
+
+        new BestMenuInfoTask().execute();
     }
 
     @Override
@@ -194,6 +205,52 @@ public class AdminProfileFragment extends Fragment {
             } else {
                 // 로그아웃 실패
                 Toast.makeText(mActivity, "로그아웃에 실패하였습니다. 잠시 후 다시 시도해주세요.", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    public class BestMenuInfoTask extends AsyncTask<Void, Void, Map<String, Object>> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Map<String, Object> doInBackground(Void... voids) {
+            Map<String, Object> map = AdminProfileModel.getOrderDone();
+
+            return map;
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, Object> map) {
+            super.onPostExecute(map);
+
+            if ( map == null ) {
+
+            } else {
+                boolean result = false;
+                String message = null;
+                List<AdminCoffeeOrderItem> orderDoneList = null;
+
+                if ( map.containsKey("result") ) {
+                    result = (boolean)map.get("result");
+                }
+
+                if ( map.containsKey("message") ) {
+                    message = (String)map.get("message");
+                }
+
+                if ( map.containsKey("orderDoneList") ) {
+                    orderDoneList = (List<AdminCoffeeOrderItem>)map.get("orderDoneList");
+                }
+
+                if ( result ) {
+
+                } else {
+                    // 주문 목록 가져오기 실패
+                    Snackbar.make(circleImageViewProfileFragmentProfileImage, message, Snackbar.LENGTH_SHORT).show();
+                }
             }
         }
     }
