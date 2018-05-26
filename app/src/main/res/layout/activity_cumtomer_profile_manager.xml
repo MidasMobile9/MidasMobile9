@@ -158,7 +158,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/rectangle_dark"
             android:hint=" 010-0000-0000"
-            android:inputType="textPersonName"
+            android:inputType="phone"
             android:paddingLeft="10dp"
             android:textSize="18dp" />
 

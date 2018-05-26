@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="80dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
     android:layout_marginLeft="4dp"
     android:layout_marginRight="4dp"
     android:orientation="vertical">
@@ -19,11 +19,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:orientation="vertical">
 
@@ -31,20 +32,19 @@
                     android:id="@+id/circleImageViewCustomerImage"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
+                    android:src="@drawable/ic_profile_black_48dp"
                     tools:civ_border_color="#03A9F4"
                     tools:civ_border_width="2dp"
-                    tools:civ_circle_background_color="@color/colorGray"
-                    android:src="@drawable/ic_profile_black_48dp" />
+                    tools:civ_circle_background_color="@color/colorGray" />
 
                 <TextView
                     android:id="@+id/textViewCustomerInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
                     android:text="닉네임 / 부서이름"
                     android:textColor="@color/colorBlack"
@@ -55,10 +55,10 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_marginBottom="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
@@ -128,14 +128,25 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/textViewTotalPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="1000원"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="10dp" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_gravity="center"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -159,7 +170,7 @@
                     android:layout_height="wrap_content"
                     android:text=" ]"
                     android:textColor="@color/colorBlack"
-                    android:textSize="12dp"/>
+                    android:textSize="12dp" />
 
             </LinearLayout>
 

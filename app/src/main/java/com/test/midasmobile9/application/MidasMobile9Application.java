@@ -58,6 +58,7 @@ public class MidasMobile9Application extends Application  {
 
     public static void clearUser() {
         user = null;
+        Log.e("USER","CLEAR USER");
     }
 
     /** Glide 사용시 OOM 처리 */
