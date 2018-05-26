@@ -156,7 +156,8 @@
             android:layout_gravity="center"
             android:layout_marginLeft="4dp"
             android:layout_weight="1"
-            android:text="년" />
+            android:text="년"
+            android:textSize="18sp" />
 
         <Spinner
             android:id="@+id/userHistoryMonthSpinner"
@@ -171,17 +172,19 @@
             android:layout_gravity="center"
             android:layout_marginLeft="4dp"
             android:layout_weight="1"
-            android:text="월" />
+            android:text="월"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:gravity="center"
             android:text="검색"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
