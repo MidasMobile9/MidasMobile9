@@ -21,7 +21,7 @@
         <activity
             android:name=".activity.SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme"></activity>
+            android:theme="@style/SplashTheme" />
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait" />
@@ -45,9 +45,10 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.AdminActivity">
         </activity>
-        <activity android:name=".activity.MenuAddActivity"></activity>
+        <activity android:name=".activity.MenuAddActivity" />
         <activity android:name=".activity.MenuEditActivity" />
-        <activity android:name=".activity.CustomerProfileManagerActivity"></activity>
+        <activity android:name=".activity.CustomerProfileManagerActivity" />
+        <activity android:name=".activity.OrderTakeOutActivity"></activity>
     </application>
 
 </manifest>
