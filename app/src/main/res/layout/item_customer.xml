@@ -31,42 +31,52 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/textViewCustomerInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
                     android:text="닉네임 / 부서이름"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/textViewCustomerPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="5dp"
+                    android:text="전화번호"
                     android:textColor="@color/colorBlack"
                     android:textSize="10dp" />
 
                 <TextView
-                    android:id="@+id/textViewCustomerInfo"
+                    android:id="@+id/textViewCustomerEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp"
-                    android:text="닉네임 / 부서이름"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="10dp" />
-
-                <TextView
-                    android:id="@+id/textViewCustomerInfo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp"
-                    android:text="닉네임 / 부서이름"
+                    android:text="aaa@aaa.com"
                     android:textColor="@color/colorBlack"
                     android:textSize="10dp" />
 
             </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/imageViewCustomerPopMenu"
+                android:layout_width="32dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@drawable/selector_pop_menu"
+                android:src="@drawable/ic_pop_menu_black_24dp" />
 
         </LinearLayout>
 
