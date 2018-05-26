@@ -74,7 +74,7 @@
         <CheckBox
             android:id="@+id/checkBoxAdmin"
             android:buttonTint="@android:color/black"
-            android:text="@string/admin_join_checkbox"
+            android:text="@string/admin_login_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

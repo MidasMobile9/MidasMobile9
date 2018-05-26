@@ -22,6 +22,9 @@ public class SplashActivity extends AppCompatActivity {
 
     public static SplashActivity SPLASH_ACTIVITY = null;
     private Context mContext = SplashActivity.this;
+    private String email;
+    private String password;
+    private String root;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +103,12 @@ public class SplashActivity extends AppCompatActivity {
                     // 로그인 성공
                     MidasMobile9Application.setCookie(cookie);
                     MidasMobile9Application.setUser(user.getNo(), user.getEmail(), user.getNickname(), user.getProfileimg());
-                    Intent intent = new Intent(mContext,MainActivity.class);
+                    Intent intent;
+                    if(root.equals("1")){
+                        intent = new Intent(mContext,AdminActivity.class);
+                    }else{
+                        intent = new Intent(mContext,MainActivity.class);
+                    }
                     startActivity(intent);
                     finish();
                 } else {

@@ -205,7 +205,12 @@ public class LoginActivity extends AppCompatActivity {
                         SharePreferencesUtil.savePreferences(mContext,KEY_PASSWORD,strPassword);
                         SharePreferencesUtil.savePreferences(mContext,KEY_ROOT,String.valueOf(intRoot));
                     }
-                    Intent intent = new Intent(mContext,MainActivity.class);
+                    Intent intent;
+                    if(intRoot==1){
+                        intent = new Intent(mContext,AdminActivity.class);
+                    }else{
+                        intent = new Intent(mContext,MainActivity.class);
+                    }
                     startActivity(intent);
                     finish();
                 } else {
