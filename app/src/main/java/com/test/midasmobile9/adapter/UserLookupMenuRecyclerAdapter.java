@@ -55,7 +55,7 @@ public class UserLookupMenuRecyclerAdapter extends RecyclerView.Adapter<UserLook
         //        .load(URL_IMAGE + userLookupOrderItemList.get(position).getImg()) // 이미지 URL 주소
         //        .into(userMenuOrderCardImageView);
         Glide.with(activity)
-                .load(R.drawable.ic_profile_default_48dp)
+                .load(R.drawable.ic_coffee_24dp)
                 .into(holder.userMenuLookupCardImageView);
     }
 

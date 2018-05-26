@@ -47,7 +47,7 @@ public class UserOrderMenuRecyclerAdapter extends RecyclerView.Adapter<UserOrder
                 @Override
                 public void onClick(View v) {
                     Intent coffeeIntent = new Intent(activity, UserOrderOptionActivity.class);
-                    coffeeIntent.putExtra("COFFEE", userOrderMenuItemList.get(getAdapterPosition()));
+                    coffeeIntent.putExtra(UserOrderOptionActivity.COFFEE_MENU_ITEM_EXTRA_NAME, userOrderMenuItemList.get(getAdapterPosition()));
                     coffeeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     activity.startActivity(coffeeIntent);
                 }
@@ -71,12 +71,12 @@ public class UserOrderMenuRecyclerAdapter extends RecyclerView.Adapter<UserOrder
     @Override
     public void onBindViewHolder(@NonNull UserOrderMenuRecyclerAdapter.ViewHolder holder, int position) {
         holder.userMenuOrderCardTitleTextView.setText(userOrderMenuItemList.get(position).getName());
-        holder.userMenuOrderCardPriceTextView.setText(String.format("%s원", userOrderMenuItemList.get(position).getPrice()));
+        holder.userMenuOrderCardPriceTextView.setText(String.format("%s 원", userOrderMenuItemList.get(position).getPrice()));
         //Glide.with(activity)
         //        .load(URL_IMAGE + userOrderMenuItemList.get(position).getImg()) // 이미지 URL 주소
         //        .into(userMenuOrderCardImageView);
         Glide.with(activity)
-                .load(R.drawable.ic_profile_default_48dp)
+                .load(R.drawable.ic_coffee_24dp)
                 .into(holder.userMenuOrderCardImageView);
     }
 

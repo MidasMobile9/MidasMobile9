@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.activity.MainActivity;
 import com.test.midasmobile9.adapter.UserOrderMenuRecyclerAdapter;
-import com.test.midasmobile9.data.CoffeeOrderItem;
+import com.test.midasmobile9.data.CoffeeMenuItem;
 
 import java.util.ArrayList;
 
@@ -31,7 +31,7 @@ public class UserOrderFragment extends Fragment {
     private Context mContext = null;
     private MainActivity mActivity = null;
 
-    private ArrayList<CoffeeOrderItem.CoffeeMenuItem> coffeeMenuItems;
+    private ArrayList<CoffeeMenuItem> coffeeMenuItems;
     private LinearLayoutManager linearLayoutManager;
     private UserOrderMenuRecyclerAdapter userOrderMenuRecyclerAdapter;
 
@@ -112,9 +112,9 @@ public class UserOrderFragment extends Fragment {
     }
 
     private void addTestMenu(){
-        coffeeMenuItems.add(new CoffeeOrderItem.CoffeeMenuItem(0, "카페라떼", "카페라떼는 맛있습니다", 3000, "none", 1, 1 ));
-        coffeeMenuItems.add(new CoffeeOrderItem.CoffeeMenuItem(0, "아메리카노", "아메리카노도 맛있습니다", 3000, "none", 1, 1 ));
-        coffeeMenuItems.add(new CoffeeOrderItem.CoffeeMenuItem(0, "카페모카", "카페모카또한 맛있습니다", 3000, "none", 1, 1 ));
+        coffeeMenuItems.add(new CoffeeMenuItem(0, "카페라떼", "카페라떼는 맛있습니다", 3000, "none", 1, 1 ));
+        coffeeMenuItems.add(new CoffeeMenuItem(0, "아메리카노", "아메리카노도 맛있습니다", 3000, "none", 1, 1 ));
+        coffeeMenuItems.add(new CoffeeMenuItem(0, "카페모카", "카페모카또한 맛있습니다", 3000, "none", 1, 1 ));
 
     }
 }
