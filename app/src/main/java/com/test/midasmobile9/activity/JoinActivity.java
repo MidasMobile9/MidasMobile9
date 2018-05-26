@@ -19,11 +19,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.util.Encryption;
 import com.test.midasmobile9.util.Permission;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -81,7 +84,6 @@ public class JoinActivity extends AppCompatActivity {
     private String strPassWord;
     private String strNickName;
 
-    private Permission mPermission;
     private String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA};
@@ -94,8 +96,6 @@ public class JoinActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
         ButterKnife.bind(this);
-        mPermission = new Permission(this, permissions);
-        mPermission.setSnackbar(linearLayoutJoinActivity, getString(R.string.permission_snackbar_text), getString(R.string.permission_snackbar_text_rational));
     }
 
 
@@ -211,34 +211,37 @@ public class JoinActivity extends AppCompatActivity {
      */
     @OnClick({R.id.frameLayoutProfileImage})
     public void onClickJoinCircleImageViewProfileImage(View view) {
-        mPermission.checkPermissions();
+        TedPermission.with(mContext)
+                .setPermissionListener(permissionListener)
+                .setDeniedMessage(getString(R.string.permission_denied))
+                .setPermissions(permissions)
+                .check();
     }
-
     /**
      * 퍼미션 요청 결과
      */
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case 200: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-                    Intent intent = new Intent(Intent.ACTION_PICK);
-                    intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
-                    startActivityForResult(intent, PICK_FROM_ALBUM);
-                } else {
-                    mPermission.showNoPermissionSnackbarAndFinish();
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                }
-                return;
-            }
-
+    private PermissionListener permissionListener = new PermissionListener() {
+        @Override
+        public void onPermissionGranted() {
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
+            startActivityForResult(intent, PICK_FROM_ALBUM);
         }
-    }
+
+        @Override
+        public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+            Snackbar.make(linearLayoutProfileInfo, getString(R.string.permission_snackbar_text), Snackbar.LENGTH_LONG).setAction("설정", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    TedPermission.with(mContext)
+                            .setPermissionListener(permissionListener)
+                            .setDeniedMessage(getString(R.string.permission_denied))
+                            .setPermissions(permissions)
+                            .check();
+                }
+            });
+        }
+    };
 
     /**
      * 앨범에서 이미지를 가져온 후 이미지 세팅.
