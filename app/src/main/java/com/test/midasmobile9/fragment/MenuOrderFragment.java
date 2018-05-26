@@ -68,6 +68,8 @@ public class MenuOrderFragment extends Fragment {
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_menu_order, container, false);
         // 버터나이프
         unbinder = ButterKnife.bind(this, rootView);
+        // 초기화
+        init();
 
         return rootView;
     }
