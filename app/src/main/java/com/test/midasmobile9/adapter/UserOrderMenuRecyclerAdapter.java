@@ -65,6 +65,6 @@ public class UserOrderMenuRecyclerAdapter extends RecyclerView.Adapter<UserOrder
 
     @Override
     public int getItemCount() {
-        return 0;
+        return userOrderMenuItemList.size();
     }
 }
