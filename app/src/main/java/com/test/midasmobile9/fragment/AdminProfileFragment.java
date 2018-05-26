@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.activity.AdminActivity;
 import com.test.midasmobile9.activity.LoginActivity;
@@ -44,6 +45,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static com.test.midasmobile9.util.SharePreferencesUtil.KEY_EMAIL;
 import static com.test.midasmobile9.util.SharePreferencesUtil.KEY_PASSWORD;
 import static com.test.midasmobile9.util.SharePreferencesUtil.KEY_ROOT;
+import static com.test.midasmobile9.util.SharePreferencesUtil.KEY_TOKEN;
 
 public class AdminProfileFragment extends Fragment {
     public static final int REQUEST_CODE_ADMIN_PROFILE_FRAGMENT = 110;
@@ -199,6 +201,7 @@ public class AdminProfileFragment extends Fragment {
                 SharePreferencesUtil.removePreferences(mContext,KEY_EMAIL);
                 SharePreferencesUtil.removePreferences(mContext,KEY_PASSWORD);
                 SharePreferencesUtil.removePreferences(mContext,KEY_ROOT);
+                SharePreferencesUtil.removePreferences(mContext,KEY_TOKEN);
                 Intent intent = new Intent(mContext, LoginActivity.class);
                 startActivity(intent);
                 mActivity.finish();
