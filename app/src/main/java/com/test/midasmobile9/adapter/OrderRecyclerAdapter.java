@@ -74,6 +74,7 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
         holder.textViewOrderHotCold.setText(ParseHotCold.getHotCold(item.getHotcold()));
         // 주문 상태
         holder.textViewOrderStatus.setText(ParseServerState.getState(item.getState()));
+        holder.setItemStatusColor(item.getState());
         // 총 금액
         String totalPrice = item.getPrice() + " 원";
         holder.textViewTotalPrice.setText(totalPrice);
@@ -139,6 +140,22 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
             }
         }
 
+        public void setItemStatusColor(int state) {
+            if ( state == 0 ) {
+                textViewOrderStatus.setTextColor(context.getResources().getColor(R.color.colorLiteRed));
+            } else if ( state == 1 ) {
+                textViewOrderStatus.setTextColor(context.getResources().getColor(R.color.colorPrimaryDark));
+            } else if ( state == 2 ) {
+                textViewOrderStatus.setTextColor(context.getResources().getColor(R.color.colorLime));
+            } else if ( state == 3 ) {
+                textViewOrderStatus.setTextColor(context.getResources().getColor(R.color.colorLightBlue));
+            } else if ( state == 4 ) {
+                textViewOrderStatus.setTextColor(context.getResources().getColor(R.color.colorLightGreen));
+            } else {
+                textViewOrderStatus.setTextColor(context.getResources().getColor(R.color.colorLightGreen));
+            }
+        }
+
         @OnClick(R.id.imageViewOrderPopMenu)
         public void onClickOrderPopMenu(View view) {
             int selectedIndex = getAdapterPosition();
@@ -165,26 +182,31 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
                     switch ( item.getItemId() ) {
                         case R.id.popup_order_confirm_before:
                             textViewOrderStatus.setText("주문 확인 전");
+                            textViewOrderStatus.setTextColor(context.getResources().getColor(R.color.colorLiteRed));
 
                             new OrderStateUpdateTask().execute(orderNo, 0, position);
                             break;
                         case R.id.popup_order_confirm_ok:
                             textViewOrderStatus.setText("주문 확인");
+                            textViewOrderStatus.setTextColor(context.getResources().getColor(R.color.colorPrimaryDark));
 
                             new OrderStateUpdateTask().execute(orderNo, 1, position);
                             break;
                         case R.id.popup_order_creating:
                             textViewOrderStatus.setText("음료 준비 중");
+                            textViewOrderStatus.setTextColor(context.getResources().getColor(R.color.colorLime));
 
                             new OrderStateUpdateTask().execute(orderNo, 2, position);
                             break;
                         case R.id.popup_order_creation_complete:
                             textViewOrderStatus.setText("음료 준비 완료");
+                            textViewOrderStatus.setTextColor(context.getResources().getColor(R.color.colorLightBlue));
 
                             new OrderStateUpdateTask().execute(orderNo, 3, position);
                             break;
                         case R.id.popup_order_take_out_complete:
-
+                            textViewOrderStatus.setText("테이크아웃 완료");
+                            textViewOrderStatus.setTextColor(context.getResources().getColor(R.color.colorLightGreen));
 
                             new OrderStateUpdateTask().execute(orderNo, 4, position);
                             break;
