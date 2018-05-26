@@ -1,6 +1,10 @@
 package com.test.midasmobile9.activity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +18,9 @@ import com.google.gson.annotations.SerializedName;
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.data.AdminMenuItem;
 import com.test.midasmobile9.network.NetworkDefineConstant;
+import com.test.midasmobile9.util.ImageUtil;
+
+import java.io.File;
 
 import butterknife.BindInt;
 import butterknife.BindView;
@@ -21,7 +28,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MenuEditActivity extends AppCompatActivity {
+    public static final int REQUEST_TAKE_PROFILE_FROM_ALBUM = 160;
+
     public static final String PROFILE_URL_HEADER = NetworkDefineConstant.HOST_URL + "/profileimg/";
+
+    private File resultImageFile;
+    private boolean isChangeProfileImage = false;
 
     AdminMenuItem editItem = null;
 
@@ -77,6 +89,32 @@ public class MenuEditActivity extends AppCompatActivity {
             checkBoxHot.setChecked(true);
             checkBoxCold.setChecked(true);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQUEST_TAKE_PROFILE_FROM_ALBUM:
+                if (resultCode == Activity.RESULT_OK) {
+                    Uri profileImageUri = data.getData();
+                    Bitmap resizeBitmap = ImageUtil.scaleImageDownToBitmap(this, profileImageUri);
+                    resultImageFile = ImageUtil.scaleImageDownToFile(this, profileImageUri);
+                    isChangeProfileImage = true;
+
+                    Glide.with(MenuEditActivity.this)
+                            .load(data.getData())
+                            .into(imageViewMenuImage);
+                }
+                break;
+        }
+    }
+
+    @OnClick(R.id.imageViewMenuImage)
+    public void onClickMenuImage(View view) {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+        startActivityForResult(intent, REQUEST_TAKE_PROFILE_FROM_ALBUM);
     }
 
     @OnClick(R.id.textViewEditComplete)

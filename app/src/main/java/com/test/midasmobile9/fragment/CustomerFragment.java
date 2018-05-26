@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.activity.AdminActivity;
 import com.test.midasmobile9.activity.MainActivity;
+import com.test.midasmobile9.adapter.CustomerRecyclerAdapter;
+import com.test.midasmobile9.data.CustomerInfoItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -96,6 +98,38 @@ public class CustomerFragment extends Fragment {
         recyclerViewCustomer.setLayoutManager(layoutManager);
 
         // 3. Adapter 설정
+        CustomerRecyclerAdapter adapter = new CustomerRecyclerAdapter(mActivity, layoutManager);
 
+        /********************************************************************************************/
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        adapter.addItem(new CustomerInfoItem(1, "tyrano09@gmail.com", "티라노", "baseprofile.png", "010-0000-0000", "모바일SW"));
+        /********************************************************************************************/
+
+        recyclerViewCustomer.setAdapter(adapter);
     }
 }

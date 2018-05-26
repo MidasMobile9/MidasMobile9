@@ -8,9 +8,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.test.midasmobile9.R;
@@ -22,36 +20,35 @@ import java.io.File;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MenuAddActivity extends AppCompatActivity {
-    public static final int REQUEST_TAKE_PROFILE_FROM_ALBUM = 130;
+public class CustomerAddActivity extends AppCompatActivity {
+    public static final int REQUEST_TAKE_PROFILE_FROM_ALBUM = 150;
 
     public static final String PROFILE_URL_HEADER = NetworkDefineConstant.HOST_URL + "/profileimg/";
 
     private File resultImageFile;
     private boolean isChangeProfileImage = false;
 
-    @BindView(R.id.imageViewMenuImage)
-    ImageView imageViewMenuImage;
-    @BindView(R.id.editTextMenuName)
-    EditText editTextMenuName;
-    @BindView(R.id.editTextMenuPrice)
-    EditText editTextMenuPrice;
-    @BindView(R.id.editTextMenuInfo)
-    EditText editTextMenuInfo;
-    @BindView(R.id.checkBoxHot)
-    CheckBox checkBoxHot;
-    @BindView(R.id.checkBoxCold)
-    CheckBox checkBoxCold;
-    @BindView(R.id.textViewEditComplete)
-    TextView textViewEditComplete;
+    @BindView(R.id.circleImageViewCustomerProfileImage)
+    CircleImageView circleImageViewCustomerProfileImage;
+    @BindView(R.id.editTextCustomerNickname)
+    EditText editTextCustomerNickname;
+    @BindView(R.id.editTextCustomerPart)
+    EditText editTextCustomerPart;
+    @BindView(R.id.editTextCustomerPhone)
+    EditText editTextCustomerPhone;
+    @BindView(R.id.editTextCustomerEmail)
+    EditText editTextCustomerEmail;
+    @BindView(R.id.editTextCustomerPassword)
+    TextView editTextCustomerPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu_add);
+        setContentView(R.layout.activity_customer_add);
         // 버터나이프
-        ButterKnife.bind(MenuAddActivity.this);
+        ButterKnife.bind(CustomerAddActivity.this);
     }
 
     @Override
@@ -63,13 +60,13 @@ public class MenuAddActivity extends AppCompatActivity {
                     Bitmap resizeBitmap = ImageUtil.scaleImageDownToBitmap(this, profileImageUri);
                     resultImageFile = ImageUtil.scaleImageDownToFile(this, profileImageUri);
                     isChangeProfileImage = true;
-                    imageViewMenuImage.setImageBitmap(resizeBitmap);
+                    circleImageViewCustomerProfileImage.setImageBitmap(resizeBitmap);
                 }
                 break;
         }
     }
 
-    @OnClick(R.id.imageViewMenuImage)
+    @OnClick(R.id.circleImageViewCustomerProfileImage)
     public void onCliclMenuImage(View view) {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
