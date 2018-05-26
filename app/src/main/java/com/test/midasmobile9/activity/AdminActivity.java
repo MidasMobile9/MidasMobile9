@@ -102,6 +102,7 @@ public class AdminActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().replace(R.id.frameLayoutFragmentContainer, menuOrderFragment).commit();
         // 프래그먼트 초기화
         fragment = menuOrderFragment;
+        floatingActionButton.setImageResource(R.drawable.ic_check_24dp);
 
         BottomNavigationView.OnNavigationItemSelectedListener OnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -123,10 +124,13 @@ public class AdminActivity extends AppCompatActivity {
                 // 이런식으로 프래그먼트에 따라 Floating Action 버튼 기능 설정
                 if ( fragment instanceof MenuOrderFragment ) {
                     floatingActionButton.setVisibility(View.VISIBLE);
+                    floatingActionButton.setImageResource(R.drawable.ic_check_24dp);
                 } else if ( fragment instanceof MenuManagerFragment ) {
                     floatingActionButton.setVisibility(View.VISIBLE);
+                    floatingActionButton.setImageResource(R.drawable.ic_add_24dp);
                 } else if ( fragment instanceof CustomerFragment ) {
                     floatingActionButton.setVisibility(View.VISIBLE);
+                    floatingActionButton.setImageResource(R.drawable.ic_add_24dp);
                 } else if ( fragment instanceof AdminProfileFragment ) {
                     floatingActionButton.setVisibility(View.GONE);
                 }
