@@ -40,6 +40,7 @@
         <activity
             android:name=".activity.ProfileManagerActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.UserOrderOptionActivity"></activity>
     </application>
 
 </manifest>

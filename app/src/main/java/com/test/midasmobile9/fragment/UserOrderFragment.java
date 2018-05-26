@@ -1,6 +1,5 @@
 package com.test.midasmobile9.fragment;
 
-
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,7 +13,7 @@ import com.test.midasmobile9.activity.MainActivity;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class ContentFragment extends Fragment {
+public class UserOrderFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -26,12 +25,12 @@ public class ContentFragment extends Fragment {
 
     Unbinder unbinder = null;
 
-    public ContentFragment() {
+    public UserOrderFragment() {
         // Required empty public constructor
     }
 
-    public static ContentFragment newInstance(String param1, String param2) {
-        ContentFragment fragment = new ContentFragment();
+    public static UserOrderFragment newInstance(String param1, String param2) {
+        UserOrderFragment fragment = new UserOrderFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -59,9 +58,10 @@ public class ContentFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_content, container, false);
+        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_user_order, container, false);
         // 버터나이프
         unbinder = ButterKnife.bind(this, rootView);
+
         return rootView;
     }
 
@@ -76,5 +76,4 @@ public class ContentFragment extends Fragment {
         // mActivity 해제
         this.mActivity = null;
     }
-
 }

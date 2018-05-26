@@ -1,7 +1,7 @@
 package com.test.midasmobile9.fragment;
 
+
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,7 +14,7 @@ import com.test.midasmobile9.activity.MainActivity;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class HomeFragment extends Fragment {
+public class UserLookupFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -26,12 +26,12 @@ public class HomeFragment extends Fragment {
 
     Unbinder unbinder = null;
 
-    public HomeFragment() {
+    public UserLookupFragment() {
         // Required empty public constructor
     }
 
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
+    public static UserLookupFragment newInstance(String param1, String param2) {
+        UserLookupFragment fragment = new UserLookupFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -59,10 +59,9 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_home, container, false);
+        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_user_lookup, container, false);
         // 버터나이프
         unbinder = ButterKnife.bind(this, rootView);
-
         return rootView;
     }
 
@@ -77,4 +76,5 @@ public class HomeFragment extends Fragment {
         // mActivity 해제
         this.mActivity = null;
     }
+
 }

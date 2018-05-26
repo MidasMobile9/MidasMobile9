@@ -11,13 +11,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebSettings;
 
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.application.MidasMobile9Application;
-import com.test.midasmobile9.fragment.ContentFragment;
-import com.test.midasmobile9.fragment.HomeFragment;
-import com.test.midasmobile9.fragment.ProfileFragment;
+import com.test.midasmobile9.fragment.UserLookupFragment;
+import com.test.midasmobile9.fragment.UserOrderFragment;
+import com.test.midasmobile9.fragment.UserProfileFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_user_main);
         // ButterKnife 세팅
         ButterKnife.bind(this);
 
@@ -72,23 +71,23 @@ public class MainActivity extends AppCompatActivity {
         // 프래그먼트 매니저
         final FragmentManager fragmentManager = getSupportFragmentManager();
         // 홈 프래그먼트
-        final HomeFragment homeFragment = HomeFragment.newInstance("Home", "MainActivity");
+        final UserOrderFragment userOrderFragment = UserOrderFragment.newInstance("Home", "MainActivity");
         // 콘텐츠 프래그먼트
-        final ContentFragment contentFragment = ContentFragment.newInstance("Content", "MainActivity");
+        final UserLookupFragment contentFragment = UserLookupFragment.newInstance("Content", "MainActivity");
         // 프로필 프래그먼트
-        final ProfileFragment profileFragment = ProfileFragment.newInstance("Profile", "MainActivity");
+        final UserProfileFragment profileFragment = UserProfileFragment.newInstance("Profile", "MainActivity");
 
         // 첫 시작 프래그먼트로 홈 프래그먼트 지정
-        fragmentManager.beginTransaction().replace(R.id.frameLayoutFragmentContainer, homeFragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.frameLayoutFragmentContainer, userOrderFragment).commit();
         // 프래그먼트 초기화
-        fragment = homeFragment;
+        fragment = userOrderFragment;
 
         BottomNavigationView.OnNavigationItemSelectedListener OnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.bottom_Home:
-                        fragment = homeFragment;
+                        fragment = userOrderFragment;
                         break;
                     case R.id.bottom_Steady:
                         fragment = contentFragment;
@@ -99,11 +98,11 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 // 이런식으로 프래그먼트에 따라 Floating Action 버튼 기능 설정
-                if ( fragment instanceof HomeFragment ) {
+                if ( fragment instanceof UserOrderFragment) {
                     floatingActionButton.setVisibility(View.VISIBLE);
-                } else if ( fragment instanceof ContentFragment ) {
+                } else if ( fragment instanceof UserLookupFragment) {
                     floatingActionButton.setVisibility(View.VISIBLE);
-                } else if ( fragment instanceof ProfileFragment ) {
+                } else if ( fragment instanceof UserProfileFragment) {
                     floatingActionButton.setVisibility(View.GONE);
                 }
 
@@ -123,11 +122,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
 
-                if ( fragment instanceof HomeFragment ) {
+                if ( fragment instanceof UserOrderFragment) {
                     Log.e("@@@", "홈");
-                } else if ( fragment instanceof ContentFragment ) {
+                } else if ( fragment instanceof UserLookupFragment) {
                     Log.e("@@@", "콘텐츠");
-                } else if ( fragment instanceof ProfileFragment ) {
+                } else if ( fragment instanceof UserProfileFragment) {
                     Log.e("@@@", "프로필");
                 }
             }

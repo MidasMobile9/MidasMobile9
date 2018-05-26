@@ -29,7 +29,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ProfileFragment extends Fragment {
+public class UserProfileFragment extends Fragment {
     public static final int REQUEST_CODE_PROFILE_MANAGER_ACTIVITY = 301;
 
     public static String USER_NAME;
@@ -55,12 +55,12 @@ public class ProfileFragment extends Fragment {
     @BindView(R.id.textViewProfileFragmentModifyProfile) TextView textViewProfileFragmentModifyProfile;
     @BindView(R.id.textViewProfileFragmentLogout) TextView textViewProfileFragmentLogout;
 
-    public ProfileFragment() {
+    public UserProfileFragment() {
         // Required empty public constructor
     }
 
-    public static ProfileFragment newInstance(String param1, String param2) {
-        ProfileFragment fragment = new ProfileFragment();
+    public static UserProfileFragment newInstance(String param1, String param2) {
+        UserProfileFragment fragment = new UserProfileFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -88,7 +88,7 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_profile, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_user_profile, container, false);
         // 버터나이프
         unbinder = ButterKnife.bind(this, rootView);
         return rootView;
@@ -100,14 +100,14 @@ public class ProfileFragment extends Fragment {
 
         // 유저 프로필 사진 세팅
         if ( MidasMobile9Application.user.getProfileimg() != null ) {
-            Glide.with(ProfileFragment.this)
+            Glide.with(UserProfileFragment.this)
                     .load(PROFILE_URL_HEADER + MidasMobile9Application.user.getProfileimg())
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
                     .into(circleImageViewProfileFragmentProfileImage);
 
         } else {
-            Glide.with(ProfileFragment.this)
+            Glide.with(UserProfileFragment.this)
                     .load(R.drawable.ic_profile_black_48dp)
                     .into(circleImageViewProfileFragmentProfileImage);
         }
@@ -136,7 +136,7 @@ public class ProfileFragment extends Fragment {
                 if (resultCode == Activity.RESULT_OK) {
                     // 프래그먼트 새로고침
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.detach(ProfileFragment.this).attach(ProfileFragment.this).commit();
+                    ft.detach(UserProfileFragment.this).attach(UserProfileFragment.this).commit();
                 } else if (resultCode == Activity.RESULT_CANCELED) {
                     /**
                      * 프로필을 변경 하지 않았음
