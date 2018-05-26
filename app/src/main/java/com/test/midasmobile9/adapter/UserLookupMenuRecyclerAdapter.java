@@ -13,7 +13,9 @@ import com.bumptech.glide.Glide;
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.data.CoffeeOrderItem;
 import com.test.midasmobile9.network.NetworkDefineConstantOSH;
+import com.test.midasmobile9.util.ParseHotCold;
 import com.test.midasmobile9.util.ParseServerState;
+import com.test.midasmobile9.util.ParseSize;
 
 import java.util.ArrayList;
 
@@ -21,17 +23,19 @@ public class UserLookupMenuRecyclerAdapter extends RecyclerView.Adapter<UserLook
     private ArrayList<CoffeeOrderItem> userLookupOrderItemList;
     private Activity activity;
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         //리사이클러뷰에 적용되는 뷰그룹에 들어가는 여러가지 요소들을 여기서 정의
         public ImageView userMenuLookupCardImageView;
         public TextView userMenuLookupCardTitleTextView;
         public TextView userMenuLookupCardStateTextView;
+        public TextView userMenuLookupCardSizeTemperCountTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             userMenuLookupCardImageView = itemView.findViewById(R.id.userMenuLookupCardImageView);
             userMenuLookupCardStateTextView = itemView.findViewById(R.id.userMenuLookupCardStateTextView);
             userMenuLookupCardTitleTextView = itemView.findViewById(R.id.userMenuLookupCardTitleTextView);
+            userMenuLookupCardSizeTemperCountTextView = itemView.findViewById(R.id.userMenuLookupCardSizeTemperCountTextView);
         }
     }
 
@@ -50,13 +54,17 @@ public class UserLookupMenuRecyclerAdapter extends RecyclerView.Adapter<UserLook
 
     @Override
     public void onBindViewHolder(@NonNull UserLookupMenuRecyclerAdapter.ViewHolder holder, int position) {
+        String sizeTemperCountStr = userLookupOrderItemList.get(position).getCount() + "잔 / " +
+                ParseSize.getSize(userLookupOrderItemList.get(position).getSize()) + " / " +
+                ParseHotCold.getHotCold(userLookupOrderItemList.get(position).getHotcold());
         holder.userMenuLookupCardTitleTextView.setText(userLookupOrderItemList.get(position).getName());
         holder.userMenuLookupCardStateTextView.setText(ParseServerState.getState(userLookupOrderItemList.get(position).getState()));
+        holder.userMenuLookupCardSizeTemperCountTextView.setText(sizeTemperCountStr);
         Glide.with(activity)
                 .load(NetworkDefineConstantOSH.SERVER_URL_GET_MENU_IMG + userLookupOrderItemList.get(position).getImg()) // 이미지 URL 주소
                 .into(holder.userMenuLookupCardImageView);
         //Glide.with(activity)
-         //       .load(R.drawable.ic_coffee_24dp)
+        //       .load(R.drawable.ic_coffee_24dp)
         //        .into(holder.userMenuLookupCardImageView);
     }
 
