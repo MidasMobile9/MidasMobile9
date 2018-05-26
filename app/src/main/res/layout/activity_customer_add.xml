@@ -25,7 +25,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/imageViewCustomerProfileManagerBack"
+                    android:id="@+id/imageViewCustomerAddBack"
                     android:layout_width="35dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -158,7 +158,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/rectangle_dark"
             android:hint=" 010-0000-0000"
-            android:inputType="textPersonName"
+            android:inputType="phone"
             android:paddingLeft="10dp"
             android:textSize="18dp" />
 
@@ -175,13 +175,13 @@
             android:textSize="18dp" />
 
         <TextView
-            android:id="@+id/editTextCustomerPassword"
+            android:id="@+id/textViewCustomerPassword"
             android:layout_width="200dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
-            android:gravity="center_vertical"
             android:layout_marginTop="10dp"
             android:background="@drawable/rectangle_dark"
+            android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:text="midasit12!"
             android:textSize="18dp" />
@@ -189,20 +189,20 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_marginTop="10dp"
+            android:gravity="center"
             android:text="※ 초기 비밀번호는 midasit12! 입니다."
-            android:textColor="@color/colorRed"/>
+            android:textColor="@color/colorRed" />
 
         <TextView
             android:id="@+id/textViewProfilePrivateInfoPolicy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center_vertical"
             android:layout_marginTop="16dp"
             android:background="@drawable/selector_blue_button"
             android:clickable="true"
+            android:gravity="center_vertical"
             android:padding="4dp"
             android:text="개인정보처리방침"
             android:textColor="@color/colorWhite" />

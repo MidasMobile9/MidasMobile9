@@ -27,6 +27,7 @@ import com.test.midasmobile9.R;
 import com.test.midasmobile9.application.MidasMobile9Application;
 import com.test.midasmobile9.model.ProfileManagerModel;
 import com.test.midasmobile9.network.NetworkDefineConstantOSH;
+import com.test.midasmobile9.network.NetworkDefineConstant;
 import com.test.midasmobile9.util.Encryption;
 import com.test.midasmobile9.util.ImageUtil;
 import com.test.midasmobile9.util.PasswordUtil;
@@ -42,6 +43,7 @@ import butterknife.OnClick;
 
 public class ProfileManagerActivity extends AppCompatActivity {
     public static final int REQUEST_TAKE_PROFILE_FROM_ALBUM = 302;
+    public static final String PROFILE_URL_HEADER = NetworkDefineConstant.HOST_URL + "/profileimg/";
 
     private final String PRIVACY_POLICY_INFO = "https://blog.naver.com/tyrano_1/221283509070";
 
@@ -89,7 +91,10 @@ public class ProfileManagerActivity extends AppCompatActivity {
                     Bitmap resizeBitmap = ImageUtil.scaleImageDownToBitmap(this, profileImageUri);
                     resultImageFile = ImageUtil.scaleImageDownToFile(this, profileImageUri);
                     isChangeProfileImage = true;
-                    circleImageViewProfileManagerProfileImage.setImageBitmap(resizeBitmap);
+
+                    Glide.with(ProfileManagerActivity.this)
+                            .load(data.getData())
+                            .into(circleImageViewProfileManagerProfileImage);
                 }
                 break;
         }

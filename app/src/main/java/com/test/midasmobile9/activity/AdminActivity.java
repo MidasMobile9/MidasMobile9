@@ -128,7 +128,7 @@ public class AdminActivity extends AppCompatActivity {
                 } else if ( fragment instanceof CustomerFragment ) {
                     floatingActionButton.setVisibility(View.VISIBLE);
                 } else if ( fragment instanceof AdminProfileFragment ) {
-                    floatingActionButton.setVisibility(View.VISIBLE);
+                    floatingActionButton.setVisibility(View.GONE);
                 }
 
                 fragmentManager.beginTransaction()
@@ -143,19 +143,27 @@ public class AdminActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(OnNavigationItemSelectedListener);
     }
 
+    public void doneRefresh() {
+        if ( swipeRefreshLayout.isRefreshing() ) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
     public void setSwipeRefreshLayout() {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
 
                 if ( fragment instanceof MenuOrderFragment ) {
-                    Log.e("@@@", "주문내역");
+                    ((MenuOrderFragment)fragment).refreshOrderList();
                 } else if ( fragment instanceof MenuManagerFragment ) {
-                    Log.e("@@@", "메뉴관리");
+                    ((MenuManagerFragment)fragment).refreshMenuInfo();
                 } else if ( fragment instanceof CustomerFragment ) {
-                    Log.e("@@@", "고객정보");
+                    ((CustomerFragment)fragment).refreshMenuInfo();
                 } else if ( fragment instanceof AdminProfileFragment ) {
-                    Log.e("@@@", "프로필");
+                    if ( swipeRefreshLayout.isRefreshing() ) {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
                 }
             }
         });
