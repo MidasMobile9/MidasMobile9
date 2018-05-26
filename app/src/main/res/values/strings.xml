@@ -10,7 +10,7 @@
     <!-- " : &quot; -->
 
     <!-- string -->
-    <string name="app_title">앱 타이틀!</string>
+    <string name="app_title">마시다스</string>
     <string name="login">로그인</string>
     <string name="join">회원 가입</string>
     <string name="password_info">( 영문,숫자,특수문자 조합으로 9~12자리 입력 )</string>

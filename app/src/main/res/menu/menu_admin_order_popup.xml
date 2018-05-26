@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/popup_order_confirm_before"
+        android:title="주문 확인 전" />
 
+    <item
+        android:id="@+id/popup_order_confirm_ok"
+        android:title="주문 확인" />
+
+    <item
+        android:id="@+id/popup_order_creating"
+        android:title="음료 준비 중" />
+
+    <item
+        android:id="@+id/popup_order_creation_complete"
+        android:title="음료 준비 완료" />
+
+    <item
+        android:id="@+id/popup_order_take_out_complete"
+        android:title="테이크아웃 완료" />
 </menu>

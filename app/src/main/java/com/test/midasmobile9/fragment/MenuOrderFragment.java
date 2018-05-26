@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.activity.AdminActivity;
 import com.test.midasmobile9.activity.MainActivity;
+import com.test.midasmobile9.adapter.OrderRecyclerAdapter;
+import com.test.midasmobile9.data.AdminCoffeeOrderItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -96,6 +98,43 @@ public class MenuOrderFragment extends Fragment {
         recyclerViewOrderList.setLayoutManager(layoutManager);
 
         // 3. Adapter 설정
+        OrderRecyclerAdapter adapter = new OrderRecyclerAdapter(mActivity, layoutManager);
+
+        /********************************************************************************************/
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 0, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "가나다라마바사아자카", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 1, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "가나다라마바사아자", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 2, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "가나다라마바사아자카타", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 4, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+        adapter.addNewItem(new AdminCoffeeOrderItem(1, 1, 1, 2, 2, 4, 5000, 3, "날짜", "eee@eee.com","닉네임", "baseprofile.png", "010-0000-0000", "부서", "아메리카노", "겁나 맛있는 커피","basemenu.png", 1));
+
+
+        /********************************************************************************************/
+
+        recyclerViewOrderList.setAdapter(adapter);
 
     }
 }

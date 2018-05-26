@@ -23,7 +23,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:orientation="vertical">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -48,14 +47,10 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
@@ -75,6 +70,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
@@ -83,9 +79,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="수량"
+                        android:text="4"
                         android:textColor="@color/colorBlack"
-                        android:textSize="12dp" />
+                        android:textSize="10dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -102,9 +98,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="사이즈"
+                        android:text="L"
                         android:textColor="@color/colorBlack"
-                        android:textSize="12dp" />
+                        android:textSize="10dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -121,27 +117,46 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="HOT"
+                        android:text=" HOT and COLD"
                         android:textColor="@color/colorBlack"
-                        android:textSize="12dp" />
+                        android:textSize="10dp" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/textViewOrderStatus"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_gravity="center"
-                android:text="[ 진행상태 ]"
-                android:textColor="@color/colorBlack"
-                android:textSize="15dp" />
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="[ "
+                    android:textColor="@color/colorBlack"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/textViewOrderStatus"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="테이크아웃 완료"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" ]"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="12dp"/>
+
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/imageViewOrderPopMenu"

@@ -69,7 +69,8 @@ public class AdminActivity extends AppCompatActivity {
     @OnClick(R.id.floatingActionButton)
     public void onClickFloatingActionButton(View view) {
         if ( fragment instanceof MenuOrderFragment ) {
-
+            Intent intent = new Intent(AdminActivity.this, OrderTakeOutActivity.class);
+            startActivity(intent);
         } else if ( fragment instanceof MenuManagerFragment ) {
             Intent intent = new Intent(AdminActivity.this, MenuAddActivity.class);
             startActivityForResult(intent, REQUEST_CODE_ADD_NEW_MENU);
