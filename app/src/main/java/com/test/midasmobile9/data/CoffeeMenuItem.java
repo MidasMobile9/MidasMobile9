@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-public class CoffeeMenuItem implements Parcelable{
+public class CoffeeMenuItem implements Parcelable {
 
     @SerializedName("no")
     private int no;
@@ -14,22 +14,22 @@ public class CoffeeMenuItem implements Parcelable{
     @SerializedName("info")
     private String info;
     @SerializedName("price")
-    private String price;
+    private int price;
     @SerializedName("img")
     private String img;
     @SerializedName("hotcold")
-    private String hotcold;
+    private int hotcold;
     @SerializedName("enable")
-    private String enable;
+    private int enable;
 
     protected CoffeeMenuItem(Parcel in) {
         no = in.readInt();
         name = in.readString();
         info = in.readString();
-        price = in.readString();
+        price = in.readInt();
         img = in.readString();
-        hotcold = in.readString();
-        enable = in.readString();
+        hotcold = in.readInt();
+        enable = in.readInt();
     }
 
     public static final Creator<CoffeeMenuItem> CREATOR = new Creator<CoffeeMenuItem>() {
@@ -54,10 +54,20 @@ public class CoffeeMenuItem implements Parcelable{
         dest.writeInt(no);
         dest.writeString(name);
         dest.writeString(info);
-        dest.writeString(price);
+        dest.writeInt(price);
         dest.writeString(img);
-        dest.writeString(hotcold);
-        dest.writeString(enable);
+        dest.writeInt(hotcold);
+        dest.writeInt(enable);
+    }
+
+    public CoffeeMenuItem(int no, String name, String info, int price, String img, int hotcold, int enable) {
+        this.no = no;
+        this.name = name;
+        this.info = info;
+        this.price = price;
+        this.img = img;
+        this.hotcold = hotcold;
+        this.enable = enable;
     }
 
     public int getNo() {
@@ -84,11 +94,11 @@ public class CoffeeMenuItem implements Parcelable{
         this.info = info;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -100,19 +110,19 @@ public class CoffeeMenuItem implements Parcelable{
         this.img = img;
     }
 
-    public String getHotcold() {
+    public int getHotcold() {
         return hotcold;
     }
 
-    public void setHotcold(String hotcold) {
+    public void setHotcold(int hotcold) {
         this.hotcold = hotcold;
     }
 
-    public String getEnable() {
+    public int getEnable() {
         return enable;
     }
 
-    public void setEnable(String enable) {
+    public void setEnable(int enable) {
         this.enable = enable;
     }
 }

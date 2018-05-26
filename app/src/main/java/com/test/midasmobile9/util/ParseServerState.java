@@ -8,8 +8,8 @@ public class ParseServerState {
             Arrays.asList(
                     "주문 확인 전",
                     "주문 확인",
-                    "제조 중",
-                    "제조 완료",
+                    "음료 준비 중",
+                    "음료 준비 완료",
                     "테이크아웃 완료"
             )
     );

@@ -18,7 +18,7 @@ public class UserHistoryRecyclerAdapter extends RecyclerView.Adapter<UserHistory
     private ArrayList<CoffeeHistoryItem> userHistoryItemList;
     private Activity activity;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder{
         //리사이클러뷰에 적용되는 뷰그룹에 들어가는 여러가지 요소들을 여기서 정의
         public TextView userHistoryCardDateTextView;
         public TextView userHistoryCardMenuNameTextView;

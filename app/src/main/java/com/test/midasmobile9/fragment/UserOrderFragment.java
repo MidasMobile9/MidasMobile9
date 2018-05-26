@@ -3,13 +3,21 @@ package com.test.midasmobile9.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.activity.MainActivity;
+import com.test.midasmobile9.adapter.UserOrderMenuRecyclerAdapter;
+import com.test.midasmobile9.data.CoffeeOrderItem;
 
+import java.util.ArrayList;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -22,6 +30,14 @@ public class UserOrderFragment extends Fragment {
 
     private Context mContext = null;
     private MainActivity mActivity = null;
+
+    private ArrayList<CoffeeOrderItem.CoffeeMenuItem> coffeeMenuItems;
+    private LinearLayoutManager linearLayoutManager;
+    private UserOrderMenuRecyclerAdapter userOrderMenuRecyclerAdapter;
+
+    @BindView(R.id.userOrderMenuRecyclerView)
+    RecyclerView userOrderMenuRecyclerView;
+
 
     Unbinder unbinder = null;
 
@@ -62,6 +78,10 @@ public class UserOrderFragment extends Fragment {
         // 버터나이프
         unbinder = ButterKnife.bind(this, rootView);
 
+        setRecyclerView();
+
+        addTestMenu();
+
         return rootView;
     }
 
@@ -75,5 +95,26 @@ public class UserOrderFragment extends Fragment {
         this.mContext = null;
         // mActivity 해제
         this.mActivity = null;
+    }
+
+    private void setRecyclerView(){
+        coffeeMenuItems = new ArrayList<>();
+
+        linearLayoutManager = new LinearLayoutManager(mContext);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+        userOrderMenuRecyclerView.setHasFixedSize(true);
+        userOrderMenuRecyclerView.setLayoutManager(linearLayoutManager);
+        userOrderMenuRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        userOrderMenuRecyclerAdapter = new UserOrderMenuRecyclerAdapter(coffeeMenuItems, mActivity);
+        userOrderMenuRecyclerView.setAdapter(userOrderMenuRecyclerAdapter);
+    }
+
+    private void addTestMenu(){
+        coffeeMenuItems.add(new CoffeeOrderItem.CoffeeMenuItem(0, "카페라떼", "카페라떼는 맛있습니다", 3000, "none", 1, 1 ));
+        coffeeMenuItems.add(new CoffeeOrderItem.CoffeeMenuItem(0, "아메리카노", "아메리카노도 맛있습니다", 3000, "none", 1, 1 ));
+        coffeeMenuItems.add(new CoffeeOrderItem.CoffeeMenuItem(0, "카페모카", "카페모카또한 맛있습니다", 3000, "none", 1, 1 ));
+
     }
 }
