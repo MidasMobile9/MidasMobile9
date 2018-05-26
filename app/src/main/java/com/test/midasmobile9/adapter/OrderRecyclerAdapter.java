@@ -75,7 +75,7 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter<OrderRecyclerAdap
         // 주문 상태
         holder.textViewOrderStatus.setText(ParseServerState.getState(item.getState()));
         // 총 금액
-        String totalPrice = (item.getPrice() * item.getCount())+ " 원";
+        String totalPrice = item.getPrice() + " 원";
         holder.textViewTotalPrice.setText(totalPrice);
     }
 
