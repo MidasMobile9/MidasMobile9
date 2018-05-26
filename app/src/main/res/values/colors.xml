@@ -16,4 +16,6 @@
     <color name="colorLiteRed">#EF5350</color>
     <color name="colorRed">#FF5252</color>
     <color name="colorMiddleRed">#C62828</color>
+    <color name="colorLightGreen">#81C784</color>
+    <color name="colorLime">#DCE775</color>
 </resources>
