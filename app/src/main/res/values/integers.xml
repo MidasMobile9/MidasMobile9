@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <integer name="phone_max_length">13</integer>
     <integer name="nickname_max_length">10</integer>
     <integer name="email_max_length">50</integer>
     <integer name="password_max_length">12</integer>
+    <integer name="admin_join_code_hint_length">12</integer>
 </resources>

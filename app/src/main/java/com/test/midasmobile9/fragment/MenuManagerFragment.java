@@ -98,6 +98,7 @@ public class MenuManagerFragment extends Fragment {
         recyclerViewMenuManager.setLayoutManager(layoutManager);
 
         // 3. Adapter 설정
+<<<<<<< HEAD
         MenuInfoRecyclerAdapter adapter = new MenuInfoRecyclerAdapter(mActivity, layoutManager);
 
         /****************************************************************************************************/
@@ -140,6 +141,9 @@ public class MenuManagerFragment extends Fragment {
         /****************************************************************************************************/
 
         recyclerViewMenuManager.setAdapter(adapter);
+=======
+        //recyclerViewMenuManager.setAdapter(adapter);
+>>>>>>> PIJ/JoinLogin
 
     }
 }

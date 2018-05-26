@@ -61,34 +61,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:orientation="horizontal">
-
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="32dp"
-            android:layout_marginLeft="32dp"
-            android:orientation="horizontal"
-            android:layout_gravity="center_horizontal">
-
-            <RadioButton
-                android:id="@+id/radioButtonAdmin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="32dp"
-                android:buttonTint="@color/colorMiddleBlue"
-                android:text="관리자"
-                android:textColor="@color/colorWhite" />
-
-            <RadioButton
-                android:id="@+id/radioButtonCustomer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:buttonTint="@color/colorMiddleBlue"
-                android:text="고객"
-                android:textColor="@color/colorWhite" />
-
-        </RadioGroup>
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:orientation="vertical">
+        <CheckBox
+            android:checked="true"
+            android:id="@+id/checkBoxAutoLogin"
+            android:buttonTint="@android:color/black"
+            android:text="@string/login_auto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <CheckBox
+            android:id="@+id/checkBoxAdmin"
+            android:buttonTint="@android:color/black"
+            android:text="@string/admin_join_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

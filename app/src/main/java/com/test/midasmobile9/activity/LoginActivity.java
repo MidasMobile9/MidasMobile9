@@ -6,21 +6,20 @@ import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.test.midasmobile9.R;
 import com.test.midasmobile9.application.MidasMobile9Application;
 import com.test.midasmobile9.data.User;
 import com.test.midasmobile9.model.LoginModel;
 import com.test.midasmobile9.util.Encryption;
-import com.test.midasmobile9.util.ProgressBarShow;
+import com.test.midasmobile9.util.SharePreferencesUtil;
 
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -28,7 +27,11 @@ import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
+
+import static com.test.midasmobile9.util.SharePreferencesUtil.*;
+
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -41,17 +44,25 @@ public class LoginActivity extends AppCompatActivity {
     EditText editTextEmail;
     @BindView(R.id.editTextPassword)
     EditText editTextPassword;
+    @BindView(R.id.checkBoxAutoLogin)
+    CheckBox checkBoxAutoLogin;
+    @BindView(R.id.checkBoxAdmin)
+    CheckBox checkBoxAdmin;
     @BindView(R.id.buttonLogin)
     Button buttonLogin;
     @BindView(R.id.textViewJoin)
     TextView textViewJoin;
 
+    private int intRoot=0;
+    private boolean isAutoLogin;
+    private String strEmail;
+    private String strPassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-
+        isAutoLogin = checkBoxAutoLogin.isChecked();
         // 스플래시 액티비티 종료
         SplashActivity.SPLASH_ACTIVITY.finish();
     }
@@ -61,8 +72,8 @@ public class LoginActivity extends AppCompatActivity {
      * */
     @OnClick({R.id.buttonLogin})
     public void onClickLoginButtonLogin(View view){
-        String strEmail = editTextEmail.getText().toString().trim();
-        String strPassword = editTextPassword.getText().toString().trim();
+        strEmail = editTextEmail.getText().toString().trim();
+        strPassword = editTextPassword.getText().toString().trim();
         if(!emailCheck(strEmail))
             return;
         if(!passwordCheck(strPassword))
@@ -70,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // 로그인 어싱크 태스크
         strPassword = Encryption.getMD5(strPassword);
-        new UserLoginTask().execute(strEmail, strPassword);
+        new UserLoginTask().execute(strEmail, strPassword, String.valueOf(intRoot));
     }
     /**
      * 회원가입 버튼 클릭 이벤트
@@ -114,21 +125,42 @@ public class LoginActivity extends AppCompatActivity {
         }
         return true;
     }
+    /**
+     * 관리자 체크 박스 체인지 리스너
+     * @param button
+     * @param checked
+     */
+    @OnCheckedChanged({R.id.checkBoxAdmin})
+    public void onCheckedChangeAdmin(CompoundButton button, boolean checked){
+        if(checked){
+            intRoot = 1;
+        }else{
+            intRoot = 0;
+        }
+    }
+    /**
+     * 자동 로그인 체크 박스 체인지 리스너
+     * @param button
+     * @param checked
+     */
+    @OnCheckedChanged({R.id.checkBoxAutoLogin})
+    public void onCheckedChangeAutoLogin(CompoundButton button, boolean checked){
+        isAutoLogin = checked;
+    }
 
     // AsyncTask ====================================================================================
     public class UserLoginTask extends AsyncTask<String, Void, Map<String, Object>> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            ProgressBarShow.getProgressBarShowSingleton(LoginActivity.this).show(linearLayoutLoginActivity);
         }
 
         @Override
         protected Map<String, Object> doInBackground(String... params) {
             String strEmail = params[0];
             String strPassword = params[1];
-
-            Map<String, Object> map = LoginModel.loginUser(strEmail, strPassword);
+            String strRoot = params[2];
+            Map<String, Object> map = LoginModel.loginUser(strEmail, strPassword,strRoot);
 
             return map;
         }
@@ -136,7 +168,6 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Map<String, Object> map) {
             super.onPostExecute(map);
-            ProgressBarShow.getProgressBarShowSingleton(LoginActivity.this).remove(linearLayoutLoginActivity);
 
             if ( map == null ) {
                 // 통신실패
@@ -169,7 +200,11 @@ public class LoginActivity extends AppCompatActivity {
                     // 로그인 성공
                     MidasMobile9Application.setCookie(cookie);
                     MidasMobile9Application.setUser(user.getNo(), user.getEmail(), user.getNickname(), user.getProfileimg());
-
+                    if(isAutoLogin){
+                        SharePreferencesUtil.savePreferences(mContext,KEY_EMAIL,strEmail);
+                        SharePreferencesUtil.savePreferences(mContext,KEY_PASSWORD,strPassword);
+                        SharePreferencesUtil.savePreferences(mContext,KEY_ROOT,String.valueOf(intRoot));
+                    }
                     Intent intent = new Intent(mContext,MainActivity.class);
                     startActivity(intent);
                     finish();

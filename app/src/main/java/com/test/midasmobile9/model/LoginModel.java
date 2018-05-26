@@ -24,7 +24,15 @@ public class LoginModel {
     private static final String TAG = "LoginModel";
 
     // LoginActivity의 Model static 함수 정의
-    public static Map<String, Object> loginUser(String email, String password) {
+
+    /**
+     * 로그인 하기
+     * @param email 이메일
+     * @param password 비밀번호
+     * @param root 이메일
+     * @return
+     */
+    public static Map<String, Object> loginUser(String email, String password, String root) {
         OkHttpClient client = OkHttpInitSingletonManager.getOkHttpClient();
         Response response = null;
         Gson gson = new Gson();
@@ -34,6 +42,7 @@ public class LoginModel {
         RequestBody requestBody = new FormBody.Builder()
                 .add("email", email)
                 .add("password", password)
+                .add("root", root)
                 .build();
 
         try {

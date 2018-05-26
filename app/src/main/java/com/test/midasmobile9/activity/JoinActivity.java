@@ -11,10 +11,18 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,12 +41,11 @@ import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.test.midasmobile9.model.JoinModel.getEmailCheckResult;
-import static com.test.midasmobile9.model.JoinModel.getJoinResult;
-import static com.test.midasmobile9.model.JoinModel.getNicknameCheckResult;
+import static com.test.midasmobile9.model.JoinModel.*;
 import static com.test.midasmobile9.util.ImageUtil.scaleImageDownToFile;
 
 
@@ -57,6 +64,10 @@ public class JoinActivity extends AppCompatActivity {
     LinearLayout linearLayoutEmailPassword;
     @BindView(R.id.editTextInputEmail)
     EditText editTextInputEmail;
+    @BindView(R.id.checkBoxAdmin)
+    CheckBox checkBoxAdmin;
+    @BindView(R.id.editTextInputAdminCode)
+    EditText editTextInputAdminCode;
     @BindView(R.id.editTextInputPasswordFirst)
     EditText editTextInputPasswordFirst;
     @BindView(R.id.editTextInputPasswordSecond)
@@ -75,13 +86,20 @@ public class JoinActivity extends AppCompatActivity {
     CircleImageView circleImageViewProfileImage;
     @BindView(R.id.editTextNickname)
     EditText editTextNickname;
+    @BindView(R.id.editTextPhone)
+    EditText editTextPhone;
+    @BindView(R.id.editTextPart)
+    EditText editTextPart;
     @BindView(R.id.textViewSaveProfile)
     TextView textViewSaveProfile;
 
     private String strEmail;
     private String strPassWord;
     private String strNickName;
-
+    private String strRootCode;
+    private String strPhone;
+    private String strPart;
+    private int intRoot = 0;
     private String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA};
@@ -94,6 +112,7 @@ public class JoinActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
         ButterKnife.bind(this);
+        editTextPhone.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
     }
 
 
@@ -107,10 +126,14 @@ public class JoinActivity extends AppCompatActivity {
             case R.id.textViewDoJoin:
                 strEmail = editTextInputEmail.getText().toString().trim();
                 strPassWord = editTextInputPasswordFirst.getText().toString().trim();
+                strRootCode = editTextInputAdminCode.getText().toString().trim();
                 if (!emailCheck(strEmail)) {
                     return;
                 }
                 if (!passwordCheck(strPassWord)) {
+                    return;
+                }
+                if(intRoot==1&&!rootcodeCheck(strRootCode)){
                     return;
                 }
                 //이메일체크 TASK 실행
@@ -119,7 +142,15 @@ public class JoinActivity extends AppCompatActivity {
             //프로필저장
             case R.id.textViewSaveProfile:
                 strNickName = editTextNickname.getText().toString().trim();
+                strPhone = editTextPhone.getText().toString().trim();
+                strPart = editTextPart.getText().toString().trim();
                 if (!nicknameCheck(strNickName)) {
+                    return;
+                }
+                if(!phoneCheck(strPhone)){
+                    return;
+                }
+                if(!partCheck(strPart)){
                     return;
                 }
                 new NicknameCheckTask().execute();
@@ -128,7 +159,26 @@ public class JoinActivity extends AppCompatActivity {
     }
 
     /**
+     * 관리자 체크 박스 체인지 리스너
+     * @param button
+     * @param checked
+     */
+    @OnCheckedChanged({R.id.checkBoxAdmin})
+    public void onCheckedChangeGroup(CompoundButton button, boolean checked){
+        if(checked){
+            intRoot = 1;
+            editTextInputAdminCode.setVisibility(View.VISIBLE);
+        }else{
+            intRoot = 0;
+            editTextInputAdminCode.setText("");
+            editTextInputAdminCode.setVisibility(View.GONE);
+        }
+    }
+
+    /**
      * 이메일 체크
+     * @param email 이메일문자열
+     * @return true : 패스 , false : 실패
      */
     private boolean emailCheck(String email) {
         if (email.length() == 0) {
@@ -150,6 +200,8 @@ public class JoinActivity extends AppCompatActivity {
 
     /**
      * 비밀번호 체크
+     * @param password 비밀번호 문자열
+     * @return true : 패스 , false : 실패
      */
     private boolean passwordCheck(String password) {
         if (password.length() == 0) {
@@ -192,7 +244,23 @@ public class JoinActivity extends AppCompatActivity {
     }
 
     /**
+     * 관리자 번호 체크
+     * @param rootcode 관리자번호 문자열
+     * @return true : 패스 , false : 실패
+     */
+    private boolean rootcodeCheck(String rootcode) {
+        if (rootcode.length() == 0) {
+            //이메일 길이가 0일 경우
+            Snackbar.make(linearLayoutJoinActivity, getString(R.string.rootcode_length_zero), Snackbar.LENGTH_SHORT).show();
+            editTextInputAdminCode.requestFocus();
+            return false;
+        }
+        return true;
+    }
+    /**
      * 닉네임 체크
+     * @param nickname 닉네임 문자열
+     * @return true : 패스 , false : 실패
      */
     private boolean nicknameCheck(String nickname) {
         if (nickname.length() == 0) {
@@ -203,7 +271,34 @@ public class JoinActivity extends AppCompatActivity {
         }
         return true;
     }
-
+    /**
+     * 핸드폰번호 체크
+     * @param phone 핸드폰번호 문자열
+     * @return true : 패스 , false : 실패
+     */
+    private boolean phoneCheck(String phone) {
+        if (phone.length() == 0) {
+            //닉네임 길이가 0일 경우
+            Snackbar.make(linearLayoutProfileInfo, getString(R.string.phone_length_zero), Snackbar.LENGTH_SHORT).show();
+            editTextPhone.requestFocus();
+            return false;
+        }
+        return true;
+    }
+    /**
+     * 부서 체크
+     * @param part 부서 문자열
+     * @return true : 패스 , false : 실패
+     */
+    private boolean partCheck(String part) {
+        if (part.length() == 0) {
+            //닉네임 길이가 0일 경우
+            Snackbar.make(linearLayoutProfileInfo, getString(R.string.part_length_zero), Snackbar.LENGTH_SHORT).show();
+            editTextPhone.requestFocus();
+            return false;
+        }
+        return true;
+    }
     /**
      * 프로필 사진 클릭 이벤트
      */
@@ -274,7 +369,7 @@ public class JoinActivity extends AppCompatActivity {
             File file = null;
             if (mImageCaptureUri != null)
                 file = scaleImageDownToFile(mContext, mImageCaptureUri);
-            Map<String, Object> map = getJoinResult(strEmail, strPassWord, strNickName, file);
+            Map<String, Object> map = getJoinResult(strEmail, strPassWord, strNickName, file, intRoot, strPhone, strPart);
             return map;
         }
 
@@ -296,6 +391,7 @@ public class JoinActivity extends AppCompatActivity {
                 }
                 if (result) {
                     //성공
+                    Toast.makeText(mContext,message,Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
                     //실패
@@ -326,7 +422,57 @@ public class JoinActivity extends AppCompatActivity {
             if (map == null) {
                 // 통신실패
                 String message = "인터넷 연결이 원활하지 않습니다. 잠시후 다시 시도해주세요.";
-                Snackbar.make(linearLayoutProfileInfo, message, Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(linearLayoutEmailPassword, message, Snackbar.LENGTH_SHORT).show();
+            } else {
+                boolean result = false;
+                String message = null;
+                if (map.containsKey("result")) {
+                    result = (boolean) map.get("result");
+                }
+                if (map.containsKey("message")) {
+                    message = (String) map.get("message");
+                }
+                if (result) {
+                    //성공
+                    if(intRoot==1){
+                        new RootCodeTask().execute();
+                    }else{
+                        strPassWord = Encryption.getMD5(strPassWord);
+                        textViewDoJoin.setVisibility(View.GONE);
+                        linearLayoutEmailPassword.setVisibility(View.GONE);
+                        textViewSaveProfile.setVisibility(View.VISIBLE);
+                        linearLayoutProfileInfo.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    //실패
+                    Snackbar.make(linearLayoutEmailPassword, message, Snackbar.LENGTH_SHORT).show();
+                }
+            }
+
+        }
+    }
+    /**
+     * 관리자코드 체크 with Server
+     */
+    public class RootCodeTask extends AsyncTask<Void, Void, Map<String, Object>> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Map<String, Object> doInBackground(Void... voids) {
+            Map<String, Object> map = getRootCodeCheckResult(strRootCode);
+            return map;
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, Object> map) {
+            super.onPostExecute(map);
+            if (map == null) {
+                // 통신실패
+                String message = "인터넷 연결이 원활하지 않습니다. 잠시후 다시 시도해주세요.";
+                Snackbar.make(linearLayoutEmailPassword, message, Snackbar.LENGTH_SHORT).show();
             } else {
                 boolean result = false;
                 String message = null;
@@ -345,13 +491,12 @@ public class JoinActivity extends AppCompatActivity {
                     linearLayoutProfileInfo.setVisibility(View.VISIBLE);
                 } else {
                     //실패
-                    Snackbar.make(linearLayoutProfileInfo, message, Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(linearLayoutEmailPassword, message, Snackbar.LENGTH_SHORT).show();
                 }
             }
 
         }
     }
-
     /**
      * 닉네임 체크 with Server
      */
@@ -393,4 +538,5 @@ public class JoinActivity extends AppCompatActivity {
             }
         }
     }
+
 }
