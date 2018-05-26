@@ -36,7 +36,10 @@ import com.test.midasmobile9.network.NetworkDefineConstantOSH;
 import com.test.midasmobile9.util.SharePreferencesUtil;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,8 +67,8 @@ public class UserProfileFragment extends Fragment {
 
     Unbinder unbinder = null;
 
-    private int selectedYear = 2018;
-    private int selectedMonth = 05;
+    private int selectedYear;
+    private int selectedMonth;
     private int totalPrice = 0;
 
     private ArrayList<CoffeeOrderItem> coffeeHistoryOrderItems;
@@ -136,13 +139,20 @@ public class UserProfileFragment extends Fragment {
         unbinder = ButterKnife.bind(this, rootView);
 
         setRecyclerView();
-
-        userHistoryYearTextView.setText(selectedYear + "");
-        userHistoryMonthTextView.setText(selectedMonth + "");
+        setYearMonth();
 
         return rootView;
     }
 
+    public void setYearMonth(){
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        selectedYear =  calendar.get(Calendar.YEAR);
+        selectedMonth =  calendar.get(Calendar.MONTH) + 1;
+        userHistoryYearTextView.setText(selectedYear + "");
+        userHistoryMonthTextView.setText(selectedMonth + "");
+
+        Log.d("TESTEMP", selectedYear + ", " + selectedMonth);
+    }
 
     @Override
     public void onResume() {
@@ -155,16 +165,13 @@ public class UserProfileFragment extends Fragment {
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
                     .into(circleImageViewProfileFragmentProfileImage);
-            Log.d("TEMP_TAG", "??");
 
         } else {
             Glide.with(UserProfileFragment.this)
                     .load(R.drawable.ic_profile_black_48dp)
                     .into(circleImageViewProfileFragmentProfileImage);
-            Log.d("TEMP_TAG", "!!");
         }
 
-        Log.d("TEMP_TAG", "AND");
         // 유저 닉네임 세팅
         textViewProfileFragmentProfileNickname.setText(MidasMobile9Application.user.getNickname());
         // 유저 이메일 세팅
@@ -234,10 +241,11 @@ public class UserProfileFragment extends Fragment {
     }
 
     public void changeTotalPrice(){
+        totalPrice = 0;
         for(CoffeeOrderItem coffeeOrderItem : coffeeHistoryOrderItems){
             totalPrice += coffeeOrderItem.getPrice();
         }
-        userHistoryTotalPriceTextView.setText(totalPrice + "");
+        userHistoryTotalPriceTextView.setText(totalPrice + " 원");
     }
 
     @OnClick({R.id.userHistoryYearIncreaseImageView,
@@ -270,6 +278,9 @@ public class UserProfileFragment extends Fragment {
 
         userHistoryYearTextView.setText(selectedYear + "");
         userHistoryMonthTextView.setText(selectedMonth + "");
+
+
+        Log.d("TESTEMP", selectedYear + ", " + selectedMonth);
     }
 
     @OnClick(R.id.userHistorySearchTextView)

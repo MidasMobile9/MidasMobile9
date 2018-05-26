@@ -105,7 +105,6 @@ public class UserLookupFragment extends Fragment {
         // mActivity 해제
         this.mActivity = null;
 
-        coffeeOrderItems.clear();
     }
 
     private void setRecyclerView() {

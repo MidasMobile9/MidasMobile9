@@ -107,7 +107,6 @@ public class UserOrderFragment extends Fragment {
         // mActivity 해제
         this.mActivity = null;
 
-        coffeeMenuItems.clear();
     }
 
     private void setRecyclerView() {
