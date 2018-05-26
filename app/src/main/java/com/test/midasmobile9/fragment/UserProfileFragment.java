@@ -6,12 +6,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,10 +27,16 @@ import com.test.midasmobile9.R;
 import com.test.midasmobile9.activity.LoginActivity;
 import com.test.midasmobile9.activity.MainActivity;
 import com.test.midasmobile9.activity.ProfileManagerActivity;
+import com.test.midasmobile9.adapter.UserHistoryRecyclerAdapter;
 import com.test.midasmobile9.application.MidasMobile9Application;
+import com.test.midasmobile9.data.CoffeeOrderItem;
+import com.test.midasmobile9.model.MainModel;
 import com.test.midasmobile9.model.ProfileModel;
 import com.test.midasmobile9.network.NetworkDefineConstantOSH;
 import com.test.midasmobile9.util.SharePreferencesUtil;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,13 +64,39 @@ public class UserProfileFragment extends Fragment {
 
     Unbinder unbinder = null;
 
+    private int selectedYear = 2018;
+    private int selectedMonth = 05;
+    private int totalPrice = 0;
+
+    private ArrayList<CoffeeOrderItem> coffeeHistoryOrderItems;
+    private UserHistoryRecyclerAdapter userHistoryRecyclerAdapter;
+    private LinearLayoutManager linearLayoutManager;
+
     @BindView(R.id.circleImageViewProfileFragmentProfileImage)
     CircleImageView circleImageViewProfileFragmentProfileImage;
     @BindView(R.id.textViewProfileFragmentProfileNickname)
     TextView textViewProfileFragmentProfileNickname;
-    @BindView(R.id.textViewProfileFragmentProfileEmail) TextView textViewProfileFragmentProfileEmail;
-    @BindView(R.id.textViewProfileFragmentModifyProfile) TextView textViewProfileFragmentModifyProfile;
-    @BindView(R.id.textViewProfileFragmentLogout) TextView textViewProfileFragmentLogout;
+    @BindView(R.id.textViewProfileFragmentProfileEmail)
+    TextView textViewProfileFragmentProfileEmail;
+    @BindView(R.id.textViewProfileFragmentModifyProfile)
+    TextView textViewProfileFragmentModifyProfile;
+    @BindView(R.id.textViewProfileFragmentLogout)
+    TextView textViewProfileFragmentLogout;
+
+    @BindView(R.id.userProfileMainLayout)
+    LinearLayout userProfileMainLayout;
+    @BindView(R.id.userHistoryRecyclerView)
+    RecyclerView userHistoryRecyclerView;
+
+
+    @BindView(R.id.userHistoryYearTextView)
+    TextView userHistoryYearTextView;
+
+    @BindView(R.id.userHistoryMonthTextView)
+    TextView userHistoryMonthTextView;
+
+    @BindView(R.id.userHistoryTotalPriceTextView)
+    TextView userHistoryTotalPriceTextView;
 
     public UserProfileFragment() {
         // Required empty public constructor
@@ -96,8 +134,15 @@ public class UserProfileFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_user_profile, container, false);
         // 버터나이프
         unbinder = ButterKnife.bind(this, rootView);
+
+        setRecyclerView();
+
+        userHistoryYearTextView.setText(selectedYear + "");
+        userHistoryMonthTextView.setText(selectedMonth + "");
+
         return rootView;
     }
+
 
     @Override
     public void onResume() {
@@ -167,6 +212,76 @@ public class UserProfileFragment extends Fragment {
         new UserLogoutTask().execute();
     }
 
+    private void setRecyclerView() {
+        coffeeHistoryOrderItems = new ArrayList<>();
+
+        linearLayoutManager = new LinearLayoutManager(mContext);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+        userHistoryRecyclerView.setHasFixedSize(true);
+        userHistoryRecyclerView.setLayoutManager(linearLayoutManager);
+        userHistoryRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        userHistoryRecyclerAdapter = new UserHistoryRecyclerAdapter(coffeeHistoryOrderItems, mActivity);
+        userHistoryRecyclerView.setAdapter(userHistoryRecyclerAdapter);
+    }
+
+
+    public void startRefreshHistory(){
+        coffeeHistoryOrderItems.clear();
+        userHistoryRecyclerAdapter.notifyDataSetChanged();
+        new GetHistoryAsyncTask().execute();
+    }
+
+    public void changeTotalPrice(){
+        for(CoffeeOrderItem coffeeOrderItem : coffeeHistoryOrderItems){
+            totalPrice += coffeeOrderItem.getPrice();
+        }
+        userHistoryTotalPriceTextView.setText(totalPrice + "");
+    }
+
+    @OnClick({R.id.userHistoryYearIncreaseImageView,
+            R.id.userHistoryYearReduceImageView,
+            R.id.userHistoryMonthIncreaseImageView,
+            R.id.userHistoryMonthReduceImageView})
+    public void onUserHistorySearchOptionClick(View v){
+        switch (v.getId()){
+            case R.id.userHistoryYearIncreaseImageView:
+                if(selectedYear < 2199 && selectedYear > 1970 ){
+                    selectedYear++;
+                }
+                break;
+            case R.id.userHistoryYearReduceImageView:
+                if(selectedYear < 2199 && selectedYear > 1970 ){
+                    selectedYear--;
+                }
+                break;
+            case R.id.userHistoryMonthIncreaseImageView:
+                if(selectedMonth < 12 && selectedMonth > 1){
+                    selectedMonth++;
+                }
+                break;
+            case R.id.userHistoryMonthReduceImageView:
+                if(selectedMonth < 12 && selectedMonth > 1){
+                    selectedMonth--;
+                }
+                break;
+        }
+
+        userHistoryYearTextView.setText(selectedYear + "");
+        userHistoryMonthTextView.setText(selectedMonth + "");
+    }
+
+    @OnClick(R.id.userHistorySearchTextView)
+    public void onUserHistorySearchTextViewClick(){
+        coffeeHistoryOrderItems.clear();
+        userHistoryRecyclerAdapter.notifyDataSetChanged();
+        new GetHistoryAsyncTask().execute();
+    }
+
+    // AsyncTask ====================================================================================
+
+
     public class UserLogoutTask extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected void onPreExecute() {
@@ -200,4 +315,64 @@ public class UserProfileFragment extends Fragment {
             }
         }
     }
+
+    public class GetHistoryAsyncTask extends AsyncTask<String, Void, Map<String, Object>> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Map<String, Object> doInBackground(String... params) {
+
+            Map<String, Object> map = MainModel.getUserHistory(selectedYear + "", selectedMonth + "");
+
+            return map;
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, Object> map) {
+            super.onPostExecute(map);
+
+            if (map == null) {
+                // 통신실패
+                String message = "인터넷 연결이 원활하지 않습니다. 잠시후 다시 시도해주세요.";
+                Snackbar.make(userProfileMainLayout, message, Snackbar.LENGTH_SHORT).show();
+            } else {
+                // 통신성공
+                boolean result = false;
+                String message = null;
+                ArrayList<CoffeeOrderItem> getCoffeeOrderItems = null;
+
+                if (map.containsKey("result")) {
+                    result = (boolean) map.get("result");
+                }
+
+                if (!result) {
+                    if (map.containsKey("message")) {
+                        message = (String) map.get("message");
+                    } else {
+                        message = "통신 실패";
+                        Snackbar.make(userProfileMainLayout, message, Snackbar.LENGTH_SHORT).show();
+                    }
+                } else {
+                    if (map.containsKey("message")) {
+                        message = (String) map.get("message");
+                    } else {
+                        message = "...";
+                    }
+                    if (map.containsKey("data")) {
+                        getCoffeeOrderItems = (ArrayList<CoffeeOrderItem>) map.get("data");
+                        for (CoffeeOrderItem eachCoffeeOrderItem : getCoffeeOrderItems) {
+                            coffeeHistoryOrderItems.add(eachCoffeeOrderItem);
+                        }
+                    }
+                }
+            }
+            mActivity.endRefreshHistory();
+            changeTotalPrice();
+            userHistoryRecyclerAdapter.notifyDataSetChanged();
+        }
+    }
+    // ==============================================================================================
 }

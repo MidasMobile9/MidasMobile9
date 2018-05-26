@@ -9,13 +9,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.test.midasmobile9.R;
-import com.test.midasmobile9.data.CoffeeHistoryItem;
+import com.test.midasmobile9.data.CoffeeOrderItem;
 import com.test.midasmobile9.util.ParseServerDatetime;
 
 import java.util.ArrayList;
 
 public class UserHistoryRecyclerAdapter extends RecyclerView.Adapter<UserHistoryRecyclerAdapter.ViewHolder>{
-    private ArrayList<CoffeeHistoryItem> userHistoryItemList;
+    private ArrayList<CoffeeOrderItem> userHistoryItemList;
     private Activity activity;
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -34,7 +34,7 @@ public class UserHistoryRecyclerAdapter extends RecyclerView.Adapter<UserHistory
         }
     }
 
-    public UserHistoryRecyclerAdapter(ArrayList<CoffeeHistoryItem> userHistoryItemList, Activity activity) {
+    public UserHistoryRecyclerAdapter(ArrayList<CoffeeOrderItem> userHistoryItemList, Activity activity) {
         this.userHistoryItemList = userHistoryItemList;
         this.activity = activity;
     }
@@ -56,8 +56,8 @@ public class UserHistoryRecyclerAdapter extends RecyclerView.Adapter<UserHistory
 
         holder.userHistoryCardDateTextView.setText(String.format("%s.%s.%s", year, month, date));
         holder.userHistoryCardMenuNameTextView.setText(userHistoryItemList.get(position).getName());
-        holder.userHistoryCardQuantityTextView.setText(userHistoryItemList.get(position).getCount());
-        holder.userHistoryCardPriceTextView.setText(userHistoryItemList.get(position).getPrice());
+        holder.userHistoryCardQuantityTextView.setText(userHistoryItemList.get(position).getCount() + "");
+        holder.userHistoryCardPriceTextView.setText(userHistoryItemList.get(position).getPrice() + "");
 
     }
 
