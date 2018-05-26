@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         // 드로어가 닫혀있으면 앱 종료
         if (System.currentTimeMillis() - mBackPressedTime > 2000) {
-            Snackbar.make(mainActivityMainLayout, "뒤로 버튼을 한번 더 눌리시면 주문을 취소합니다", Snackbar.LENGTH_LONG)
+            Snackbar.make(mainActivityMainLayout, "뒤로 버튼을 한번 더 눌리시면 종료합니다", Snackbar.LENGTH_LONG)
                     .setAction("EXIT", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
