@@ -6,6 +6,7 @@ public class NetworkDefineConstantCYJ {
 
     public static String SERVER_URL_GET_ORDERS;
     public static String SERVER_URL_GET_ORDER_DONE;
+    public static String SERVER_URL_GET_LICENSE;
     public static String SERVER_URL_UPDATE_ORDER_TAKEOUT;
     public static String SERVER_URL_GET_MENU_INFO;
     public static String SERVER_URL_ADD_NEW_MENU;
@@ -21,6 +22,7 @@ public class NetworkDefineConstantCYJ {
         SERVER_URL_GET_ORDERS = HOST_URL + "/order";
         SERVER_URL_GET_ORDER_DONE = HOST_URL + "/order/done";
         SERVER_URL_UPDATE_ORDER_TAKEOUT = HOST_URL + "/order/update";
+        SERVER_URL_GET_LICENSE = HOST_URL + "/license";
         SERVER_URL_GET_MENU_INFO = HOST_URL + "/menu";
         SERVER_URL_ADD_NEW_MENU = HOST_URL + "/menu/insert";
         SERVER_URL_EDIT_MENU = HOST_URL + "/menu/update";

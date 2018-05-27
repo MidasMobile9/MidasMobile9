@@ -9,10 +9,13 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.NestedScrollView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +42,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTouch;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -69,9 +73,16 @@ public class AdminProfileFragment extends Fragment {
     CircleImageView circleImageViewProfileFragmentProfileImage;
     @BindView(R.id.textViewProfileFragmentProfileNickname)
     TextView textViewProfileFragmentProfileNickname;
-    @BindView(R.id.textViewProfileFragmentProfileEmail) TextView textViewProfileFragmentProfileEmail;
-    @BindView(R.id.textViewProfileFragmentModifyProfile) TextView textViewProfileFragmentModifyProfile;
-    @BindView(R.id.textViewProfileFragmentLogout) TextView textViewProfileFragmentLogout;
+    @BindView(R.id.textViewProfileFragmentProfileEmail)
+    TextView textViewProfileFragmentProfileEmail;
+    @BindView(R.id.textViewProfileFragmentModifyProfile)
+    TextView textViewProfileFragmentModifyProfile;
+    @BindView(R.id.textViewProfileFragmentLogout)
+    TextView textViewProfileFragmentLogout;
+    @BindView(R.id.textViewAdminLicense)
+    TextView textViewAdminLicense;
+    @BindView(R.id.scrollView)
+    NestedScrollView scrollView;
 
     public AdminProfileFragment() {
         // Required empty public constructor
@@ -107,16 +118,18 @@ public class AdminProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_admin_profile, container, false);
+
         // 버터나이프
         unbinder = ButterKnife.bind(this, rootView);
         return rootView;
     }
+
     @Override
     public void onResume() {
         super.onResume();
 
         // 유저 프로필 사진 세팅
-        if ( MidasMobile9Application.user.getProfileimg() != null ) {
+        if (MidasMobile9Application.user.getProfileimg() != null) {
             Glide.with(AdminProfileFragment.this)
                     .load(PROFILE_URL_HEADER + MidasMobile9Application.user.getProfileimg())
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -132,8 +145,8 @@ public class AdminProfileFragment extends Fragment {
         textViewProfileFragmentProfileNickname.setText(MidasMobile9Application.user.getNickname());
         // 유저 이메일 세팅
         textViewProfileFragmentProfileEmail.setText(MidasMobile9Application.user.getEmail());
-
         new BestMenuInfoTask().execute();
+        new GetLicenseTask().execute();
     }
 
     @Override
@@ -165,6 +178,22 @@ public class AdminProfileFragment extends Fragment {
         }
     }
 
+    @OnTouch(R.id.scrollView)
+    public boolean onTouchScrollview(View v, MotionEvent event){
+        int action = event.getAction();
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                // Disallow ScrollView to intercept touch events.
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                break;
+
+            case MotionEvent.ACTION_UP:
+                // Allow ScrollView to intercept touch events.
+                v.getParent().requestDisallowInterceptTouchEvent(false);
+                break;
+        }
+        return v.onTouchEvent(event);
+    }
     @OnClick(R.id.textViewProfileFragmentModifyProfile)
     public void onModifyProfileCllick() {
         Intent intent = new Intent(mContext, ProfileManagerActivity.class);
@@ -172,7 +201,7 @@ public class AdminProfileFragment extends Fragment {
     }
 
     @OnClick(R.id.textViewProfileFragmentLogout)
-    public void onProfileLogoutClick(){
+    public void onProfileLogoutClick() {
         // 로그아웃
         new UserLogoutTask().execute();
     }
@@ -194,14 +223,14 @@ public class AdminProfileFragment extends Fragment {
         protected void onPostExecute(Boolean isLogouted) {
             super.onPostExecute(isLogouted);
 
-            if ( isLogouted ) {
+            if (isLogouted) {
                 // 로그아웃 성공
                 MidasMobile9Application.clearCookie();
                 MidasMobile9Application.clearUser();
-                SharePreferencesUtil.removePreferences(mContext,KEY_EMAIL);
-                SharePreferencesUtil.removePreferences(mContext,KEY_PASSWORD);
-                SharePreferencesUtil.removePreferences(mContext,KEY_ROOT);
-                SharePreferencesUtil.removePreferences(mContext,KEY_TOKEN);
+                SharePreferencesUtil.removePreferences(mContext, KEY_EMAIL);
+                SharePreferencesUtil.removePreferences(mContext, KEY_PASSWORD);
+                SharePreferencesUtil.removePreferences(mContext, KEY_ROOT);
+                SharePreferencesUtil.removePreferences(mContext, KEY_TOKEN);
                 Intent intent = new Intent(mContext, LoginActivity.class);
                 startActivity(intent);
                 mActivity.finish();
@@ -229,31 +258,55 @@ public class AdminProfileFragment extends Fragment {
         protected void onPostExecute(Map<String, Object> map) {
             super.onPostExecute(map);
 
-            if ( map == null ) {
+            if (map == null) {
 
             } else {
                 boolean result = false;
                 String message = null;
                 List<AdminCoffeeOrderItem> orderDoneList = null;
 
-                if ( map.containsKey("result") ) {
-                    result = (boolean)map.get("result");
+                if (map.containsKey("result")) {
+                    result = (boolean) map.get("result");
                 }
 
-                if ( map.containsKey("message") ) {
-                    message = (String)map.get("message");
+                if (map.containsKey("message")) {
+                    message = (String) map.get("message");
                 }
 
-                if ( map.containsKey("orderDoneList") ) {
-                    orderDoneList = (List<AdminCoffeeOrderItem>)map.get("orderDoneList");
+                if (map.containsKey("orderDoneList")) {
+                    orderDoneList = (List<AdminCoffeeOrderItem>) map.get("orderDoneList");
                 }
 
-                if ( result ) {
+                if (result) {
 
                 } else {
                     // 주문 목록 가져오기 실패
                     Snackbar.make(circleImageViewProfileFragmentProfileImage, message, Snackbar.LENGTH_SHORT).show();
                 }
+            }
+        }
+    }
+
+    public class GetLicenseTask extends AsyncTask<Void, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            String text = AdminProfileModel.getLicense();
+            return text;
+        }
+
+        @Override
+        protected void onPostExecute(String str) {
+            super.onPostExecute(str);
+
+            if (str == null) {
+                textViewAdminLicense.setText("ads");
+            } else {
+                textViewAdminLicense.setText(str);
             }
         }
     }

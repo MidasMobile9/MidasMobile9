@@ -80,4 +80,40 @@ public class AdminProfileModel {
 
         return map;
     }
+
+    public static String getLicense() {
+        OkHttpClient client = OkHttpInitSingletonManager.getOkHttpClient();
+        Response response = null;
+        Gson gson = new Gson();
+
+        Map<String, Object> map = null;
+
+        try {
+            response = OkHttpAPICall.GET(client, NetworkDefineConstantCYJ.SERVER_URL_GET_LICENSE);
+
+            if (response == null) {
+                Log.e(TAG, "Response of getOrderDone() is null.");
+
+                return null;
+            } else {
+                if(response.isSuccessful()){
+                    return response.body().string();
+                }else{
+                    return null;
+                }
+            }
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (response != null) {
+                response.close();
+            }
+        }
+
+        return null;
+    }
 }

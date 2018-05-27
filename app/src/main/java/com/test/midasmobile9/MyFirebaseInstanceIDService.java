@@ -24,6 +24,11 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     private static final String TAG = "MyFirebaseIIDService";
 
     private Context mContext;
+
+    public MyFirebaseInstanceIDService() {
+        super();
+    }
+
     public MyFirebaseInstanceIDService(Context context) {
         super();
         mContext = context;
